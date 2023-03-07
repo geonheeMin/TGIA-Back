@@ -1,3 +1,6 @@
+# 이미지를 저장시킬 백엔드 디렉토리
+file.dir: /Users/son/Desktop/upload/
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,6 +17,11 @@ spring:
         # 얘도 sql 문을 보여주지만 sout 으로 하기 때문에 않좋다.
         # show_sql: true
         format_sql: true
+  # native 에서 파일 업로드 크기 제한을 사실상 해제
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
 
 logging:
   level:
