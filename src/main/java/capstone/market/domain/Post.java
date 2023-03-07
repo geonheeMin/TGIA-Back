@@ -20,6 +20,9 @@ public class Post {
 
     private String post_title;
     private String post_text;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image postImg;
     // time
     // place
     // depart
@@ -30,5 +33,14 @@ public class Post {
     public Post(String post_title, String post_text) {
         this.post_title = post_title;
         this.post_text = post_text;
+    }
+
+    public Post(Member who_posted, Category category, Integer price, String post_title, String post_text, Image postImg) {
+        this.who_posted = who_posted;
+        this.category = category;
+        this.price = price;
+        this.post_title = post_title;
+        this.post_text = post_text;
+        this.postImg = postImg;
     }
 }
