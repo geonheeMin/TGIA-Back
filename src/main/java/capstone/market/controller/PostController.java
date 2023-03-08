@@ -93,7 +93,7 @@ public class PostController {
         return result;
     }
 
-    @GetMapping("/post/my_list") // 2.17
+    @GetMapping("/post/my_list") // 2.17 -> 판매 목록
     public List<PostListResponse> findMyPostList(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);

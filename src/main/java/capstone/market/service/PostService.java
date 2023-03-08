@@ -1,6 +1,7 @@
 package capstone.market.service;
 
 import capstone.market.domain.Post;
+import capstone.market.domain.Purchased;
 import capstone.market.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,9 @@ public class PostService {
     }
     public List<Post> findAll() {
         return postRepository.findAll();
+    }
+
+    public List<Purchased> findByadfasf(Long user_id) {
+        return postRepository.findBoughtListByUserId(user_id);
     }
 }

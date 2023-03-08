@@ -1,12 +1,13 @@
 package capstone.market.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
+@Data
 public class Post {
     @Id @GeneratedValue
     private Long postId;
@@ -20,8 +21,12 @@ public class Post {
 
     private String post_title;
     private String post_text;
+
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
+    @JoinColumn(name = "post_id")
+    private Purchased purchased_id;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Image postImg;
     // time
     // place
