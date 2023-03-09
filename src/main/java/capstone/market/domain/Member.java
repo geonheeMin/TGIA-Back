@@ -18,13 +18,12 @@ public class Member {
     private Track track;
     private String username;
 
-    @OneToOne(mappedBy = "member")
-    private ChatMessage chatMessage;
-
     public Member() {
     }
 
     public Member(String user_id) {
         this.user_id = user_id;
     }
+
+
 }

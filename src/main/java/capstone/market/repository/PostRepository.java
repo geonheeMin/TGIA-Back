@@ -1,5 +1,6 @@
 package capstone.market.repository;
 
+import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,14 @@ public class PostRepository {
 
         return em.createQuery(jpql, Post.class)
                 .setParameter("user_id", user_id)
+                .getResultList();
+    }
+
+    public List<ChatRoom> findByPostId(Long room_id) {
+        String jpql = "select p from Post p join ChatRoom c where c.id = :room_id";
+
+        return em.createQuery(jpql, ChatRoom.class)
+                .setParameter("room_id", room_id)
                 .getResultList();
     }
 

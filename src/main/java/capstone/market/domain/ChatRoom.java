@@ -16,9 +16,6 @@ public class ChatRoom {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "name")
-    private String name;
-
-    @OneToMany(mappedBy = "chatRoom")
+    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
     private List<ChatMessage> messages = new ArrayList<>();
 }

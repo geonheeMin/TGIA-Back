@@ -28,7 +28,7 @@ public class Post {
     @OneToOne(mappedBy = "post")
     private Purchased purchased;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
