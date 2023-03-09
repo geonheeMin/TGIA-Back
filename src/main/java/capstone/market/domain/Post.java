@@ -25,10 +25,10 @@ public class Post {
     private String post_title;
     private String post_text;
 
-    @OneToOne(mappedBy = "post")
+    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY)
     private Purchased purchased;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post")
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)

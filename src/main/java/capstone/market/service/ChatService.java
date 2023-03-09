@@ -6,11 +6,13 @@ import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.repository.ChatMessageRepository;
 import capstone.market.repository.ChatRoomRepository;
+import capstone.market.repository.PostDataJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +27,10 @@ public class ChatService {
         chatRoom.setPost(post);
         chatRoomRepository.save(chatRoom);
         return chatRoom;
+    }
+
+    public void findChatters(Long id) {
+
     }
 
     public ChatMessage startChatMessageService(ChatRoom chatRoom, Member member, String message) {

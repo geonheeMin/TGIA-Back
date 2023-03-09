@@ -41,22 +41,28 @@ public class DataLoader {
         memberB.setUsername("memberB");
         memberRepository.save(memberB);
 
+        Member memberC = new Member("memberC");
+        memberC.setUsername("memberC");
+        memberRepository.save(memberC);
+
         // MemberA 가 새 게시글 등록
         Post postByMemberA = new Post();
         postByMemberA.setWho_posted(memberA);
+        postDataJpaRepository.save(postByMemberA);
 
         // MemberB 가 새 게시글 등록
         Post postByMemberB = new Post();
         postByMemberB.setWho_posted(memberB);
-
-        postDataJpaRepository.save(postByMemberA);
         postDataJpaRepository.save(postByMemberB);
 
         // MemberB 가 MemberA의 게시글에서 문의하기 버튼을 누름
         ChatRoom chatRoom = chatService.startChatRoomService(postByMemberA);
+        ChatRoom chatRoom1 = chatService.startChatRoomService(postByMemberA);
 
         // MemberB 가 채팅방에서 hello memberA 입력 후 전송 버튼을 누름
         ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, memberB, "hello memberA");
+        ChatMessage chatMessage1 = chatService.startChatMessageService(chatRoom1, memberC, "hello memberA");
+        ChatMessage chatMessage2 = chatService.startChatMessageService(chatRoom1, memberA, "");
 
         // memberA 가 채팅방에서 hello memberB 답장
         chatService.startChatMessageService(chatRoom, memberA, "hello memberB");
@@ -65,14 +71,16 @@ public class DataLoader {
         List<ChatRoom> rooms = chatService.getChatRoomLists(postByMemberA.getPostId());
         System.out.println("rooms.size() = " + rooms.size());
         for (ChatRoom room : rooms) {
-            System.out.println("room.getPost().getWho_posted().getUsername() = " + room.getPost().getWho_posted().getUsername());
-            System.out.println("room.getMessages().get(0).getMember().getUsername() = " + room.getMessages().get(0).getMember().getUsername());
+            List<ChatMessage> chatLists = chatService.getChatLists(room.getId());
+            System.out.println("chatLists.size() = " + chatLists.size());
+            ChatRoomResponse chatRoomResponse = new ChatRoomResponse(chatLists.get(0).getMember().getUsername(), chatLists.get(1).getMember().getUsername());
+            System.out.println("chatRoomResponse = " + chatRoomResponse);
         }
 
         // memberA 가 등록한 게시글에 대한 대화목록을 불러온다
         List<ChatMessage> chatLists = chatService.getChatLists(5L);
 
-        System.out.println("chatLists.size() = " + chatLists.size());
+//        System.out.println("chatLists.size() = " + chatLists.size());
 
         for (ChatMessage message : chatLists) {
             System.out.println("message.getMember().getUsername() = " + message.getMember().getUsername());
@@ -92,6 +100,17 @@ public class DataLoader {
 //        chatMessage.setText("hello memberA!");
 //        chatMessage.setChatRoom(chatRoom);
 //        chatMessageRepository.save(chatMessage);
+    }
+
+    @Data
+    static class ChatRoomResponse {
+        private String sender;
+        private String receiver;
+
+        public ChatRoomResponse(String memberA, String memberB) {
+            this.sender = memberA;
+            this.receiver = memberB;
+        }
     }
 
     @Data
