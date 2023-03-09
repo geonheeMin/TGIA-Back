@@ -30,10 +30,6 @@ public class ChatService {
         return chatRoom;
     }
 
-    public void findChatters(Long id) {
-
-    }
-
     public ChatMessage startChatMessageService(ChatRoom chatRoom, Member member, String message) {
         ChatMessage chatMessage = new ChatMessage(chatRoom, member, message);
         chatMessage.setMember(member);
