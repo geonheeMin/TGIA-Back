@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 public class ChatMessage {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
     @Column(name = "text")
@@ -17,10 +17,7 @@ public class ChatMessage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
-
-//    @JoinColumn(name = "sender_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private Member sender;
-//    @Column(name = "timestamp")
-//    private LocalDateTime timestamp;
+    @OneToOne
+    @JoinColumn(name = "sender_id")
+    private Member member;
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter @Setter
 public class Member {
     @Id @GeneratedValue
-    @Column(name =  "member_id")
+    @Column(name = "member_id")
     private Long id;
     private String user_id;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -18,8 +18,7 @@ public class Member {
     private Track track;
     private String username;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender")
+    @OneToOne(mappedBy = "member")
     private ChatMessage chatMessage;
 
     public Member() {
@@ -28,11 +27,4 @@ public class Member {
     public Member(String user_id) {
         this.user_id = user_id;
     }
-
-    //    @OneToMany
-//    private List<Post> liked = new ArrayList<>();
-//
-//    public void addLiked(Post post) {
-//        liked.add(post);
-//    }
 }
