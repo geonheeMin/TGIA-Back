@@ -18,6 +18,10 @@ public class Member {
     private Track track;
     private String username;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender")
+    private ChatMessage chatMessage;
+
     public Member() {
     }
 
