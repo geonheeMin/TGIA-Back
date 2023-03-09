@@ -38,13 +38,13 @@ public class DataLoader {
         System.out.println("post.getWho_posted() = " + post.getWho_posted());
 
         Purchased purchased = new Purchased();
-        purchased.setBuyer_id(member1);
-        purchased.setPurchased_id(post);
+        purchased.setMember(member1);
+        purchased.setPost(post);
         purchasedRepository.save(purchased);
 
         List<Purchased> postList = postRepository.findBoughtListByUserId(member1.getId());
         for (Purchased post1 : postList) {
-            System.out.println("post1$$$$$$$$$ = " + post1.getPurchased_id());
+            System.out.println("post1$$$$$$$$$ = " + post1.getPost());
         }
     }
 }

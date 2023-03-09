@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 public class Post {
     @Id @GeneratedValue
     private Long postId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member who_posted;
@@ -22,9 +25,11 @@ public class Post {
     private String post_title;
     private String post_text;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Purchased purchased_id;
+    @OneToOne(mappedBy = "post")
+    private Purchased purchased;
+
+    @OneToMany(mappedBy = "post")
+    private List<ChatRoom> chatRooms = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     private Image postImg;

@@ -18,14 +18,14 @@ public class Purchased {
     /**
      * 유저 한명당 구매 수 있는게 여러가지
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_id")
-    private Member buyer_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buyer_id")
+    private Member member;
 
     /**
      *
      */
-    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "member_id")
-    private Post purchased_id;
+    @OneToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 }

@@ -20,20 +20,4 @@ public class Track {
     public Track(String track_name) {
         this.track_name = track_name;
     }
-
-    public Long getTrack_id() {
-        return track_id;
-    }
-
-    public void setTrack_id(Long track_id) {
-        this.track_id = track_id;
-    }
-
-    public String getTrack_name() {
-        return track_name;
-    }
-
-    public void setTrack_name(String track_name) {
-        this.track_name = track_name;
-    }
 }

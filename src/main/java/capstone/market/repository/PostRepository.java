@@ -40,14 +40,12 @@ public class PostRepository {
     public List<Purchased> findBoughtListByUserId(Long user_id) {
         System.out.println("user_id&&&&&&&&&& = " + user_id);
 //        String jpql = "select p from Post p join p.buyer m where m.user_id = :user_id";
-        String jpql = "select p from Purchased p join p.buyer_id m where m.id = :user_id";
+        String jpql = "select p from Purchased p join p.member m where m.id = :user_id";
 //        String jpql = "select p from Purchased p where p.purchased_id = :user_id";
 
         List<Purchased> list = em.createQuery(jpql, Purchased.class)
                 .setParameter("user_id", user_id)
                 .getResultList();
-
-        System.out.println("^&^&^&^&^&^&^&^ " + list.size());
 
         return list;
     }

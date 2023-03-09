@@ -12,6 +12,10 @@ public class ChatRoom {
     @Id @GeneratedValue
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
     @Column(name = "name")
     private String name;
 
