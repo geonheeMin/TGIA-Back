@@ -56,13 +56,12 @@ public class DataLoader {
         postDataJpaRepository.save(postByMemberB);
 
         // MemberB 가 MemberA의 게시글에서 문의하기 버튼을 누름
-        ChatRoom chatRoom = chatService.startChatRoomService(postByMemberA);
-        ChatRoom chatRoom1 = chatService.startChatRoomService(postByMemberA);
+        ChatRoom chatRoom = chatService.startChatRoomService(postByMemberA, memberB);
+        ChatRoom chatRoom1 = chatService.startChatRoomService(postByMemberA, memberC);
 
         // MemberB 가 채팅방에서 hello memberA 입력 후 전송 버튼을 누름
         ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, memberB, "hello memberA");
         ChatMessage chatMessage1 = chatService.startChatMessageService(chatRoom1, memberC, "hello memberA");
-        ChatMessage chatMessage2 = chatService.startChatMessageService(chatRoom1, memberA, "");
 
         // memberA 가 채팅방에서 hello memberB 답장
         chatService.startChatMessageService(chatRoom, memberA, "hello memberB");
@@ -71,16 +70,11 @@ public class DataLoader {
         List<ChatRoom> rooms = chatService.getChatRoomLists(postByMemberA.getPostId());
         System.out.println("rooms.size() = " + rooms.size());
         for (ChatRoom room : rooms) {
-            List<ChatMessage> chatLists = chatService.getChatLists(room.getId());
-            System.out.println("chatLists.size() = " + chatLists.size());
-            ChatRoomResponse chatRoomResponse = new ChatRoomResponse(chatLists.get(0).getMember().getUsername(), chatLists.get(1).getMember().getUsername());
-            System.out.println("chatRoomResponse = " + chatRoomResponse);
+            System.out.println("room.getMember().getUsername() = " + room.getMember().getUsername());
         }
 
         // memberA 가 등록한 게시글에 대한 대화목록을 불러온다
         List<ChatMessage> chatLists = chatService.getChatLists(5L);
-
-//        System.out.println("chatLists.size() = " + chatLists.size());
 
         for (ChatMessage message : chatLists) {
             System.out.println("message.getMember().getUsername() = " + message.getMember().getUsername());

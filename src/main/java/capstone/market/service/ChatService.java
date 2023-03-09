@@ -22,9 +22,10 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
 
-    public ChatRoom startChatRoomService(Post post) {
+    public ChatRoom startChatRoomService(Post post, Member member) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
+        chatRoom.setMember(member);
         chatRoomRepository.save(chatRoom);
         return chatRoom;
     }
