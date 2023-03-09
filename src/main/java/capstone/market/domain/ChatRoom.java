@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 public class ChatRoom {
     @Id @GeneratedValue
+    @Column(name = "chatroom_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

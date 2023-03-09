@@ -78,7 +78,7 @@ public class DataLoader {
 
         for (ChatMessage message : chatLists) {
             System.out.println("message.getMember().getUsername() = " + message.getMember().getUsername());
-            System.out.println("message.getText() = " + message.getText());
+            System.out.println("message.getText() = " + message.getMessage());
         }
 
         ChaRoomResponse chatResponse = new ChaRoomResponse(chatRoom.getPost(), chatMessage);
@@ -116,7 +116,7 @@ public class DataLoader {
         public ChaRoomResponse(Post post, ChatMessage chatMessage) {
             this.usernameA = post.getWho_posted().getUsername();
             this.usernameB = chatMessage.getMember().getUsername();
-            this.message = chatMessage.getText();
+            this.message = chatMessage.getMessage();
         }
     }
 }

@@ -12,10 +12,11 @@ import javax.persistence.*;
 @Getter @Setter
 public class ChatMessage {
     @Id @GeneratedValue
+    @Column(name = "msg_id")
     private Long id;
 
-    @Column(name = "text")
-    private String text;
+    @Column(name = "message")
+    private String message;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
@@ -24,12 +25,12 @@ public class ChatMessage {
     @JoinColumn(name = "sender_id")
     private Member member;
 
-    public ChatMessage(String text) {
-        this.text = text;
+    public ChatMessage(String message) {
+        this.message = message;
     }
 
-    public ChatMessage(ChatRoom chatRoom, Member member, String text) {
-        this.text = text;
+    public ChatMessage(ChatRoom chatRoom, Member member, String message) {
+        this.message = message;
         this.chatRoom = chatRoom;
         this.member = member;
     }
