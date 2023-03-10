@@ -15,9 +15,17 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
     private String user_id;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "track_id")
+//    private Track track;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "track_id")
-    private Track track;
+    @JoinColumn(name = "a_track_id")
+    private FirstTrack firstTrack;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "b_track_id")
+    private SecondTrack secondTrack;
+
     private String username;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)

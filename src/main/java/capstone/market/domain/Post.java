@@ -31,6 +31,10 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     @OneToOne(fetch = FetchType.LAZY)
     private Image postImg;
     // time

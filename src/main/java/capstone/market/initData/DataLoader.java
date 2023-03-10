@@ -74,7 +74,7 @@ public class DataLoader {
         }
 
         // memberA 가 등록한 게시글에 대한 대화목록을 불러온다
-        List<ChatMessage> chatLists = chatService.getChatLists(5L);
+        List<ChatMessage> chatLists = chatService.getChatLists(rooms.get(0).getId());
 
         for (ChatMessage message : chatLists) {
             System.out.println("message.getMember().getUsername() = " + message.getMember().getUsername());
