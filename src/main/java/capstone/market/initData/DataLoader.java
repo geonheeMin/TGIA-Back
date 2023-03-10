@@ -34,11 +34,11 @@ public class DataLoader {
     public void init() {
         // 초기화 작업 수행
         Member memberA = new Member("memberA");
-        memberA.setUsername("memberA");
+        memberA.setUsername("더미부기");
         memberRepository.save(memberA);
 
         Member memberB = new Member("memberB");
-        memberB.setUsername("memberB");
+        memberB.setUsername("건희");
         memberRepository.save(memberB);
 
         Member memberC = new Member("memberC");
@@ -60,11 +60,17 @@ public class DataLoader {
         ChatRoom chatRoom1 = chatService.startChatRoomService(postByMemberA, memberC);
 
         // MemberB 가 채팅방에서 hello memberA 입력 후 전송 버튼을 누름
-        ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, memberB, "hello memberA");
+        ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, memberB, "판매중이신가요?");
         ChatMessage chatMessage1 = chatService.startChatMessageService(chatRoom1, memberC, "hello memberA");
 
         // memberA 가 채팅방에서 hello memberB 답장
-        chatService.startChatMessageService(chatRoom, memberA, "hello memberB");
+        chatService.startChatMessageService(chatRoom, memberA, "넵 아직 판매중입니다.");
+        chatService.startChatMessageService(chatRoom, memberA, "무슨 일이신가요?");
+        chatService.startChatMessageService(chatRoom, memberB, "아닙니다. 좋은 밤 되십시오.");
+        chatService.startChatMessageService(chatRoom, memberA, "test2");
+        chatService.startChatMessageService(chatRoom, memberB, "이어말하기 연습");
+        chatService.startChatMessageService(chatRoom, memberB, "제발");
+
 
         // 해당 포스트에 등록된 채팅방 리스트를 불러온다
         List<ChatRoom> rooms = chatService.getChatRoomLists(postByMemberA.getPostId());

@@ -1,5 +1,8 @@
 package capstone.market.controller;
 
+import capstone.market.chat_dto.ChatMessageResponseDTO;
+import capstone.market.chat_dto.ChatRoomResponseDTO;
+import capstone.market.chat_dto.ChatStartRequestDTO;
 import capstone.market.domain.ChatMessage;
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Member;
@@ -8,8 +11,11 @@ import capstone.market.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,31 +26,58 @@ public class ChatController {
     // 게시물 페이지에서 채팅방 리스트를 조회할 경우
     // 게시물의 id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_room_list")
-    public List<ChatRoom> getChatRoomList(Long id) {
+    public List<ChatRoomResponseDTO> getChatRoomList(Long id) {
         List<ChatRoom> chatRoomLists = chatService.getChatRoomLists(id);
-        return chatRoomLists;
+        List<ChatRoomResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+        for (ChatRoom chatRoom : chatRoomLists) {
+            ChatRoomResponseDTO roomResponseDTO = new ChatRoomResponseDTO(chatRoom);
+            chatRoomResponseDTOS.add(roomResponseDTO);
+        }
+
+        return chatRoomResponseDTOS;
     }
 
     // 채팅방에 저장된 채팅 메시지 내역을 가져옵니다.
-    // 채팅방 id(PK)를 넘겨줘야 됩니다.
+    // 채팅방(ChatRoom) id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_message_list")
-    public List<ChatMessage> getChatMessageList(Long id) {
+    public List<ChatMessageResponseDTO> getChatMessageList(Long id) {
         List<ChatMessage> chatLists = chatService.getChatLists(id);
-        return chatLists;
+        List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
+
+        for (ChatMessage chatMessage : chatLists) {
+            chatMessageResponseDTOS.add(new ChatMessageResponseDTO(chatMessage));
+        }
+
+        return chatMessageResponseDTOS;
     }
 
-    // 문의하기 버튼을 눌렀을 경우
+    // 문의하기 버튼을 눌렀을 경우 -> 채팅방 참가자 정보를 리턴합니다.
+    /* 리턴 타입
+        {
+        "member_a": "더미부기",
+        "member_b": "건희"
+        }
+     */
     @PostMapping("/chat/start")
-    public ChatRoom chatStart(Post post, Member member) {
+    public ChatRoomResponseDTO chatStart(@RequestBody ChatStartRequestDTO chatStartRequestDTO) {
+        System.out.println("chatStartRequestDTO.getPost_id() = " + chatStartRequestDTO.getPost_id());
+
+        Long post_id = Long.valueOf(chatStartRequestDTO.getPost_id());
+        Long member_id = Long.valueOf(chatStartRequestDTO.getMember_id());
+
+        Post post = chatService.findPostByPostId(post_id);
+        Member member = chatService.findMemberByMemberId(member_id);
+
         ChatRoom chatRoom = chatService.startChatRoomService(post, member);
-        return chatRoom;
+
+        return new ChatRoomResponseDTO(chatRoom);
     }
 
     // 메시지 전송 버튼을 눌렀을 경우
     @PostMapping("/chat/send")
     public ChatMessage sendMessage(ChatRoom chatRoom, Member member, String message) {
         ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, member, message);
-        // 방금 전송한 메시지를 반환합니다.
+        // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
         return chatMessage;
     }
 }
