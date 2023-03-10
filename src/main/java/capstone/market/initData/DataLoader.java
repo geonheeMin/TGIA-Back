@@ -45,6 +45,10 @@ public class DataLoader {
         memberC.setUsername("memberC");
         memberRepository.save(memberC);
 
+        Member memberD = new Member("memberD");
+        memberD.setUsername("post testing");
+        memberRepository.save(memberD);
+
         // MemberA 가 새 게시글 등록
         Post postByMemberA = new Post();
         postByMemberA.setWho_posted(memberA);

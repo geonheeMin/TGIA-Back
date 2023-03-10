@@ -3,6 +3,7 @@ package capstone.market.controller;
 import capstone.market.chat_dto.ChatMessageResponseDTO;
 import capstone.market.chat_dto.ChatRoomResponseDTO;
 import capstone.market.chat_dto.ChatStartRequestDTO;
+import capstone.market.chat_dto.SendMessageRequestDTO;
 import capstone.market.domain.ChatMessage;
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Member;
@@ -73,11 +74,21 @@ public class ChatController {
         return new ChatRoomResponseDTO(chatRoom);
     }
 
+    // chat_room_id, member_id, message 필요
     // 메시지 전송 버튼을 눌렀을 경우
     @PostMapping("/chat/send")
-    public ChatMessage sendMessage(ChatRoom chatRoom, Member member, String message) {
+    public ChatMessageResponseDTO sendMessage(@RequestBody SendMessageRequestDTO sendMessageRequestDTO) {
+
+        Long chatroom_id = Long.valueOf(sendMessageRequestDTO.getChatroom_id());
+        Long sender_id = Long.valueOf(sendMessageRequestDTO.getSender_id());
+        String message = sendMessageRequestDTO.getMessage();
+
+        ChatRoom chatRoom = chatService.findChatRoomByChatRoomId(chatroom_id);
+        Member member = chatService.findMemberByMemberId(sender_id);
+
         ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, member, message);
         // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
-        return chatMessage;
+
+        return new ChatMessageResponseDTO(chatMessage);
     }
 }

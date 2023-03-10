@@ -33,6 +33,10 @@ public class ChatService {
         return memberDataJpa.findById(id).get();
     }
 
+    public ChatRoom findChatRoomByChatRoomId(Long id) {
+        return chatRoomRepository.findById(id).get();
+    }
+
     public ChatRoom startChatRoomService(Post post, Member member) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
