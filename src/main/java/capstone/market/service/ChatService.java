@@ -42,6 +42,7 @@ public class ChatService {
         chatRoom.setPost(post);
         chatRoom.setMember(member);
         chatRoomRepository.save(chatRoom);
+        // 기존 채팅이 있는지 없는 지
         return chatRoom;
     }
 

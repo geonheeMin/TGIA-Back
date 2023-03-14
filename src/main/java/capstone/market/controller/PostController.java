@@ -2,6 +2,7 @@ package capstone.market.controller;
 
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
+import capstone.market.post_dto.PostForm;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;
@@ -9,10 +10,8 @@ import capstone.market.session.SessionManager;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,23 +29,39 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final SessionManager sessionManager;
-    // @GetMapping("/post/list")
-    public List<Post> postListV2(HttpServletRequest request) {
-        log.info("hello before world");
-        // 세션 관리자에 저장된 회원 정보 조회
-        Member member = (Member) sessionManager.getSession(request);
 
-//        if (member == null) {
-//            return "home";
-//        }
-
-        log.info("hello world"+member.getUser_id());
-        List<Post> posts = postService.findPostByUserId(member.getUser_id());
-//        List<PostListResponse> result = posts.stream()
-//                .map(p -> new PostListResponse(p))
-//                .collect(Collectors.toList());
-        return posts;
-    }
+    // 게시물 수정
+//    @GetMapping("items/{post_id}/edit")
+//    public String updateItemForm(@PathVariable("post_id") Long post_id, Model model) {
+//        Post post = postService.findPostByPostId(post_id);
+//
+//        // form 을 업데이트 하는데 이 PostForm 을 보낸다 entity 가 아니라
+//        PostForm editPost = new PostForm();
+//        editPost.setId(post.getPostId());
+//        editPost.setPost_title(post.getPost_title());
+//        editPost.setPost_text(post.getPost_text());
+//    }
+//
+//    @PostMapping("items/{post_id}/edit")
+//    public String updateItemForm(@PathVariable("post_id") Long post_id, Model model) {
+//
+//    // @GetMapping("/post/list")
+//    public List<Post> postListV2(HttpServletRequest request) {
+//        log.info("hello before world");
+//        // 세션 관리자에 저장된 회원 정보 조회
+//        Member member = (Member) sessionManager.getSession(request);
+//
+////        if (member == null) {
+////            return "home";
+////        }
+//
+//        log.info("hello world"+member.getUser_id());
+//        List<Post> posts = postService.findPostByUserId(member.getUser_id());
+////        List<PostListResponse> result = posts.stream()
+////                .map(p -> new PostListResponse(p))
+////                .collect(Collectors.toList());
+//        return posts;
+//    }
 
     //@GetMapping("/post/list")
     public List<Post> postListV3(HttpServletRequest request) {

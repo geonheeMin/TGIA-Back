@@ -13,8 +13,8 @@ public class Image {
     @Id @GeneratedValue
     private Long id;
     private String imageFilename;
-    @OneToOne(mappedBy = "postImg", fetch = FetchType.LAZY)
-    private Post postImage;
+    @OneToOne(mappedBy = "image", fetch = FetchType.LAZY)
+    private Post post;
 
     public Image(String imageFilename) {
         this.imageFilename = imageFilename;
