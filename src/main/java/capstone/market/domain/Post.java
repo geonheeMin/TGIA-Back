@@ -1,8 +1,6 @@
 package capstone.market.domain;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ public class Post {
     private Department department;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Image postImg;
+    private Image image;
     // time
     // place
     // depart
@@ -49,12 +47,12 @@ public class Post {
         this.post_text = post_text;
     }
 
-    public Post(Member who_posted, Category category, Integer price, String post_title, String post_text, Image postImg) {
+    public Post(Member who_posted, Category category, Integer price, String post_title, String post_text, Image image) {
         this.who_posted = who_posted;
         this.category = category;
         this.price = price;
         this.post_title = post_title;
         this.post_text = post_text;
-        this.postImg = postImg;
+        this.image = image;
     }
 }
