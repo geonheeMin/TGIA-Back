@@ -1,6 +1,5 @@
 package capstone.market.service;
 
-import capstone.market.domain.Image;
 import capstone.market.filedata.UploadFile;
 import capstone.market.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;

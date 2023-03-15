@@ -1,7 +1,5 @@
 package capstone.market.profile_dto;
 
-import capstone.market.domain.Member;
-import capstone.market.domain.TrackType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

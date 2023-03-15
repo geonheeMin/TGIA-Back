@@ -1,8 +1,5 @@
 package capstone.market.service;
 
-import capstone.market.domain.FirstTrack;
-import capstone.market.domain.SecondTrack;
-import capstone.market.domain.TrackType;
 import capstone.market.repository.FirstTrackJpaRepository;
 import capstone.market.repository.SecondTrackJpaRepository;
 import lombok.RequiredArgsConstructor;

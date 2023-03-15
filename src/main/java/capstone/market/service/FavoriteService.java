@@ -1,6 +1,5 @@
 package capstone.market.service;
 
-import capstone.market.domain.Favorite;
 import capstone.market.repository.FavoriteJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

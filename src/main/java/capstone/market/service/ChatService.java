@@ -1,19 +1,12 @@
 package capstone.market.service;
 
-import capstone.market.domain.ChatMessage;
-import capstone.market.domain.ChatRoom;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
 import capstone.market.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -4,10 +4,6 @@ import capstone.market.chat_dto.ChatMessageResponseDTO;
 import capstone.market.chat_dto.ChatRoomResponseDTO;
 import capstone.market.chat_dto.ChatStartRequestDTO;
 import capstone.market.chat_dto.SendMessageRequestDTO;
-import capstone.market.domain.ChatMessage;
-import capstone.market.domain.ChatRoom;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
 import capstone.market.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 

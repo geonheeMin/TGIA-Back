@@ -1,8 +1,5 @@
 package capstone.market.controller;
 
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
-import capstone.market.post_dto.PostForm;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;
@@ -10,7 +7,6 @@ import capstone.market.session.SessionManager;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

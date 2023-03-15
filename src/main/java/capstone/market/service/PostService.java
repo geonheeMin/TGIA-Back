@@ -1,7 +1,5 @@
 package capstone.market.service;
 
-import capstone.market.domain.Post;
-import capstone.market.domain.Purchased;
 import capstone.market.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
