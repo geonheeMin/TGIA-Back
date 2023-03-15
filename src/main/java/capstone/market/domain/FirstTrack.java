@@ -6,8 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 public class FirstTrack {
     @Id @GeneratedValue
     private Long track_id;
@@ -18,4 +17,11 @@ public class FirstTrack {
     @JoinColumn(name = "department_id")
     private Department departMent;
 
+    public FirstTrack() {
+    }
+
+    public FirstTrack(TrackType first_track, Department departMent) {
+        this.first_track = first_track;
+        this.departMent = departMent;
+    }
 }

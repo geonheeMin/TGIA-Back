@@ -14,4 +14,12 @@ public class Department {
 
     @Enumerated(EnumType.STRING)
     protected DepartmentType departmentType;
+
+    public Department() {
+    }
+
+
+    public Department(DepartmentType departMentType) {
+        this.departmentType = departMentType;
+    }
 }

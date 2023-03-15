@@ -1,6 +1,7 @@
 package capstone.market.repository;
 
 import capstone.market.domain.ChatRoom;
+import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,15 @@ public class PostRepository {
 
     public List<Post> findAll() {
         return em.createQuery("select p from Post p")
+                .getResultList();
+    }
+
+    public List<Post> findByTitle(String title) {
+        String jpql = "select p from Post p where p.post_title = %:title%";
+
+        return em.createQuery(jpql, Post.class)
+                .setParameter("title", title)
+                .setMaxResults(5)
                 .getResultList();
     }
 

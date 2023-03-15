@@ -31,6 +31,9 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<ChatRoom> chatRoom = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Favorite> favorites = new ArrayList<>();
+
     public Member() {
     }
 

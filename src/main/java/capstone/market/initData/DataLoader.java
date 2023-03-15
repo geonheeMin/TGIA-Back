@@ -1,6 +1,7 @@
 package capstone.market.initData;
 
 import capstone.market.domain.*;
+import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.repository.*;
 import capstone.market.service.ChatService;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class DataLoader {
     private PostRepository postRepository;
     @Autowired
     private PurchasedRepository purchasedRepository;
+    @Autowired
+    private DepartMentJpaRepository departMentJpaRepository;
 //    @Autowired
 //    private ChatRoomRepository chatRoomRepository;
 //    @Autowired
@@ -28,8 +31,62 @@ public class DataLoader {
     @Autowired
     private PostDataJpaRepository postDataJpaRepository;
     @Autowired
+    private FirstTrackJpaRepository firstTrackJpaRepository;
+    @Autowired
+    private SecondTrackJpaRepository secondTrackJpaRepository;
+    @Autowired
     ChatService chatService;
 
+    /*
+    @PostConstruct
+    public void init() {
+        Member memberA = new Member("memberA");
+        Member memberB = new Member("memberB");
+
+        memberRepository.save(memberA);
+        memberRepository.save(memberB);
+
+        Post post = new Post(memberA);
+        post.setPost_title("hello");
+        post.setPrice(10000);
+        postRepository.savePost(post);
+    }
+    */
+
+
+    @PostConstruct
+    public void init() {
+        Member memberA = new Member("memberA");
+        Member memberB = new Member("memberB");
+        Department department = new Department(DepartmentType.컴퓨터공학부);
+        departMentJpaRepository.save(department);
+
+        FirstTrack firstTrack = new FirstTrack(TrackType.웹공학트랙, department);
+        firstTrackJpaRepository.save(firstTrack);
+
+        FirstTrack firstTrack1 = new FirstTrack(TrackType.웹공학트랙, department);
+        firstTrackJpaRepository.save(firstTrack1);
+
+        SecondTrack secondTrack = new SecondTrack(TrackType.빅데이터트랙, department);
+        secondTrackJpaRepository.save(secondTrack);
+
+        SecondTrack secondTrack1 = new SecondTrack(TrackType.빅데이터트랙, department);
+        secondTrackJpaRepository.save(secondTrack1);
+
+        memberA.setFirstTrack(firstTrack);
+        memberA.setSecondTrack(secondTrack);
+
+        memberB.setFirstTrack(firstTrack1);
+        memberB.setSecondTrack(secondTrack1);
+
+        memberRepository.save(memberA);
+        memberRepository.save(memberB);
+        // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
+        // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
+    }
+
+
+    /*
     @PostConstruct
     public void init() {
         // 초기화 작업 수행
@@ -105,7 +162,7 @@ public class DataLoader {
 //        chatMessage.setChatRoom(chatRoom);
 //        chatMessageRepository.save(chatMessage);
     }
-
+    */
     @Data
     static class ChatRoomResponse {
         private String sender;
