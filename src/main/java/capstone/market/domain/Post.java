@@ -42,6 +42,10 @@ public class Post {
     public Post() {
     }
 
+    public Post(Member who_posted) {
+        this.who_posted = who_posted;
+    }
+
     public Post(String post_title, String post_text) {
         this.post_title = post_title;
         this.post_text = post_text;
