@@ -1,4 +1,4 @@
-//package capstone.market.domain;
+package capstone.market.domain;//package capstone.market.domain;
 //
 //import lombok.Getter;
 //import lombok.Setter;

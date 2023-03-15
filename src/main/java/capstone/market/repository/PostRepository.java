@@ -1,7 +1,6 @@
 package capstone.market.repository;
 
 import capstone.market.domain.ChatRoom;
-import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
 import lombok.RequiredArgsConstructor;
