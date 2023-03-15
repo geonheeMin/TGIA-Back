@@ -1,5 +1,6 @@
 package capstone.market.chat_dto;
 
+import capstone.market.domain.ChatRoom;
 import lombok.Data;
 
 @Data

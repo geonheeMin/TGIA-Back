@@ -1,5 +1,9 @@
 package capstone.market.service;
 
+import capstone.market.domain.ChatMessage;
+import capstone.market.domain.ChatRoom;
+import capstone.market.domain.Member;
+import capstone.market.domain.Post;
 import capstone.market.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

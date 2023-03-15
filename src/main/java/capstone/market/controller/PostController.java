@@ -1,5 +1,7 @@
 package capstone.market.controller;
 
+import capstone.market.domain.Member;
+import capstone.market.domain.Post;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;

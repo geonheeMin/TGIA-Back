@@ -1,5 +1,6 @@
 package capstone.market.controller;
 
+import capstone.market.domain.Member;
 import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;

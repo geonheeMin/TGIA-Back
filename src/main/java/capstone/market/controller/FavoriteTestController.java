@@ -1,5 +1,8 @@
 package capstone.market.controller;
 
+import capstone.market.domain.Favorite;
+import capstone.market.domain.Member;
+import capstone.market.domain.Post;
 import capstone.market.service.FavoriteService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;

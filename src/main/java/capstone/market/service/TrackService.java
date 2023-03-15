@@ -1,5 +1,8 @@
 package capstone.market.service;
 
+import capstone.market.domain.FirstTrack;
+import capstone.market.domain.SecondTrack;
+import capstone.market.domain.TrackType;
 import capstone.market.repository.FirstTrackJpaRepository;
 import capstone.market.repository.SecondTrackJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +24,7 @@ public class TrackService {
         firstTrackJpaRepository.save(firstTrack);
     }
     @Transactional
-    public void saveSecondTrack(SecondTrack secondTrack,TrackType trackType) {
+    public void saveSecondTrack(SecondTrack secondTrack, TrackType trackType) {
         secondTrack.setSecond_track(trackType);
         secondTrackJpaRepository.save(secondTrack);
 

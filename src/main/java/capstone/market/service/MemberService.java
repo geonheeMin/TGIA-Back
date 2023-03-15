@@ -1,5 +1,6 @@
 package capstone.market.service;
 
+import capstone.market.domain.Member;
 import capstone.market.repository.MemberRepository;
 import capstone.market.repository.PostRepository;
 import lombok.RequiredArgsConstructor;

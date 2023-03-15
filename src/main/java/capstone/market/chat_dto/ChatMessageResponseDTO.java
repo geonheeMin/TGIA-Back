@@ -1,5 +1,6 @@
 package capstone.market.chat_dto;
 
+import capstone.market.domain.ChatMessage;
 import lombok.Data;
 
 import java.time.LocalDateTime;
