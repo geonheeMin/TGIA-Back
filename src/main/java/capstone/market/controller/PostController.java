@@ -157,9 +157,11 @@ public class PostController {
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(Long post_id) {
+    public PostDetailResponse postDetails(@RequestParam Long post_id) {
         Post post = postService.findPostByPostId(post_id);
-        return new PostDetailResponse(post);
+        System.out.println("/post/details post = " + post);
+        PostDetailResponse postDetailResponse = new PostDetailResponse(post);
+        return postDetailResponse;
     }
 
     // 찜 목록 구현 2월 21일
@@ -177,19 +179,20 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+    @Data
     static class PostDetailResponse {
-        private Long post_id;
+//        private Long post_id;
         private String title;
         private String user_id;
-        private String category;
+//        private String category;
         private String text;
         private Integer price;
 
         public PostDetailResponse(Post post) {
-            this.post_id = post.getPostId();
+//            this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.user_id = post.getWho_posted().getUser_id();
-            this.category = post.getCategory().toString();
+//            this.category = "post.getCategory().toString()";
             this.text = post.getPost_text();
             this.price = post.getPrice();
         }
