@@ -83,6 +83,45 @@ public class DataLoader {
         memberRepository.save(memberB);
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
+
+        Post post1 = new Post("전영식","전영식");
+        Post post2 = new Post("손민규","손민규");
+        Post post3 = new Post("민건희","민건희");
+        Post post4 = new Post("조용기","조용기");
+        post1.setWho_posted(memberA);
+        post2.setWho_posted(memberA);
+        post3.setWho_posted(memberB);
+        post4.setWho_posted(memberB);
+
+        post1.setPrice(10000);
+        post2.setPrice(10000);
+        post3.setPrice(10000);
+        post4.setPrice(10000);
+
+
+
+
+
+
+
+        //구매목록 하나 만들기
+        // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
+        Purchased purchased = new Purchased();
+        purchased.setMember(memberB);
+        purchasedRepository.save(purchased);
+        post1.setPurchased(purchased);
+
+//        post1.setCategory(new Category(CategoryType.BOOGIE));
+//        post2.setCategory(new Category(CategoryType.BOOGIE));
+//        post3.setCategory(new Category(CategoryType.BOOGIE));
+//        post4.setCategory(new Category(CategoryType.BOOGIE));
+
+        postRepository.savePost(post1);
+        postRepository.savePost(post2);
+        postRepository.savePost(post3);
+        postRepository.savePost(post4);
+
+
     }
 
 

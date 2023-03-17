@@ -16,6 +16,7 @@ public class Image {
     @OneToOne(mappedBy = "image", fetch = FetchType.LAZY)
     private Post post;
 
+
     public Image(String imageFilename) {
         this.imageFilename = imageFilename;
     }
