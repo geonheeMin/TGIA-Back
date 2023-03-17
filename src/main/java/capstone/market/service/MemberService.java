@@ -1,6 +1,8 @@
 package capstone.market.service;
 
 import capstone.market.domain.Member;
+import capstone.market.repository.ImageRepository;
+import capstone.market.repository.MemberDataJpa;
 import capstone.market.repository.MemberRepository;
 import capstone.market.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +17,18 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final ImageRepository imageRepository;
 
     // 회원 가입
     public Long join(Member member) {
         memberRepository.save(member);
         return member.getId();
+    }
+
+    public Member setMemberImage(Long id, String image_filename) {
+        Member member = memberRepository.findOne(id);
+        member.setImage(imageRepository.findByImageFilename(image_filename));
+        return member;
     }
 
     public Member findMemberByUserId(String user_id) {
