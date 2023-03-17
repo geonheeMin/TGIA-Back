@@ -30,6 +30,10 @@ public class FileService {
         return imageRepository.findAll();
     }
 
+    public Image findImageFilename(String file_name) {
+        return imageRepository.findByImageFilename(file_name);
+    }
+
     public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
         List<UploadFile> storeFileResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
