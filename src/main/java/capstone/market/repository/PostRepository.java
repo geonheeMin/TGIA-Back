@@ -1,9 +1,6 @@
 package capstone.market.repository;
 
-import capstone.market.domain.ChatRoom;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
-import capstone.market.domain.Purchased;
+import capstone.market.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +40,20 @@ public class PostRepository {
     }
 
     //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@
+
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@
+    public List<Post> SearchByCategory(CategoryType category) {
+
+         String jpql = "SELECT p FROM Post p WHERE p.category.category_type =:category";
+
+
+        return em.createQuery(jpql, Post.class)
+                .setParameter("category",  category )
+                .setMaxResults(10)
+                .getResultList();
+    }
+
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@
 
 
     public List<Post> findByUserId(String user_id) {

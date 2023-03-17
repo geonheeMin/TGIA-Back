@@ -1,5 +1,6 @@
 package capstone.market.service;
 
+import capstone.market.domain.CategoryType;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
 import capstone.market.repository.PostRepository;
@@ -51,6 +52,14 @@ public class PostService {
 
     }
     //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@
+
+    //@@@@@@@@@@@@@@@@@카테고리로 필터링@@@@@@@@@@@@@@@@@@@
+    public List<Post> SearchByCategory(CategoryType categoryType){
+
+        return postRepository.SearchByCategory(categoryType);
+
+    }
+    //@@@@@@@@@@@@@@@@@카테고리로 필터링@@@@@@@@@@@@@@@@@@@
 
 
 

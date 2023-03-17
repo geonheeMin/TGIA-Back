@@ -1,7 +1,6 @@
 package capstone.market.initData;
 
 import capstone.market.domain.*;
-import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.repository.*;
 import capstone.market.service.ChatService;
 import lombok.Data;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 @Component
 @Slf4j
@@ -36,6 +34,8 @@ public class DataLoader {
     private SecondTrackJpaRepository secondTrackJpaRepository;
     @Autowired
     ChatService chatService;
+    @Autowired
+    private CategoryJpaRepository categoryJpaRepository;
 
     /*
     @PostConstruct
@@ -111,10 +111,30 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
-//        post1.setCategory(new Category(CategoryType.BOOGIE));
-//        post2.setCategory(new Category(CategoryType.BOOGIE));
-//        post3.setCategory(new Category(CategoryType.BOOGIE));
-//        post4.setCategory(new Category(CategoryType.BOOGIE));
+        Category post1category = new Category();
+        Category post2category = new Category();
+        Category post3category = new Category();
+        Category post4category = new Category();
+
+        post1category.setCategory_type(CategoryType.BOOK);
+        post2category.setCategory_type(CategoryType.DIGITAL);
+        post3category.setCategory_type(CategoryType.BOOGIE);
+        post4category.setCategory_type(CategoryType.COSMETIC);
+
+        categoryJpaRepository.save(post1category);
+        categoryJpaRepository.save(post2category);
+        categoryJpaRepository.save(post3category);
+        categoryJpaRepository.save(post4category);
+
+        post1.setCategory(post1category);
+        post2.setCategory(post2category);
+        post3.setCategory(post3category);
+        post4.setCategory(post4category);
+
+
+
+
+
 
         postRepository.savePost(post1);
         postRepository.savePost(post2);
