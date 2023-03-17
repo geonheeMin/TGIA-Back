@@ -3,6 +3,7 @@ package capstone.market.controller;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.post_dto.PostForm;
+import capstone.market.service.FileService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;
@@ -29,6 +30,7 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final SessionManager sessionManager;
+    private final FileService fileService;
 
     // 게시물 수정
 //    @GetMapping("items/{post_id}/edit")
@@ -91,6 +93,7 @@ public class PostController {
     }
 
     // @GetMapping("/post/list") // 2.17
+    // + 이미지 정보 추가 3월 17일
     public List<PostListResponse> postListV4(String user_id) {
         log.info("@GetMapping(\"/post/list\")");
 //        while(!SessionConst.POST_ENDED) {
@@ -138,6 +141,7 @@ public class PostController {
         return result;
     }
 
+    // 3월 17일 프론트와 연동 시 Image 테이블과 Post 테이블 매핑 문제 해결
     @PostMapping("/post/insert")
     public void postAdd (@RequestBody AddPostRequest request) {
         Post post = new Post();
@@ -146,9 +150,10 @@ public class PostController {
         post.setPost_title(request.title);
         post.setPost_text(request.content);
         post.setPrice(request.price);
-
+        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
+
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
@@ -214,6 +219,7 @@ public class PostController {
         private String content;
         private String time;
         private Integer price;
+        private String image_file_name;
     }
     //
     @Data
@@ -225,18 +231,20 @@ public class PostController {
     static class PostListResponse {
 //        private Long id;
         private String title;
-        // private String user;
+         private String user;
         //private String category;
-//        private String content;
+        private String content;
         private Integer price;
+        private String image_filename;
 
 
         public PostListResponse(Post post) {
             title = post.getPost_title();
-            // user = post.getWho_posted().getUser_id();
+             user = post.getWho_posted().getUser_id();
             //category = post.getCategory().toString();
-//            content = post.getPost_text();
+            content = post.getPost_text();
             price = post.getPrice();
+            image_filename = post.getImage().getImageFilename();
         }
     }
 //    @GetMapping("/post/list")

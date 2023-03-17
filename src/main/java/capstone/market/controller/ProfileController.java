@@ -1,6 +1,7 @@
 package capstone.market.controller;
 
 import capstone.market.domain.*;
+import capstone.market.profile_dto.ProfileImageChangeDTO;
 import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.profile_dto.TrackUpdateDto;
 import capstone.market.service.MemberService;
@@ -22,14 +23,19 @@ public class ProfileController {
         return postService.findByadfasf(1L);
     }
 
-
-
     @GetMapping("/profile")
     public ProfileListDto findMyProfileList(@RequestParam Long userId){
         Member findmember = memberService.findOne(userId);
 
         ProfileListDto profileListDto = new ProfileListDto(findmember);
         return profileListDto;
+    }
+
+    // 3월 17일
+    // 프로필 이미지 변경
+    @PostMapping("/profile/image_change")
+    public void setProfileImage(@RequestBody ProfileImageChangeDTO profileImageChangeDTO) {
+        memberService.setMemberImage(profileImageChangeDTO.getMember_id(), profileImageChangeDTO.getImage_filename());
     }
 
     //트랙 설정 및 업데이트

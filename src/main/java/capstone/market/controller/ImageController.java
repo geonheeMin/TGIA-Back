@@ -33,12 +33,13 @@ public class ImageController {
 
     @CrossOrigin("*")
     @PostMapping("/send_image_native")
-    public void sendImageFromNative(@RequestBody MultipartFile image) throws IOException {
+    public String sendImageFromNative(@RequestBody MultipartFile image) throws IOException {
 
         System.out.println("file.getInputStream() = " + image.getInputStream());
 //        System.out.println("post.getResource() = " + image.getResource());
 
         UploadFile attachFile = fileService.storeFile(image);
+        return attachFile.getStoreFileName();
     }
 
     @ResponseBody
