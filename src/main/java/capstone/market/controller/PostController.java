@@ -11,7 +11,6 @@ import capstone.market.session.SessionManager;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,38 +31,28 @@ public class PostController {
     private final SessionManager sessionManager;
     private final FileService fileService;
 
-    // 게시물 수정
-//    @GetMapping("items/{post_id}/edit")
-//    public String updateItemForm(@PathVariable("post_id") Long post_id, Model model) {
-//        Post post = postService.findPostByPostId(post_id);
-//
-//        // form 을 업데이트 하는데 이 PostForm 을 보낸다 entity 가 아니라
-//        PostForm editPost = new PostForm();
+    // 3월 18일 추가
+    // 게시물을 수정하기 위한 기존 정보 가져온다.
+    @GetMapping("post/edit")
+    public PostForm updateItemForm(Long post_id) {
+        Post post = postService.findPostByPostId(post_id);
+
+        // form 을 업데이트 하는데 이 PostForm 을 보낸다 entity 가 아니라
+        PostForm editPost = new PostForm();
 //        editPost.setId(post.getPostId());
-//        editPost.setPost_title(post.getPost_title());
-//        editPost.setPost_text(post.getPost_text());
-//    }
-//
-//    @PostMapping("items/{post_id}/edit")
-//    public String updateItemForm(@PathVariable("post_id") Long post_id, Model model) {
-//
-//    // @GetMapping("/post/list")
-//    public List<Post> postListV2(HttpServletRequest request) {
-//        log.info("hello before world");
-//        // 세션 관리자에 저장된 회원 정보 조회
-//        Member member = (Member) sessionManager.getSession(request);
-//
-////        if (member == null) {
-////            return "home";
-////        }
-//
-//        log.info("hello world"+member.getUser_id());
-//        List<Post> posts = postService.findPostByUserId(member.getUser_id());
-////        List<PostListResponse> result = posts.stream()
-////                .map(p -> new PostListResponse(p))
-////                .collect(Collectors.toList());
-//        return posts;
-//    }
+        editPost.setPrice(post.getPrice());
+        editPost.setTitle(post.getPost_title());
+        editPost.setContent(post.getPost_text());
+        return editPost;
+    }
+
+    // 3월 18일 추가
+    // 게시글 수정
+    @PutMapping("post/edit")
+    public PostForm updatePost(@RequestBody PostForm request) {
+        postService.update(request);
+        return new PostForm(request);
+    }
 
     //@GetMapping("/post/list")
     public List<Post> postListV3(HttpServletRequest request) {
@@ -157,9 +146,11 @@ public class PostController {
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(Long post_id) {
+    public PostDetailResponse postDetails(@RequestParam Long post_id) {
         Post post = postService.findPostByPostId(post_id);
-        return new PostDetailResponse(post);
+        System.out.println("/post/details post = " + post);
+        PostDetailResponse postDetailResponse = new PostDetailResponse(post);
+        return postDetailResponse;
     }
 
     // 찜 목록 구현 2월 21일
@@ -177,19 +168,20 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+    @Data
     static class PostDetailResponse {
-        private Long post_id;
+//        private Long post_id;
         private String title;
         private String user_id;
-        private String category;
+//        private String category;
         private String text;
         private Integer price;
 
         public PostDetailResponse(Post post) {
-            this.post_id = post.getPostId();
+//            this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.user_id = post.getWho_posted().getUser_id();
-            this.category = post.getCategory().toString();
+//            this.category = "post.getCategory().toString()";
             this.text = post.getPost_text();
             this.price = post.getPrice();
         }

@@ -2,6 +2,7 @@ package capstone.market.service;
 
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
+import capstone.market.post_dto.PostForm;
 import capstone.market.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,14 @@ public class PostService {
 
     public List<Purchased> findByadfasf(Long user_id) {
         return postRepository.findBoughtListByUserId(user_id);
+    }
+
+    // 3월 18일 추가
+    // 게시글 수정
+    public void update(PostForm request) {
+        Post post = postRepository.findOne(request.getId());
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
     }
 }
