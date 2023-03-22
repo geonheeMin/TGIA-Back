@@ -99,11 +99,6 @@ public class DataLoader {
         post4.setPrice(10000);
 
 
-
-
-
-
-
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
         Purchased purchased = new Purchased();

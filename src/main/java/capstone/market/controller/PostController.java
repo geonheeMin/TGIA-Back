@@ -305,7 +305,7 @@ public class PostController {
             category = post.getCategory().getCategory_type();
 //            content = post.getPost_text();
             price = post.getPrice();
-            image_filename = post.getImage().getImageFilename();
+            //image_filename = post.getImage().getImageFilename();
         }
     }
 //    @GetMapping("/post/list")
