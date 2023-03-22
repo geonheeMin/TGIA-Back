@@ -112,10 +112,10 @@ public class DataLoader {
         Category post3category = new Category();
         Category post4category = new Category();
 
-        post1category.setCategory_type(CategoryType.book);
-        post2category.setCategory_type(CategoryType.DIGITAL);
-        post3category.setCategory_type(CategoryType.BOOGIE);
-        post4category.setCategory_type(CategoryType.COSMETIC);
+        post1category.setCategory_type(CategoryType.도서);
+        post2category.setCategory_type(CategoryType.생활);
+        post3category.setCategory_type(CategoryType.부기굿즈);
+        post4category.setCategory_type(CategoryType.전자기기);
 
         categoryJpaRepository.save(post1category);
         categoryJpaRepository.save(post2category);
