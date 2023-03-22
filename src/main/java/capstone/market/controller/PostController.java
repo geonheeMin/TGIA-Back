@@ -248,6 +248,7 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+    @Data
     static class PostDetailResponse {
         private Long post_id;
         private String title;
@@ -260,7 +261,7 @@ public class PostController {
             this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.user_id = post.getWho_posted().getUser_id();
-           this.category = post.getCategory().getCategory_type();
+              this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
         }
