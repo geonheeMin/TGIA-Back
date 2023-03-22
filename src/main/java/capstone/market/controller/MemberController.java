@@ -1,6 +1,7 @@
 package capstone.market.controller;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
+import capstone.market.domain.TrackType;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;
@@ -8,9 +9,7 @@ import capstone.market.session.SessionManager;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +41,20 @@ public class MemberController {
 
         memberService.join(member);
     }
+
+    // userId
+    @GetMapping("/member/get")
+    public MemberResponseDTO getMember(@RequestParam String user_id) {
+        Member member = memberService.findMemberByUserId(user_id);
+        MemberResponseDTO memberResponseDTO = new MemberResponseDTO();
+        memberResponseDTO.setUsername(member.getUsername());
+        memberResponseDTO.setFirsttrack(member.getFirstTrack().getFirst_track());
+        memberResponseDTO.setSecondtrack(member.getSecondTrack().getSecond_track());
+        memberResponseDTO.setUser_id(member.getUser_id());
+        memberResponseDTO.setMember_id(member.getId());
+        return memberResponseDTO;
+    }
+
     @PostMapping("/members/new")
     public void createV3(@RequestBody CreateMemberRequest request, HttpServletRequest httpServletRequest) {
 
@@ -91,7 +104,31 @@ public class MemberController {
     }
 
     @Data
-    static class CreateMemberRequest {
+    static class CreateMemberRequest{
         private String user_id;
+    }
+
+    @Data
+    static class getUserIdDTO {
+        private String user_id;
+    }
+
+    @Data
+    static class MemberResponseDTO {
+        private Long member_id;
+        private String user_id;
+        private String username;
+        private TrackType firsttrack;
+        private TrackType secondtrack;
+
+        public MemberResponseDTO() {
+        }
+
+        public MemberResponseDTO(String user_id, String username, TrackType firsttrack, TrackType secondtrack) {
+            this.user_id = user_id;
+            this.username = username;
+            this.firsttrack = firsttrack;
+            this.secondtrack = secondtrack;
+        }
     }
 }

@@ -24,7 +24,7 @@ public class TrackService {
         firstTrackJpaRepository.save(firstTrack);
     }
     @Transactional
-    public void saveSecondTrack(SecondTrack secondTrack,TrackType trackType) {
+    public void saveSecondTrack(SecondTrack secondTrack, TrackType trackType) {
         secondTrack.setSecond_track(trackType);
         secondTrackJpaRepository.save(secondTrack);
 

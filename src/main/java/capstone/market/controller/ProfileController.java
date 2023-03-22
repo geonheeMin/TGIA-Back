@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,10 +19,31 @@ public class ProfileController {
     private final MemberService memberService;
     private final PostService postService;
     private final TrackService trackService;
+    //이게 지금 dto 널값 오류로 이게 안되고 아래꺼가 된다.
     @GetMapping("/post/buy_list")
-    public List<Purchased> getBuyerList() {
-        return postService.findByadfasf(1L);
+    public  List<PostController.PostDetailResponse> getBuyerList(@RequestParam Long userId) {
+
+        List<Post> buyList = postService.findBoughtListByUserId(userId);
+        List<PostController.PostDetailResponse> result = buyList.stream()
+                .map(p -> new PostController.PostDetailResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+
     }
+    //@@@@테스트용  성공 유저의 구매리스트
+    @GetMapping("/post/buy_list3")
+    public  List<PostController.PostListResponse> getBuyerList3(@RequestParam Long userId) {
+
+        List<Post> buyList = postService.findBoughtListByUserId(userId);
+        List<PostController.PostListResponse> result = buyList.stream()
+                .map(p -> new PostController.PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+
+    }
+    //@@@테스트
 
     @GetMapping("/profile")
     public ProfileListDto findMyProfileList(@RequestParam Long userId){
