@@ -1,5 +1,6 @@
 package capstone.market.repository;
 
+import capstone.market.domain.*;
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
@@ -29,14 +30,34 @@ public class PostRepository {
                 .getResultList();
     }
 
-    public List<Post> findByTitle(String title) {
-        String jpql = "select p from Post p where p.post_title = %:title%";
+    //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@.setParameter("keyword", keyword)
+    public List<Post> SearchByTitle(String keyword) {
+
+       // String jpql = "SELECT p FROM Post p WHERE p.post_title =:keyword";
+        String jpql = "SELECT p FROM Post p WHERE p.post_title LIKE CONCAT('%', :keyword, '%')";
 
         return em.createQuery(jpql, Post.class)
-                .setParameter("title", title)
-                .setMaxResults(5)
+                .setParameter("keyword",  keyword )
+                .setMaxResults(10)
                 .getResultList();
     }
+
+    //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@
+
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@
+    public List<Post> SearchByCategory(CategoryType category) {
+
+         String jpql = "SELECT p FROM Post p WHERE p.category.category_type =:category";
+
+
+        return em.createQuery(jpql, Post.class)
+                .setParameter("category",  category )
+                .setMaxResults(10)
+                .getResultList();
+    }
+
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@
+
 
     public List<Post> findByUserId(String user_id) {
         String jpql = "select p from Post p join p.who_posted m where m.user_id = :user_id";
@@ -55,13 +76,14 @@ public class PostRepository {
     }
 
     // 구매 목록
-    public List<Purchased> findBoughtListByUserId(Long user_id) {
+    public List<Post> findBoughtListByUserId(Long user_id) {
         System.out.println("user_id&&&&&&&&&& = " + user_id);
 //        String jpql = "select p from Post p join p.buyer m where m.user_id = :user_id";
         String jpql = "select p from Purchased p join p.member m where m.id = :user_id";
-//        String jpql = "select p from Purchased p where p.purchased_id = :user_id";
+        String jpql2 = "select p from Post p where p.purchased.member.id = :user_id";
 
-        List<Purchased> list = em.createQuery(jpql, Purchased.class)
+
+        List<Post> list = em.createQuery(jpql2, Post.class)
                 .setParameter("user_id", user_id)
                 .getResultList();
 

@@ -33,6 +33,11 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Favorite> favorites = new ArrayList<>();
 
+    // 3월 17일 이미지 테이블 매핑 추가
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
+    private Image image;
+
     public Member() {
     }
 

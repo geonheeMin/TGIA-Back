@@ -1,7 +1,13 @@
 package capstone.market.controller;
 
+import capstone.market.domain.Category;
+import capstone.market.domain.CategoryType;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
+import capstone.market.post_dto.PostForm;
+
+import capstone.market.service.CategoryService;
+import capstone.market.service.FileService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;
@@ -26,40 +32,66 @@ public class PostController {
     private final PostService postService;
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
-    private final SessionManager sessionManager;
+    private final CategoryService categoryService;
 
-    // 게시물 수정
-//    @GetMapping("items/{post_id}/edit")
-//    public String updateItemForm(@PathVariable("post_id") Long post_id, Model model) {
-//        Post post = postService.findPostByPostId(post_id);
-//
-//        // form 을 업데이트 하는데 이 PostForm 을 보낸다 entity 가 아니라
-//        PostForm editPost = new PostForm();
+
+    private final SessionManager sessionManager;
+    private final FileService fileService;
+
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
+    @GetMapping("/category")
+    public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {
+
+        List<Post> posts = postService.SearchByCategory(category);
+
+
+        List<PostListResponse> result = posts.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
+
+
+
+
+    //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@ 3월 15일
+    @GetMapping("/search")
+        public List<PostListResponse> findByTitleContaining(@RequestParam String keyword) {
+
+        List<Post> posts = postService.findByTitleContaing(keyword);
+
+
+        List<PostListResponse> result = posts.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+    //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@ 3월 15일
+    // 3월 18일 추가
+    // 게시물을 수정하기 위한 기존 정보 가져온다.
+    @GetMapping("post/edit")
+    public PostForm updateItemForm(Long post_id) {
+        Post post = postService.findPostByPostId(post_id);
+
+        // form 을 업데이트 하는데 이 PostForm 을 보낸다 entity 가 아니라
+        PostForm editPost = new PostForm();
 //        editPost.setId(post.getPostId());
-//        editPost.setPost_title(post.getPost_title());
-//        editPost.setPost_text(post.getPost_text());
-//    }
-//
-//    @PostMapping("items/{post_id}/edit")
-//    public String updateItemForm(@PathVariable("post_id") Long post_id, Model model) {
-//
-//    // @GetMapping("/post/list")
-//    public List<Post> postListV2(HttpServletRequest request) {
-//        log.info("hello before world");
-//        // 세션 관리자에 저장된 회원 정보 조회
-//        Member member = (Member) sessionManager.getSession(request);
-//
-////        if (member == null) {
-////            return "home";
-////        }
-//
-//        log.info("hello world"+member.getUser_id());
-//        List<Post> posts = postService.findPostByUserId(member.getUser_id());
-////        List<PostListResponse> result = posts.stream()
-////                .map(p -> new PostListResponse(p))
-////                .collect(Collectors.toList());
-//        return posts;
-//    }
+        editPost.setPrice(post.getPrice());
+        editPost.setTitle(post.getPost_title());
+        editPost.setContent(post.getPost_text());
+        return editPost;
+    }
+
+    // 3월 18일 추가
+    // 게시글 수정
+    @PutMapping("post/edit")
+    public PostForm updatePost(@RequestBody PostForm request) {
+        postService.update(request);
+        return new PostForm(request);
+    }
 
     //@GetMapping("/post/list")
     public List<Post> postListV3(HttpServletRequest request) {
@@ -89,6 +121,7 @@ public class PostController {
     }
 
     // @GetMapping("/post/list") // 2.17
+    // + 이미지 정보 추가 3월 17일
     public List<PostListResponse> postListV4(String user_id) {
         log.info("@GetMapping(\"/post/list\")");
 //        while(!SessionConst.POST_ENDED) {
@@ -122,6 +155,7 @@ public class PostController {
         return result;
     }
 
+    //PostDetailResponse 이걸로 추후 바꿔야함 PostListResponse이거 대신에
     @GetMapping("/post/list") // 2.17
     public List<PostListResponse> postListV5(HttpServletRequest request) {
 
@@ -136,6 +170,7 @@ public class PostController {
         return result;
     }
 
+    // 3월 17일 프론트와 연동 시 Image 테이블과 Post 테이블 매핑 문제 해결
     @PostMapping("/post/insert")
     public void postAdd (@RequestBody AddPostRequest request) {
         Post post = new Post();
@@ -144,16 +179,48 @@ public class PostController {
         post.setPost_title(request.title);
         post.setPost_text(request.content);
         post.setPrice(request.price);
-
+        Category category = new Category();
+        categoryService.UpdateCategory(category,request.getCategory());
+        post.setCategory(category);
+        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
+
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(Long post_id) {
-        Post post = postService.findPostByPostId(post_id);
+    public PostDetailResponse postDetails(@RequestParam Long postId) {
+        Post post = postService.findPostByPostId(postId);
         return new PostDetailResponse(post);
+
     }
+
+    //테스트용@@@@@@2
+    @GetMapping("/post/all")
+    public  List<PostListResponse> postDetails2() {
+        List<Post> all = postService.findAll();
+
+        List<PostListResponse> result = all.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+
+    }
+
+
+    
+
+
+    //테스트용@@@@@@2
+
+
+
+
+
+
+
+
 
     // 찜 목록 구현 2월 21일
 //    @PostMapping("/post/liked")
@@ -170,19 +237,20 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+    @Data
     static class PostDetailResponse {
-        private Long post_id;
+//        private Long post_id;
         private String title;
         private String user_id;
-        private String category;
+        private CategoryType category;
         private String text;
         private Integer price;
 
         public PostDetailResponse(Post post) {
-            this.post_id = post.getPostId();
+//            this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.user_id = post.getWho_posted().getUser_id();
-            this.category = post.getCategory().toString();
+              this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
         }
@@ -208,10 +276,11 @@ public class PostController {
     static class AddPostRequest {
         private String title;
         private String user;
-        private String category;
+        private CategoryType category;
         private String content;
         private String time;
         private Integer price;
+        private String image_file_name;
     }
     //
     @Data
@@ -224,17 +293,19 @@ public class PostController {
 //        private Long id;
         private String title;
         // private String user;
-        //private String category;
+        private CategoryType category;
 //        private String content;
         private Integer price;
+        private String image_filename;
 
 
         public PostListResponse(Post post) {
             title = post.getPost_title();
             // user = post.getWho_posted().getUser_id();
-            //category = post.getCategory().toString();
+            category = post.getCategory().getCategory_type();
 //            content = post.getPost_text();
             price = post.getPrice();
+            //image_filename = post.getImage().getImageFilename();
         }
     }
 //    @GetMapping("/post/list")
