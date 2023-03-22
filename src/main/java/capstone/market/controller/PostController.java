@@ -170,19 +170,33 @@ public class PostController {
         return result;
     }
 
+    @GetMapping("/post/list_all") // 2.17
+    public List<PostListResponse> postListV6() {
+
+        List<Post> posts = postService.findAll();
+
+        List<PostListResponse> result = posts.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
     // 3월 17일 프론트와 연동 시 Image 테이블과 Post 테이블 매핑 문제 해결
     @PostMapping("/post/insert")
     public void postAdd (@RequestBody AddPostRequest request) {
         Post post = new Post();
-        log.info("request_info = {}", request.getUser());
-        post.setWho_posted(memberService.findMemberByUserId(request.getUser()));
+
+        log.info("request_info = {}", request.getUser_id());
+        log.info("request_info.title = {}", request.getTitle());
+        post.setWho_posted(memberService.findOne(request.getUser_id()));
         post.setPost_title(request.title);
         post.setPost_text(request.content);
         post.setPrice(request.price);
         Category category = new Category();
         categoryService.UpdateCategory(category,request.getCategory());
         post.setCategory(category);
-        post.setImage(fileService.findImageFilename(request.image_file_name));
+//        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
 
@@ -197,11 +211,11 @@ public class PostController {
 
     //테스트용@@@@@@2
     @GetMapping("/post/all")
-    public  List<PostListResponse> postDetails2() {
+    public  List<PostDetailResponse> postDetails2() {
         List<Post> all = postService.findAll();
 
-        List<PostListResponse> result = all.stream()
-                .map(p -> new PostListResponse(p))
+        List<PostDetailResponse> result = all.stream()
+                .map(p -> new PostDetailResponse(p))
                 .collect(Collectors.toList());
 
         return result;
@@ -239,7 +253,7 @@ public class PostController {
     // 게시물 상세 화면을 위한 dto
     @Data
     static class PostDetailResponse {
-//        private Long post_id;
+        private Long post_id;
         private String title;
         private String user_id;
         private CategoryType category;
@@ -247,10 +261,10 @@ public class PostController {
         private Integer price;
 
         public PostDetailResponse(Post post) {
-//            this.post_id = post.getPostId();
+            this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.user_id = post.getWho_posted().getUser_id();
-              this.category = post.getCategory().getCategory_type();
+            this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
         }
@@ -275,12 +289,12 @@ public class PostController {
     @Data
     static class AddPostRequest {
         private String title;
-        private String user;
+        private Long user_id;
         private CategoryType category;
         private String content;
-        private String time;
+//        private String time;
         private Integer price;
-        private String image_file_name;
+//        private String image_file_name;
     }
     //
     @Data
