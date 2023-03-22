@@ -23,7 +23,8 @@ public class Post {
     private String post_title;
     private String post_text;
 
-    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Purchased purchased;
 
     @OneToMany(mappedBy = "post")
@@ -32,6 +33,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
@@ -54,7 +56,7 @@ public class Post {
 
     public Post(Member who_posted, Category category, Integer price, String post_title, String post_text, Image image) {
         this.who_posted = who_posted;
-        this.category = category;
+       this.category = category;
         this.price = price;
         this.post_title = post_title;
         this.post_text = post_text;
