@@ -3,7 +3,6 @@ package capstone.market.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.sql.RowSet;
 import java.util.ArrayList;
 import java.util.List;
 

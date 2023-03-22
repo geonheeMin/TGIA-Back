@@ -1,6 +1,9 @@
 package capstone.market.repository;
 
 import capstone.market.domain.*;
+import capstone.market.domain.ChatRoom;
+import capstone.market.domain.Post;
+import capstone.market.domain.Purchased;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
