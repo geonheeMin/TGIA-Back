@@ -28,3 +28,7 @@ logging:
     # hibernate 가 생성하는 sql 문을 모두 보여준다.
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+server:
+  address: 0.0.0.0
+  port: 8080

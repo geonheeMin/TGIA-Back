@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final MemberDataJpa memberDataJpa;
     private final PostRepository postRepository;
     private final ImageRepository imageRepository;
 
@@ -23,6 +24,11 @@ public class MemberService {
     public Long join(Member member) {
         memberRepository.save(member);
         return member.getId();
+    }
+
+    public Member findMemberByPK(Long id) {
+        Member member = memberDataJpa.findById(id).get();
+        return member;
     }
 
     public Member setMemberImage(Long id, String image_filename) {

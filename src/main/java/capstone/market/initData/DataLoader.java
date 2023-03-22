@@ -57,6 +57,7 @@ public class DataLoader {
     @PostConstruct
     public void init() {
         Member memberA = new Member("memberA");
+        memberA.setUsername("건희");
         Member memberB = new Member("memberB");
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
@@ -111,10 +112,10 @@ public class DataLoader {
         Category post3category = new Category();
         Category post4category = new Category();
 
-        post1category.setCategory_type(CategoryType.BOOK);
-        post2category.setCategory_type(CategoryType.DIGITAL);
-        post3category.setCategory_type(CategoryType.BOOGIE);
-        post4category.setCategory_type(CategoryType.COSMETIC);
+        post1category.setCategory_type(CategoryType.도서);
+        post2category.setCategory_type(CategoryType.생활);
+        post3category.setCategory_type(CategoryType.부기굿즈);
+        post4category.setCategory_type(CategoryType.전자기기);
 
         categoryJpaRepository.save(post1category);
         categoryJpaRepository.save(post2category);
