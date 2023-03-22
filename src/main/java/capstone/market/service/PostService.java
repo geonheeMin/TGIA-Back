@@ -70,5 +70,7 @@ public class PostService {
         post.setPost_title(request.getTitle());
         post.setPost_text(request.getContent());
         post.setPrice(request.getPrice());
+        post.getDepartment().setDepartmentType(request.getDepartmentType());
+
     }
 }

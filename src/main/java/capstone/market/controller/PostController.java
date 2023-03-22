@@ -1,15 +1,9 @@
 package capstone.market.controller;
 
-import capstone.market.domain.Category;
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
+import capstone.market.domain.*;
 import capstone.market.post_dto.PostForm;
 
-import capstone.market.service.CategoryService;
-import capstone.market.service.FileService;
-import capstone.market.service.MemberService;
-import capstone.market.service.PostService;
+import capstone.market.service.*;
 import capstone.market.session.SessionConst;
 import capstone.market.session.SessionManager;
 import lombok.Data;
@@ -33,6 +27,7 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final CategoryService categoryService;
+    private final DepartmentService departmentService;
 
 
     private final SessionManager sessionManager;
@@ -196,6 +191,10 @@ public class PostController {
         Category category = new Category();
         categoryService.UpdateCategory(category,request.getCategory());
         post.setCategory(category);
+        Department department = new Department();
+        departmentService.UpdateDepartment(department,request.getDepartment());
+        post.setDepartment(department);
+
 //        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
@@ -257,6 +256,7 @@ public class PostController {
         private String title;
         private String user_id;
         private CategoryType category;
+        private DepartmentType department;
         private String text;
         private Integer price;
 
@@ -267,6 +267,7 @@ public class PostController {
             this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
+            this.department = post.getDepartment().getDepartmentType();
         }
     }
 
@@ -291,6 +292,8 @@ public class PostController {
         private String title;
         private Long user_id;
         private CategoryType category;
+
+        private DepartmentType department;
         private String content;
 //        private String time;
         private Integer price;

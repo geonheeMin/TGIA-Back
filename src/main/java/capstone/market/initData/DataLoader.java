@@ -37,6 +37,7 @@ public class DataLoader {
     @Autowired
     private CategoryJpaRepository categoryJpaRepository;
 
+
     /*
     @PostConstruct
     public void init() {
@@ -126,6 +127,12 @@ public class DataLoader {
         post2.setCategory(post2category);
         post3.setCategory(post3category);
         post4.setCategory(post4category);
+
+        post1.setDepartment(department);
+        post2.setDepartment(department);
+        post3.setDepartment(department);
+        post4.setDepartment(department);
+
 
 
 

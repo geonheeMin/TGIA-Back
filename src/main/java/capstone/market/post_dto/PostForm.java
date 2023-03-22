@@ -1,5 +1,6 @@
 package capstone.market.post_dto;
 
+import capstone.market.domain.DepartmentType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,7 +14,8 @@ public class PostForm {
     private Integer price;
     private String title;
     private String content;
-    private Long department_id;
+    private DepartmentType departmentType;
+
     private Long image_id;
 
     public PostForm() {
@@ -23,5 +25,6 @@ public class PostForm {
         this.price = postForm.getPrice();
         this.title = postForm.getTitle();
         this.content = postForm.getContent();
+        this.departmentType = postForm.getDepartmentType();
     }
 }
