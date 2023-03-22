@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Favorite {
+public class Favorite extends BaseEntity {
 
     @Id @GeneratedValue
     private Long fav_id;
