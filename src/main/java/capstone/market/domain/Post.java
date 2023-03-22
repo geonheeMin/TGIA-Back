@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Post {
+public class Post extends BaseEntity {
     @Id @GeneratedValue
     private Long postId;
 

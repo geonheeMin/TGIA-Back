@@ -91,7 +91,10 @@ public class MemberController {
     }
 
     @Data
-    static class CreateMemberRequest {
+    static class CreateMemberRequest{
         private String user_id;
     }
+
+
+
 }
