@@ -1,8 +1,12 @@
 package capstone.market.controller;
 
+import capstone.market.domain.Category;
+import capstone.market.domain.CategoryType;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.post_dto.PostForm;
+
+import capstone.market.service.CategoryService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.session.SessionConst;
@@ -28,7 +32,43 @@ public class PostController {
     private final PostService postService;
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
+    private final CategoryService categoryService;
+
+
     private final SessionManager sessionManager;
+
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
+    @GetMapping("/category")
+    public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {
+
+        List<Post> posts = postService.SearchByCategory(category);
+
+
+        List<PostListResponse> result = posts.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+    //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
+
+
+
+
+    //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@ 3월 15일
+    @GetMapping("/search")
+        public List<PostListResponse> findByTitleContaining(@RequestParam String keyword) {
+
+        List<Post> posts = postService.findByTitleContaing(keyword);
+
+
+        List<PostListResponse> result = posts.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+    //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@ 3월 15일
 
     // 게시물 수정
 //    @GetMapping("items/{post_id}/edit")
@@ -124,6 +164,7 @@ public class PostController {
         return result;
     }
 
+    //PostDetailResponse 이걸로 추후 바꿔야함 PostListResponse이거 대신에
     @GetMapping("/post/list") // 2.17
     public List<PostListResponse> postListV5(HttpServletRequest request) {
 
@@ -146,16 +187,51 @@ public class PostController {
         post.setPost_title(request.title);
         post.setPost_text(request.content);
         post.setPrice(request.price);
+        Category category = new Category();
+        categoryService.UpdateCategory(category,request.getCategory());
+        post.setCategory(category);
+
 
         postService.savePost(post);
     }
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(Long post_id) {
-        Post post = postService.findPostByPostId(post_id);
+    public PostDetailResponse postDetails(@RequestParam Long postId) {
+        Post post = postService.findPostByPostId(postId);
         return new PostDetailResponse(post);
+
     }
+
+    //테스트용@@@@@@2
+    @GetMapping("/post/all")
+    public  List<PostListResponse> postDetails2() {
+        List<Post> all = postService.findAll();
+
+        List<PostListResponse> result = all.stream()
+                .map(p -> new PostListResponse(p))
+                .collect(Collectors.toList());
+
+        return result;
+
+    }
+
+
+    @GetMapping("/post/details2")
+    public PostListResponse postDetails2(@RequestParam Long postId) {
+        Post post = postService.findPostByPostId(postId);
+        return new PostListResponse(post);
+
+    }
+    //테스트용@@@@@@2
+
+
+
+
+
+
+
+
 
     // 찜 목록 구현 2월 21일
 //    @PostMapping("/post/liked")
@@ -172,11 +248,12 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+    @Data
     static class PostDetailResponse {
         private Long post_id;
         private String title;
         private String user_id;
-        private String category;
+        private CategoryType category;
         private String text;
         private Integer price;
 
@@ -184,7 +261,7 @@ public class PostController {
             this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.user_id = post.getWho_posted().getUser_id();
-            this.category = post.getCategory().toString();
+              this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
         }
@@ -210,7 +287,7 @@ public class PostController {
     static class AddPostRequest {
         private String title;
         private String user;
-        private String category;
+        private CategoryType category;
         private String content;
         private String time;
         private Integer price;
@@ -226,7 +303,7 @@ public class PostController {
 //        private Long id;
         private String title;
         // private String user;
-        //private String category;
+        private CategoryType category;
 //        private String content;
         private Integer price;
 
@@ -234,7 +311,7 @@ public class PostController {
         public PostListResponse(Post post) {
             title = post.getPost_title();
             // user = post.getWho_posted().getUser_id();
-            //category = post.getCategory().toString();
+            category = post.getCategory().getCategory_type();
 //            content = post.getPost_text();
             price = post.getPrice();
         }

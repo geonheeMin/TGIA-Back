@@ -3,6 +3,7 @@ package capstone.market.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.FetchMode;
 
 import javax.persistence.*;
 
@@ -25,7 +26,8 @@ public class Purchased {
     /**
      *
      */
-    @OneToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+//    @OneToOne
+//    @JoinColumn(name = "post_id")
+//    private Post post;
+
 }
