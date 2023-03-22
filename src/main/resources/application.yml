@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3306/market_v0?serverTimezone=UTC&characterEncoding=UTF-8
     # market_v0: 스키마 이름
     username: root
-    password: capstone
+    password: 6091
 
   jpa:
     hibernate:
@@ -28,3 +28,7 @@ logging:
     # hibernate 가 생성하는 sql 문을 모두 보여준다.
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+server:
+  address: 0.0.0.0
+  port: 8080
