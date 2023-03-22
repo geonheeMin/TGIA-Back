@@ -1,15 +1,27 @@
 package capstone.market.post_dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// 3월 18일 수정
+// 게시글 수정
 @Data
 public class PostForm {
     private Long id;
 //    게시글 수정시 게시물을 올린 사람의 정보는 수정할 일은 없을 것 같다.
 //    private Long who_posted;
     private Integer price;
-    private String post_title;
-    private String post_text;
+    private String title;
+    private String content;
     private Long department_id;
     private Long image_id;
+
+    public PostForm() {
+    }
+
+    public PostForm(PostForm postForm) {
+        this.price = postForm.getPrice();
+        this.title = postForm.getTitle();
+        this.content = postForm.getContent();
+    }
 }

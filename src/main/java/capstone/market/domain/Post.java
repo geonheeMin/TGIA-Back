@@ -36,6 +36,7 @@ public class Post {
 
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id")
     private Image image;
     // time
     // place

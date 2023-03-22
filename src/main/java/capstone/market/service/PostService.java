@@ -3,6 +3,7 @@ package capstone.market.service;
 import capstone.market.domain.CategoryType;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
+import capstone.market.post_dto.PostForm;
 import capstone.market.repository.PostRepository;
 
 
@@ -62,6 +63,12 @@ public class PostService {
     //@@@@@@@@@@@@@@@@@카테고리로 필터링@@@@@@@@@@@@@@@@@@@
 
 
-
-
+    // 3월 18일 추가
+    // 게시글 수정
+    public void update(PostForm request) {
+        Post post = postRepository.findOne(request.getId());
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
+    }
 }
