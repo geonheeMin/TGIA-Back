@@ -1,8 +1,10 @@
 package capstone.market.service;
 
 import capstone.market.domain.Image;
+import capstone.market.domain.Post;
 import capstone.market.filedata.UploadFile;
 import capstone.market.repository.ImageRepository;
+import capstone.market.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileService {
 
+    private final PostRepository postRepository;
     private final ImageRepository imageRepository;
     @Value("${file.dir}")
     private String fileDir;
@@ -34,8 +37,10 @@ public class FileService {
         return imageRepository.findByImageFilename(file_name);
     }
 
-    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
-        List<UploadFile> storeFileResult = new ArrayList<>();
+//    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+    public List<Image> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+//        List<UploadFile> storeFileResult = new ArrayList<>();
+        List<Image> storeFileResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
                 storeFileResult.add(storeFile(multipartFile));
@@ -44,7 +49,8 @@ public class FileService {
         return storeFileResult;
     }
 
-    public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
+//    public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
+    public Image storeFile(MultipartFile multipartFile) throws IOException {
         if (multipartFile.isEmpty()) {
             return null;
         }
@@ -57,7 +63,8 @@ public class FileService {
         Image image = new Image(storeFileName);
         imageRepository.save(image);
 
-        return new UploadFile(originalFilename, storeFileName);
+        return image;
+//        return new UploadFile(originalFilename, storeFileName);
     }
 
     private String createStoreFileName(String originalFilename) {

@@ -18,9 +18,14 @@ public class PostListResponse {
     public PostListResponse(Post post) {
         title = post.getPost_title();
         // user = post.getWho_posted().getUser_id();
-        category = post.getCategory().getCategory_type();
+//        category = post.getCategory().getCategory_type();
 //            content = post.getPost_text();
         price = post.getPrice();
-        image_filename = post.getImage().getImageFilename();
+//        image_filename = post.getImage().getImageFilename();
+        if (post.getImages().isEmpty()) {
+            image_filename = "null";
+        } else {
+            image_filename = post.getImages().get(0).getImageFilename();
+        }
     }
 }

@@ -1,9 +1,6 @@
 package capstone.market.controller;
 
-import capstone.market.domain.Category;
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
+import capstone.market.domain.*;
 import capstone.market.post_dto.PostForm;
 
 import capstone.market.post_dto.PostListResponse;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -260,14 +258,22 @@ public class PostController {
         private CategoryType category;
         private String text;
         private Integer price;
+        private List<String> images = new ArrayList<>();
 
         public PostDetailResponse(Post post) {
             this.post_id = post.getPostId();
             this.title = post.getPost_title();
             this.username = post.getWho_posted().getUsername();
-            this.category = post.getCategory().getCategory_type();
+//            this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
+            if (post.getImages().isEmpty()) {
+                images.add("hello world");
+            } else {
+                for (Image image : post.getImages()) {
+                    images.add(image.getImageFilename());
+                }
+            }
         }
     }
 
