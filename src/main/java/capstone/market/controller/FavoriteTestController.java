@@ -3,6 +3,7 @@ package capstone.market.controller;
 import capstone.market.domain.Favorite;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
+import capstone.market.post_dto.PostListResponse;
 import capstone.market.service.FavoriteService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
@@ -33,7 +34,7 @@ public class FavoriteTestController {
 
 
     @GetMapping("/profile/favorite_list")
-    public List<PostController.PostListResponse> listFavorite(@RequestParam("userId") Long userId) {
+    public List<PostListResponse> listFavorite(@RequestParam("userId") Long userId) {
         Member user = memberService.findOne(userId);
         List<Favorite> favorites = user.getFavorites();
 
@@ -47,8 +48,8 @@ public class FavoriteTestController {
 
         }
 
-        List<PostController.PostListResponse> result = posts.stream()
-                .map(p -> new PostController.PostListResponse(p))
+        List<PostListResponse> result = posts.stream()
+                .map(p -> new PostListResponse(p))
                 .collect(Collectors.toList());
 
         return result;

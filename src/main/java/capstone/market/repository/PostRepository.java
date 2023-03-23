@@ -30,8 +30,6 @@ public class PostRepository {
                 .getResultList();
     }
 
-    //testing
-    //testing
     //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@.setParameter("keyword", keyword)
     public List<Post> SearchByTitle(String keyword) {
 

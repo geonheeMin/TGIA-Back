@@ -6,6 +6,7 @@ import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.post_dto.PostForm;
 
+import capstone.market.post_dto.PostListResponse;
 import capstone.market.service.CategoryService;
 import capstone.market.service.FileService;
 import capstone.market.service.MemberService;
@@ -156,19 +157,19 @@ public class PostController {
     }
 
     //PostDetailResponse 이걸로 추후 바꿔야함 PostListResponse이거 대신에
-    @GetMapping("/post/list") // 2.17
-    public List<PostListResponse> postListV5(HttpServletRequest request) {
-
-        HttpSession session = request.getSession(false);
-
-        List<Post> posts = postService.findAll();
-
-        List<PostListResponse> result = posts.stream()
-                .map(p -> new PostListResponse(p))
-                .collect(Collectors.toList());
-
-        return result;
-    }
+//    @GetMapping("/post/list") // 2.17
+//    public List<PostListResponse> postListV5(HttpServletRequest request) {
+//
+//        HttpSession session = request.getSession(false);
+//
+//        List<Post> posts = postService.findAll();
+//
+//        List<PostListResponse> result = posts.stream()
+//                .map(p -> new PostListResponse(p))
+//                .collect(Collectors.toList());
+//
+//        return result;
+//    }
 
     @GetMapping("/post/list_all") // 2.17
     public List<PostListResponse> postListV6() {
@@ -255,7 +256,7 @@ public class PostController {
     static class PostDetailResponse {
         private Long post_id;
         private String title;
-        private String user_id;
+        private String username;
         private CategoryType category;
         private String text;
         private Integer price;
@@ -263,7 +264,7 @@ public class PostController {
         public PostDetailResponse(Post post) {
             this.post_id = post.getPostId();
             this.title = post.getPost_title();
-            this.user_id = post.getWho_posted().getUser_id();
+            this.username = post.getWho_posted().getUsername();
             this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
@@ -302,26 +303,7 @@ public class PostController {
         private String user_id;
     }
 
-    @Data
-    static class PostListResponse {
-//        private Long id;
-        private String title;
-        // private String user;
-        private CategoryType category;
-//        private String content;
-        private Integer price;
-        private String image_filename;
 
-
-        public PostListResponse(Post post) {
-            title = post.getPost_title();
-            // user = post.getWho_posted().getUser_id();
-            category = post.getCategory().getCategory_type();
-//            content = post.getPost_text();
-            price = post.getPrice();
-            //image_filename = post.getImage().getImageFilename();
-        }
-    }
 //    @GetMapping("/post/list")
 //    public PostListResponse postList() {
 //        postService.findPostByUserId();
