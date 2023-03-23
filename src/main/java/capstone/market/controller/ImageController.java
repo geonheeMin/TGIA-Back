@@ -45,11 +45,12 @@ public class ImageController {
     }
 
     @PostMapping("/image/send_images")
-    public List<String> uploadImages(@RequestParam("files") List<MultipartFile> files) throws IOException {
+//    public List<String> uploadImages(List<MultipartFile> images) throws IOException {
+    public List<String> uploadImages(List<MultipartFile> images) throws IOException {
         // 파일 처리 작업 수행
         List<String> filenames = new ArrayList<>();
 //        List<UploadFile> uploadFiles = fileService.storeFiles(files);
-        List<Image> uploadFiles = fileService.storeFiles(files);
+        List<Image> uploadFiles = fileService.storeFiles(images);
         for (Image uploadFile : uploadFiles) {
             filenames.add(uploadFile.getImageFilename());
         }

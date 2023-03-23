@@ -4,10 +4,7 @@ import capstone.market.domain.*;
 import capstone.market.post_dto.PostForm;
 
 import capstone.market.post_dto.PostListResponse;
-import capstone.market.service.CategoryService;
-import capstone.market.service.FileService;
-import capstone.market.service.MemberService;
-import capstone.market.service.PostService;
+import capstone.market.service.*;
 import capstone.market.session.SessionConst;
 import capstone.market.session.SessionManager;
 import lombok.Data;
@@ -32,6 +29,7 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final CategoryService categoryService;
+    private final ImageService imageService;
 
 
     private final SessionManager sessionManager;
@@ -199,6 +197,25 @@ public class PostController {
         postService.savePost(post);
     }
 
+    @PostMapping("/post/insert_image_test")
+    public void postAddImage (@RequestBody PostRequestImage request) {
+        Post post = new Post();
+
+        log.info("request_info = {}", request.getUser_id());
+        log.info("request_info.title = {}", request.getTitle());
+        post.setWho_posted(memberService.findOne(request.getUser_id()));
+        post.setPost_title(request.title);
+        post.setPost_text(request.content);
+        post.setPrice(request.price);
+//        Category category = new Category();
+//        categoryService.UpdateCategory(category,request.getCategory());
+//        post.setCategory(category);
+//        post.setImage(fileService.findImageFilename(request.image_file_name));
+        List<Image> images = imageService.findImages(request.getImages());
+        post.setImages(images);
+        postService.savePost(post);
+    }
+
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
@@ -293,6 +310,15 @@ public class PostController {
      *   date: time,
      *  },
      */
+    @Data
+    static class PostRequestImage {
+        private String title;
+        private Long user_id;
+        private String content;
+        private Integer price;
+        private List<String> images;
+    }
+
     @Data
     static class AddPostRequest {
         private String title;
