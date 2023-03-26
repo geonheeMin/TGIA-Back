@@ -4,9 +4,13 @@ import capstone.market.domain.CategoryType;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
 import capstone.market.post_dto.PostForm;
+import capstone.market.profile_dto.PostDetailDto;
+import capstone.market.profile_dto.SearchFilterDto;
+import capstone.market.repository.PostDataJpaRepository;
 import capstone.market.repository.PostRepository;
 
 
+import capstone.market.repository.PostRepositoryCustomImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final PostDataJpaRepository postDataJpaRepository;
+
 
 
 
@@ -61,6 +67,16 @@ public class PostService {
 
     }
     //@@@@@@@@@@@@@@@@@카테고리로 필터링@@@@@@@@@@@@@@@@@@@
+
+    //필터링 추가 3/23 @@@@@@@@ final version
+    public List<PostDetailDto> SearchFilter(SearchFilterDto searchFilterDto){
+
+        return postDataJpaRepository.searchFilter(searchFilterDto);
+
+    }
+
+
+    //필터링 추가 3/23 @@@@@@@@ final version
 
 
     // 3월 18일 추가

@@ -3,6 +3,8 @@ package capstone.market.controller;
 import capstone.market.domain.*;
 import capstone.market.post_dto.PostForm;
 
+import capstone.market.profile_dto.PostDetailDto;
+import capstone.market.profile_dto.SearchFilterDto;
 import capstone.market.service.*;
 import capstone.market.session.SessionConst;
 import capstone.market.session.SessionManager;
@@ -33,6 +35,21 @@ public class PostController {
     private final SessionManager sessionManager;
     private final FileService fileService;
 
+    //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
+    @GetMapping("/detailSearch")
+    public List<PostDetailDto> Search(@RequestBody SearchFilterDto searchFilterDto){
+
+        List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
+        return postDetailDtos;
+
+
+    }
+
+
+
+
+
+    //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
     @GetMapping("/category")
     public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {

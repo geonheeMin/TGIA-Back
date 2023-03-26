@@ -23,6 +23,8 @@ public class Post extends BaseEntity {
     private String post_title;
     private String post_text;
 
+    private Integer views;
+    private Integer likes;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Purchased purchased;
