@@ -1,6 +1,7 @@
 package capstone.market.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,8 +24,11 @@ public class Post extends BaseEntity {
     private String post_title;
     private String post_text;
 
-    private Integer views;
-    private Integer likes;
+
+
+    private Integer views = 0;
+
+    private Integer likes = 0;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Purchased purchased;

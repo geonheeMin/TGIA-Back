@@ -51,12 +51,12 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
         //BooleanExpression where = (BooleanExpression)whereBuilder.getValue();
 
         OrderSpecifier<?> order;
-        if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("recent")) {
-            order = post.createdDate.desc();
+        if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("views")) {
+            order = post.views.desc();
         } else if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("likes")) {
             order = post.likes.desc();
         } else {
-            order = post.views.desc();
+            order = post.createdDate.desc();
         }
         List<Post> posts = queryFactory
                 .selectFrom(post)
