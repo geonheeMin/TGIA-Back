@@ -1,19 +1,19 @@
 package capstone.market.repository;
 
+
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
+
+@Repository
 @Transactional
-public interface PostDataJpaRepository extends JpaRepository<Post, Long> {
+public interface PostDataJpaRepository extends JpaRepository<Post, Long> , PostRepositoryCustom{
     List<ChatRoom> findChatRoomsByPostId(Long postId);
-
-
-
 
 
 }

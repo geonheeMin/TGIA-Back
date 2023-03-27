@@ -1,8 +1,13 @@
 package capstone.market.controller;
 
 import capstone.market.domain.*;
+
 import capstone.market.post_dto.*;
 
+
+
+import capstone.market.profile_dto.PostDetailDto;
+import capstone.market.profile_dto.SearchFilterDto;
 import capstone.market.service.*;
 import capstone.market.session.SessionConst;
 import capstone.market.session.SessionManager;
@@ -28,12 +33,31 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final CategoryService categoryService;
+
     private final ImageService imageService;
+
+    private final DepartmentService departmentService;
+
 
 
     private final SessionManager sessionManager;
     private final FileService fileService;
 
+    //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
+    @GetMapping("/detailSearch")
+    public List<PostDetailDto> Search(@RequestBody SearchFilterDto searchFilterDto){
+
+        List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
+        return postDetailDtos;
+
+
+    }
+
+
+
+
+
+    //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
     @GetMapping("/category")
     public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {
@@ -192,6 +216,10 @@ public class PostController {
         Category category = new Category();
         categoryService.UpdateCategory(category,request.getCategory());
         post.setCategory(category);
+        Department department = new Department();
+        departmentService.UpdateDepartment(department,request.getDepartment());
+        post.setDepartment(department);
+
 //        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
@@ -218,8 +246,9 @@ public class PostController {
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(@RequestParam Long postId) {
+    public PostDetailResponse postDetails(@RequestParam Long postId,@RequestParam Long userId) {
         Post post = postService.findPostByPostId(postId);
+        postService.increaseViewCount(postId,userId);
         return new PostDetailResponse(post);
 
     }
@@ -254,6 +283,37 @@ public class PostController {
 
     // 게시물 상세 화면을 위한 dto
 
+    @Data
+    static class PostDetailResponse {
+        private Long post_id;
+        private String title;
+        private String user_id;
+        private CategoryType category;
+        private DepartmentType department;
+        private String text;
+        private Integer price;
+
+        private Integer views;
+        private Integer likes;
+        private LocationType locationType;
+        private String location_text;
+
+        public PostDetailResponse(Post post) {
+            this.post_id = post.getPostId();
+            this.title = post.getPost_title();
+            this.user_id = post.getWho_posted().getUser_id();
+            this.category = post.getCategory().getCategory_type();
+            this.text = post.getPost_text();
+            this.price = post.getPrice();
+            this.department = post.getDepartment().getDepartmentType();
+            this.views = post.getViews();
+            this.likes = post.getLikes();
+            this.locationType = post.getLocationType();
+            this.location_text = post.getLocation_text();
+        }
+    }
+
+
 
 
 //    static class PostLikedResponse {
@@ -271,4 +331,54 @@ public class PostController {
      *   date: time,
      *  },
      */
+
+    @Data
+    static class AddPostRequest {
+        private String title;
+        private Long user_id;
+        private CategoryType category;
+
+        private DepartmentType department;
+        private String content;
+//        private String time;
+        private Integer price;
+        private LocationType locationType;
+        private String location_text;
+//        private String image_file_name;
+    }
+    //
+    @Data
+    static class ForUserId {
+        private String user_id;
+    }
+
+    @Data
+    static class PostListResponse {
+//        private Long id;
+        private String title;
+        // private String user;
+        private CategoryType category;
+//        private String content;
+        private Integer price;
+        private String image_filename;
+
+
+        public PostListResponse(Post post) {
+            title = post.getPost_title();
+            // user = post.getWho_posted().getUser_id();
+            category = post.getCategory().getCategory_type();
+//            content = post.getPost_text();
+            price = post.getPrice();
+            //image_filename = post.getImage().getImageFilename();
+        }
+    }
+//    @GetMapping("/post/list")
+//    public PostListResponse postList() {
+//        postService.findPostByUserId();
+//    }
+//
+//    public Member findMe() {
+//
+//    }
+
 }
