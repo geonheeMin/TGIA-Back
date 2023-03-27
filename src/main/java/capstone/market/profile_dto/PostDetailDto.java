@@ -1,11 +1,11 @@
 package capstone.market.profile_dto;
 
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.DepartmentType;
-import capstone.market.domain.LocationType;
-import capstone.market.domain.Post;
+import capstone.market.domain.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +23,8 @@ public class PostDetailDto {
     private Integer likes;
     private LocationType locationType;
     private String location_text;
+    private List<String> images = new ArrayList<>();
+
 
 
     public PostDetailDto(Post post) {
@@ -37,5 +39,12 @@ public class PostDetailDto {
         this.likes = post.getLikes();
         this.locationType = post.getLocationType();
         this.location_text = post.getLocation_text();
+        if (post.getImages().isEmpty()) {
+            images.add("hello world");
+        } else {
+            for (Image image : post.getImages()) {
+                images.add(image.getImageFilename());
+            }
+        }
     }
 }

@@ -283,35 +283,35 @@ public class PostController {
 
     // 게시물 상세 화면을 위한 dto
 
-    @Data
-    static class PostDetailResponse {
-        private Long post_id;
-        private String title;
-        private String user_id;
-        private CategoryType category;
-        private DepartmentType department;
-        private String text;
-        private Integer price;
-
-        private Integer views;
-        private Integer likes;
-        private LocationType locationType;
-        private String location_text;
-
-        public PostDetailResponse(Post post) {
-            this.post_id = post.getPostId();
-            this.title = post.getPost_title();
-            this.user_id = post.getWho_posted().getUser_id();
-            this.category = post.getCategory().getCategory_type();
-            this.text = post.getPost_text();
-            this.price = post.getPrice();
-            this.department = post.getDepartment().getDepartmentType();
-            this.views = post.getViews();
-            this.likes = post.getLikes();
-            this.locationType = post.getLocationType();
-            this.location_text = post.getLocation_text();
-        }
-    }
+//    @Data
+//    static class PostDetailResponse {
+//        private Long post_id;
+//        private String title;
+//        private String user_id;
+//        private CategoryType category;
+//        private DepartmentType department;
+//        private String text;
+//        private Integer price;
+//
+//        private Integer views;
+//        private Integer likes;
+//        private LocationType locationType;
+//        private String location_text;
+//
+//        public PostDetailResponse(Post post) {
+//            this.post_id = post.getPostId();
+//            this.title = post.getPost_title();
+//            this.user_id = post.getWho_posted().getUser_id();
+//            this.category = post.getCategory().getCategory_type();
+//            this.text = post.getPost_text();
+//            this.price = post.getPrice();
+//            this.department = post.getDepartment().getDepartmentType();
+//            this.views = post.getViews();
+//            this.likes = post.getLikes();
+//            this.locationType = post.getLocationType();
+//            this.location_text = post.getLocation_text();
+//        }
+//    }
 
 
 
@@ -332,46 +332,45 @@ public class PostController {
      *  },
      */
 
-    @Data
-    static class AddPostRequest {
-        private String title;
-        private Long user_id;
-        private CategoryType category;
-
-        private DepartmentType department;
-        private String content;
-//        private String time;
-        private Integer price;
-        private LocationType locationType;
-        private String location_text;
-//        private String image_file_name;
-    }
-    //
-    @Data
-    static class ForUserId {
-        private String user_id;
-    }
-
-    @Data
-    static class PostListResponse {
-//        private Long id;
-        private String title;
-        // private String user;
-        private CategoryType category;
+//    @Data
+//    static class AddPostRequest {
+//        private String title;
+//        private Long user_id;
+//        private CategoryType category;
+//
+//        private DepartmentType department;
 //        private String content;
-        private Integer price;
-        private String image_filename;
+////        private String time;
+//        private Integer price;
+//
+////        private String image_file_name;
+//    }
+//    //
+//    @Data
+//    static class ForUserId {
+//        private String user_id;
+//    }
 
-
-        public PostListResponse(Post post) {
-            title = post.getPost_title();
-            // user = post.getWho_posted().getUser_id();
-            category = post.getCategory().getCategory_type();
-//            content = post.getPost_text();
-            price = post.getPrice();
-            //image_filename = post.getImage().getImageFilename();
-        }
-    }
+//    @Data
+//    static class PostListResponse {
+////        private Long id;
+//        private String title;
+//        // private String user;
+//        private CategoryType category;
+////        private String content;
+//        private Integer price;
+//        private String image_filename;
+//
+//
+//        public PostListResponse(Post post) {
+//            title = post.getPost_title();
+//            // user = post.getWho_posted().getUser_id();
+//            category = post.getCategory().getCategory_type();
+////            content = post.getPost_text();
+//            price = post.getPrice();
+//            //image_filename = post.getImage().getImageFilename();
+//        }
+//    }
 //    @GetMapping("/post/list")
 //    public PostListResponse postList() {
 //        postService.findPostByUserId();
