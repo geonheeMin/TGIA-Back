@@ -1,9 +1,8 @@
 package capstone.market.controller;
 
 import capstone.market.domain.*;
-import capstone.market.post_dto.PostForm;
+import capstone.market.post_dto.*;
 
-import capstone.market.post_dto.PostListResponse;
 import capstone.market.service.*;
 import capstone.market.session.SessionConst;
 import capstone.market.session.SessionManager;
@@ -187,9 +186,9 @@ public class PostController {
         log.info("request_info = {}", request.getUser_id());
         log.info("request_info.title = {}", request.getTitle());
         post.setWho_posted(memberService.findOne(request.getUser_id()));
-        post.setPost_title(request.title);
-        post.setPost_text(request.content);
-        post.setPrice(request.price);
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
         Category category = new Category();
         categoryService.UpdateCategory(category,request.getCategory());
         post.setCategory(category);
@@ -204,9 +203,9 @@ public class PostController {
         log.info("request_info = {}", request.getUser_id());
         log.info("request_info.title = {}", request.getTitle());
         post.setWho_posted(memberService.findOne(request.getUser_id()));
-        post.setPost_title(request.title);
-        post.setPost_text(request.content);
-        post.setPrice(request.price);
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
 //        Category category = new Category();
 //        categoryService.UpdateCategory(category,request.getCategory());
 //        post.setCategory(category);
@@ -237,20 +236,7 @@ public class PostController {
         return result;
 
     }
-
-
-    
-
-
     //테스트용@@@@@@2
-
-
-
-
-
-
-
-
 
     // 찜 목록 구현 2월 21일
 //    @PostMapping("/post/liked")
@@ -267,34 +253,9 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
-    @Data
-    static class PostDetailResponse {
-        private Long post_id;
-        private String title;
-        private String username;
-        private CategoryType category;
-        private String text;
-        private Integer price;
-        private List<String> images = new ArrayList<>();
 
-        public PostDetailResponse(Post post) {
-            this.post_id = post.getPostId();
-            this.title = post.getPost_title();
-            this.username = post.getWho_posted().getUsername();
-//            this.category = post.getCategory().getCategory_type();
-            this.text = post.getPost_text();
-            this.price = post.getPrice();
-            if (post.getImages().isEmpty()) {
-                images.add("hello world");
-            } else {
-                for (Image image : post.getImages()) {
-                    images.add(image.getImageFilename());
-                }
-            }
-        }
-    }
 
-    // 찜목록을 위한 dto
+
 //    static class PostLikedResponse {
 //        private
 //    }
@@ -310,38 +271,4 @@ public class PostController {
      *   date: time,
      *  },
      */
-    @Data
-    static class PostRequestImage {
-        private String title;
-        private Long user_id;
-        private String content;
-        private Integer price;
-        private List<String> images;
-    }
-
-    @Data
-    static class AddPostRequest {
-        private String title;
-        private Long user_id;
-        private CategoryType category;
-        private String content;
-//        private String time;
-        private Integer price;
-//        private String image_file_name;
-    }
-    //
-    @Data
-    static class ForUserId {
-        private String user_id;
-    }
-
-
-//    @GetMapping("/post/list")
-//    public PostListResponse postList() {
-//        postService.findPostByUserId();
-//    }
-//
-//    public Member findMe() {
-//
-//    }
 }
