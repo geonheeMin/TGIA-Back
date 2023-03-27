@@ -32,6 +32,11 @@ public class Post extends BaseEntity {
 
     private Integer likes = 0;
 
+    //위치
+    private LocationType locationType;
+    private String location_text;
+
+
     //이포스트를 조회한 유저 리스트
     @ElementCollection
     private Set<Long> viewedUserIds = new HashSet<>();

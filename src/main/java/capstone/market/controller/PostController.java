@@ -280,6 +280,8 @@ public class PostController {
 
         private Integer views;
         private Integer likes;
+        private LocationType locationType;
+        private String location_text;
 
         public PostDetailResponse(Post post) {
             this.post_id = post.getPostId();
@@ -291,6 +293,8 @@ public class PostController {
             this.department = post.getDepartment().getDepartmentType();
             this.views = post.getViews();
             this.likes = post.getLikes();
+            this.locationType = post.getLocationType();
+            this.location_text = post.getLocation_text();
         }
     }
 
@@ -320,6 +324,8 @@ public class PostController {
         private String content;
 //        private String time;
         private Integer price;
+        private LocationType locationType;
+        private String location_text;
 //        private String image_file_name;
     }
     //
