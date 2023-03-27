@@ -1,6 +1,8 @@
 package capstone.market.controller;
 
 import capstone.market.domain.*;
+import capstone.market.post_dto.PostDetailResponse;
+import capstone.market.post_dto.PostListResponse;
 import capstone.market.profile_dto.ProfileImageChangeDTO;
 import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.profile_dto.TrackUpdateDto;
@@ -21,11 +23,11 @@ public class ProfileController {
     private final TrackService trackService;
     //이게 지금 dto 널값 오류로 이게 안되고 아래꺼가 된다.
     @GetMapping("/post/buy_list")
-    public  List<PostController.PostDetailResponse> getBuyerList(@RequestParam Long userId) {
+    public  List<PostDetailResponse> getBuyerList(@RequestParam Long userId) {
 
         List<Post> buyList = postService.findBoughtListByUserId(userId);
-        List<PostController.PostDetailResponse> result = buyList.stream()
-                .map(p -> new PostController.PostDetailResponse(p))
+        List<PostDetailResponse> result = buyList.stream()
+                .map(p -> new PostDetailResponse(p))
                 .collect(Collectors.toList());
 
         return result;
@@ -33,11 +35,11 @@ public class ProfileController {
     }
     //@@@@테스트용  성공 유저의 구매리스트
     @GetMapping("/post/buy_list3")
-    public  List<PostController.PostListResponse> getBuyerList3(@RequestParam Long userId) {
+    public  List<PostListResponse> getBuyerList3(@RequestParam Long userId) {
 
         List<Post> buyList = postService.findBoughtListByUserId(userId);
-        List<PostController.PostListResponse> result = buyList.stream()
-                .map(p -> new PostController.PostListResponse(p))
+        List<PostListResponse> result = buyList.stream()
+                .map(p -> new PostListResponse(p))
                 .collect(Collectors.toList());
 
         return result;

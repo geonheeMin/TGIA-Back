@@ -1,15 +1,14 @@
 package capstone.market.controller;
 
-import capstone.market.domain.Category;
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
-import capstone.market.post_dto.PostForm;
+import capstone.market.domain.*;
 
-import capstone.market.service.CategoryService;
-import capstone.market.service.FileService;
-import capstone.market.service.MemberService;
-import capstone.market.service.PostService;
+import capstone.market.post_dto.*;
+
+
+
+import capstone.market.profile_dto.PostDetailDto;
+import capstone.market.profile_dto.SearchFilterDto;
+import capstone.market.service.*;
 import capstone.market.session.SessionConst;
 import capstone.market.session.SessionManager;
 import lombok.Data;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,10 +34,30 @@ public class PostController {
     private final MemberService memberService;
     private final CategoryService categoryService;
 
+    private final ImageService imageService;
+
+    private final DepartmentService departmentService;
+
+
 
     private final SessionManager sessionManager;
     private final FileService fileService;
 
+    //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
+    @GetMapping("/detailSearch")
+    public List<PostDetailDto> Search(@RequestBody SearchFilterDto searchFilterDto){
+
+        List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
+        return postDetailDtos;
+
+
+    }
+
+
+
+
+
+    //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
     @GetMapping("/category")
     public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {
@@ -156,19 +176,19 @@ public class PostController {
     }
 
     //PostDetailResponse 이걸로 추후 바꿔야함 PostListResponse이거 대신에
-    @GetMapping("/post/list") // 2.17
-    public List<PostListResponse> postListV5(HttpServletRequest request) {
-
-        HttpSession session = request.getSession(false);
-
-        List<Post> posts = postService.findAll();
-
-        List<PostListResponse> result = posts.stream()
-                .map(p -> new PostListResponse(p))
-                .collect(Collectors.toList());
-
-        return result;
-    }
+//    @GetMapping("/post/list") // 2.17
+//    public List<PostListResponse> postListV5(HttpServletRequest request) {
+//
+//        HttpSession session = request.getSession(false);
+//
+//        List<Post> posts = postService.findAll();
+//
+//        List<PostListResponse> result = posts.stream()
+//                .map(p -> new PostListResponse(p))
+//                .collect(Collectors.toList());
+//
+//        return result;
+//    }
 
     @GetMapping("/post/list_all") // 2.17
     public List<PostListResponse> postListV6() {
@@ -190,21 +210,45 @@ public class PostController {
         log.info("request_info = {}", request.getUser_id());
         log.info("request_info.title = {}", request.getTitle());
         post.setWho_posted(memberService.findOne(request.getUser_id()));
-        post.setPost_title(request.title);
-        post.setPost_text(request.content);
-        post.setPrice(request.price);
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
         Category category = new Category();
         categoryService.UpdateCategory(category,request.getCategory());
         post.setCategory(category);
+        Department department = new Department();
+        departmentService.UpdateDepartment(department,request.getDepartment());
+        post.setDepartment(department);
+
 //        post.setImage(fileService.findImageFilename(request.image_file_name));
+        postService.savePost(post);
+    }
+
+    @PostMapping("/post/insert_image_test")
+    public void postAddImage (@RequestBody PostRequestImage request) {
+        Post post = new Post();
+
+        log.info("request_info = {}", request.getUser_id());
+        log.info("request_info.title = {}", request.getTitle());
+        post.setWho_posted(memberService.findOne(request.getUser_id()));
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
+//        Category category = new Category();
+//        categoryService.UpdateCategory(category,request.getCategory());
+//        post.setCategory(category);
+//        post.setImage(fileService.findImageFilename(request.image_file_name));
+        List<Image> images = imageService.findImages(request.getImages());
+        post.setImages(images);
         postService.savePost(post);
     }
 
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(@RequestParam Long postId) {
+    public PostDetailResponse postDetails(@RequestParam Long postId,@RequestParam Long userId) {
         Post post = postService.findPostByPostId(postId);
+        postService.increaseViewCount(postId,userId);
         return new PostDetailResponse(post);
 
     }
@@ -221,20 +265,7 @@ public class PostController {
         return result;
 
     }
-
-
-    
-
-
     //테스트용@@@@@@2
-
-
-
-
-
-
-
-
 
     // 찜 목록 구현 2월 21일
 //    @PostMapping("/post/liked")
@@ -251,14 +282,21 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+
     @Data
     static class PostDetailResponse {
         private Long post_id;
         private String title;
         private String user_id;
         private CategoryType category;
+        private DepartmentType department;
         private String text;
         private Integer price;
+
+        private Integer views;
+        private Integer likes;
+        private LocationType locationType;
+        private String location_text;
 
         public PostDetailResponse(Post post) {
             this.post_id = post.getPostId();
@@ -267,10 +305,17 @@ public class PostController {
             this.category = post.getCategory().getCategory_type();
             this.text = post.getPost_text();
             this.price = post.getPrice();
+            this.department = post.getDepartment().getDepartmentType();
+            this.views = post.getViews();
+            this.likes = post.getLikes();
+            this.locationType = post.getLocationType();
+            this.location_text = post.getLocation_text();
         }
     }
 
-    // 찜목록을 위한 dto
+
+
+
 //    static class PostLikedResponse {
 //        private
 //    }
@@ -286,14 +331,19 @@ public class PostController {
      *   date: time,
      *  },
      */
+
     @Data
     static class AddPostRequest {
         private String title;
         private Long user_id;
         private CategoryType category;
+
+        private DepartmentType department;
         private String content;
 //        private String time;
         private Integer price;
+        private LocationType locationType;
+        private String location_text;
 //        private String image_file_name;
     }
     //
@@ -330,4 +380,5 @@ public class PostController {
 //    public Member findMe() {
 //
 //    }
+
 }

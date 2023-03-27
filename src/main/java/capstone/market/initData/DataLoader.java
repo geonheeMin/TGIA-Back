@@ -36,6 +36,9 @@ public class DataLoader {
     ChatService chatService;
     @Autowired
     private CategoryJpaRepository categoryJpaRepository;
+    @Autowired
+    private FavoriteJpaRepository favoriteJpaRepository;
+
 
     /*
     @PostConstruct
@@ -80,6 +83,8 @@ public class DataLoader {
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
 
+
+
         memberRepository.save(memberA);
         memberRepository.save(memberB);
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
@@ -98,6 +103,8 @@ public class DataLoader {
         post2.setPrice(10000);
         post3.setPrice(10000);
         post4.setPrice(10000);
+
+
 
 
         //구매목록 하나 만들기
@@ -126,6 +133,12 @@ public class DataLoader {
         post2.setCategory(post2category);
         post3.setCategory(post3category);
         post4.setCategory(post4category);
+
+        post1.setDepartment(department);
+        post2.setDepartment(department);
+        post3.setDepartment(department);
+        post4.setDepartment(department);
+
 
 
 

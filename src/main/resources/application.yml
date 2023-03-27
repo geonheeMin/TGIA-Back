@@ -1,5 +1,6 @@
 # 이미지를 저장시킬 백엔드 디렉토리
-file.dir: /Users/son/Desktop/upload/
+#file.dir: /Users/son/Desktop/upload/
+file.dir: /home/ubuntu/uploads/
 
 spring:
   datasource:
@@ -29,6 +30,6 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
 
-server:
-  address: 0.0.0.0
-  port: 8080
+#server:
+#  address: 0.0.0.0
+#  port: 8080
