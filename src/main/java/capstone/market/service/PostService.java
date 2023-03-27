@@ -75,6 +75,17 @@ public class PostService {
 
     }
 
+    public void increaseViewCount(Long postId, Long userId){
+        Post findPost = postRepository.findOne(postId);
+        if(findPost != null){
+            if(!findPost.getViewedUserIds().contains(userId)){
+                findPost.setViews(findPost.getViews()+1);
+                findPost.getViewedUserIds().add(userId);
+                postRepository.savePost(findPost);
+            }
+        }
+    }
+
 
     //필터링 추가 3/23 @@@@@@@@ final version
 

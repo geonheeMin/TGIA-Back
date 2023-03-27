@@ -5,7 +5,9 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -29,6 +31,10 @@ public class Post extends BaseEntity {
     private Integer views = 0;
 
     private Integer likes = 0;
+
+    //이포스트를 조회한 유저 리스트
+    @ElementCollection
+    private Set<Long> viewedUserIds = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     private Purchased purchased;

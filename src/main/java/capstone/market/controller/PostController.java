@@ -219,8 +219,9 @@ public class PostController {
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(@RequestParam Long postId) {
+    public PostDetailResponse postDetails(@RequestParam Long postId,@RequestParam Long userId) {
         Post post = postService.findPostByPostId(postId);
+        postService.increaseViewCount(postId,userId);
         return new PostDetailResponse(post);
 
     }
@@ -277,6 +278,9 @@ public class PostController {
         private String text;
         private Integer price;
 
+        private Integer views;
+        private Integer likes;
+
         public PostDetailResponse(Post post) {
             this.post_id = post.getPostId();
             this.title = post.getPost_title();
@@ -285,6 +289,8 @@ public class PostController {
             this.text = post.getPost_text();
             this.price = post.getPrice();
             this.department = post.getDepartment().getDepartmentType();
+            this.views = post.getViews();
+            this.likes = post.getLikes();
         }
     }
 
