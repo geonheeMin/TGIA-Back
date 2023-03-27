@@ -1,6 +1,8 @@
 package capstone.market.post_dto;
 
 import capstone.market.domain.CategoryType;
+import capstone.market.domain.DepartmentType;
+import capstone.market.domain.LocationType;
 import lombok.Data;
 
 @Data
@@ -11,5 +13,9 @@ public class AddPostRequest {
     private String content;
     //        private String time;
     private Integer price;
+
+    private DepartmentType department;
+    private LocationType locationType;
+    private String location_text;
 //        private String image_file_name;
 }

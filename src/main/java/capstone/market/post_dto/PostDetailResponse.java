@@ -2,6 +2,7 @@ package capstone.market.post_dto;
 
 import capstone.market.domain.CategoryType;
 import capstone.market.domain.Image;
+import capstone.market.domain.LocationType;
 import capstone.market.domain.Post;
 import lombok.Data;
 
@@ -17,6 +18,12 @@ public class PostDetailResponse {
     private String text;
     private Integer price;
     private List<String> images = new ArrayList<>();
+    private Integer views;
+    private Integer likes;
+    private LocationType locationType;
+    private String location_text;
+
+
 
     public PostDetailResponse(Post post) {
         this.post_id = post.getPostId();
@@ -25,6 +32,10 @@ public class PostDetailResponse {
 //            this.category = post.getCategory().getCategory_type();
         this.text = post.getPost_text();
         this.price = post.getPrice();
+        this.views = post.getViews();
+        this.likes = post.getLikes();
+        this.locationType = post.getLocationType();
+        this.location_text = post.getLocation_text();
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {
