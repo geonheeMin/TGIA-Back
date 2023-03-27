@@ -1,7 +1,10 @@
 package capstone.market.controller;
 
 import capstone.market.domain.*;
-import capstone.market.post_dto.PostForm;
+
+import capstone.market.post_dto.*;
+
+
 
 import capstone.market.profile_dto.PostDetailDto;
 import capstone.market.profile_dto.SearchFilterDto;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +33,11 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final CategoryService categoryService;
+
+    private final ImageService imageService;
+
     private final DepartmentService departmentService;
+
 
 
     private final SessionManager sessionManager;
@@ -168,19 +176,19 @@ public class PostController {
     }
 
     //PostDetailResponse 이걸로 추후 바꿔야함 PostListResponse이거 대신에
-    @GetMapping("/post/list") // 2.17
-    public List<PostListResponse> postListV5(HttpServletRequest request) {
-
-        HttpSession session = request.getSession(false);
-
-        List<Post> posts = postService.findAll();
-
-        List<PostListResponse> result = posts.stream()
-                .map(p -> new PostListResponse(p))
-                .collect(Collectors.toList());
-
-        return result;
-    }
+//    @GetMapping("/post/list") // 2.17
+//    public List<PostListResponse> postListV5(HttpServletRequest request) {
+//
+//        HttpSession session = request.getSession(false);
+//
+//        List<Post> posts = postService.findAll();
+//
+//        List<PostListResponse> result = posts.stream()
+//                .map(p -> new PostListResponse(p))
+//                .collect(Collectors.toList());
+//
+//        return result;
+//    }
 
     @GetMapping("/post/list_all") // 2.17
     public List<PostListResponse> postListV6() {
@@ -202,9 +210,9 @@ public class PostController {
         log.info("request_info = {}", request.getUser_id());
         log.info("request_info.title = {}", request.getTitle());
         post.setWho_posted(memberService.findOne(request.getUser_id()));
-        post.setPost_title(request.title);
-        post.setPost_text(request.content);
-        post.setPrice(request.price);
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
         Category category = new Category();
         categoryService.UpdateCategory(category,request.getCategory());
         post.setCategory(category);
@@ -213,6 +221,25 @@ public class PostController {
         post.setDepartment(department);
 
 //        post.setImage(fileService.findImageFilename(request.image_file_name));
+        postService.savePost(post);
+    }
+
+    @PostMapping("/post/insert_image_test")
+    public void postAddImage (@RequestBody PostRequestImage request) {
+        Post post = new Post();
+
+        log.info("request_info = {}", request.getUser_id());
+        log.info("request_info.title = {}", request.getTitle());
+        post.setWho_posted(memberService.findOne(request.getUser_id()));
+        post.setPost_title(request.getTitle());
+        post.setPost_text(request.getContent());
+        post.setPrice(request.getPrice());
+//        Category category = new Category();
+//        categoryService.UpdateCategory(category,request.getCategory());
+//        post.setCategory(category);
+//        post.setImage(fileService.findImageFilename(request.image_file_name));
+        List<Image> images = imageService.findImages(request.getImages());
+        post.setImages(images);
         postService.savePost(post);
     }
 
@@ -238,20 +265,7 @@ public class PostController {
         return result;
 
     }
-
-
-    
-
-
     //테스트용@@@@@@2
-
-
-
-
-
-
-
-
 
     // 찜 목록 구현 2월 21일
 //    @PostMapping("/post/liked")
@@ -268,6 +282,7 @@ public class PostController {
 //    }
 
     // 게시물 상세 화면을 위한 dto
+
     @Data
     static class PostDetailResponse {
         private Long post_id;
@@ -298,7 +313,9 @@ public class PostController {
         }
     }
 
-    // 찜목록을 위한 dto
+
+
+
 //    static class PostLikedResponse {
 //        private
 //    }
@@ -314,6 +331,7 @@ public class PostController {
      *   date: time,
      *  },
      */
+
     @Data
     static class AddPostRequest {
         private String title;
@@ -362,4 +380,5 @@ public class PostController {
 //    public Member findMe() {
 //
 //    }
+
 }

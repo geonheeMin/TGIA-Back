@@ -51,10 +51,12 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @OneToMany(mappedBy = "post")
+    private List<Image> images = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "image_id")
+//    private Image image;
     // time
     // place
     // depart
@@ -71,12 +73,18 @@ public class Post extends BaseEntity {
         this.post_text = post_text;
     }
 
-    public Post(Member who_posted, Category category, Integer price, String post_title, String post_text, Image image) {
+    public Post(Member who_posted, Category category, Integer price, String post_title, String post_text) {
         this.who_posted = who_posted;
        this.category = category;
         this.price = price;
         this.post_title = post_title;
         this.post_text = post_text;
-        this.image = image;
+//        this.image = image;
+    }
+
+    public void setImages(List<Image> images) {
+        for (Image image : images) {
+            image.setPost(this);
+        }
     }
 }

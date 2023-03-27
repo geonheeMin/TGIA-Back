@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,13 +34,27 @@ public class ImageController {
 
     @CrossOrigin("*")
     @PostMapping("/send_image_native")
-    public String sendImageFromNative(@RequestBody MultipartFile image) throws IOException {
+    public void sendImageFromNative(@RequestBody MultipartFile image) throws IOException {
 
         System.out.println("file.getInputStream() = " + image.getInputStream());
 //        System.out.println("post.getResource() = " + image.getResource());
 
-        UploadFile attachFile = fileService.storeFile(image);
-        return attachFile.getStoreFileName();
+//        UploadFile attachFile = fileService.storeFile(image);
+        fileService.storeFile(image);
+//        return attachFile.getStoreFileName();
+    }
+
+    @PostMapping("/image/send_images")
+//    public List<String> uploadImages(List<MultipartFile> images) throws IOException {
+    public List<String> uploadImages(List<MultipartFile> images) throws IOException {
+        // 파일 처리 작업 수행
+        List<String> filenames = new ArrayList<>();
+//        List<UploadFile> uploadFiles = fileService.storeFiles(files);
+        List<Image> uploadFiles = fileService.storeFiles(images);
+        for (Image uploadFile : uploadFiles) {
+            filenames.add(uploadFile.getImageFilename());
+        }
+        return filenames;
     }
 
     @ResponseBody
