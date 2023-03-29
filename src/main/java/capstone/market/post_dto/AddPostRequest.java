@@ -5,6 +5,8 @@ import capstone.market.domain.DepartmentType;
 import capstone.market.domain.LocationType;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class AddPostRequest {
     private String title;
@@ -18,4 +20,5 @@ public class AddPostRequest {
     private LocationType locationType;
     private String location_text;
 //        private String image_file_name;
+    private List<String> images;
 }

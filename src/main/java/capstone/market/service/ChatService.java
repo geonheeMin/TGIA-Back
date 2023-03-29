@@ -35,11 +35,18 @@ public class ChatService {
     }
 
     public ChatRoom startChatRoomService(Post post, Member member) {
+        List<ChatRoom> chatRooms = post.getChatRooms();
+        for (ChatRoom chatRoom : chatRooms) {
+            if (chatRoom.getMember() == member) {
+                return chatRoom;
+            }
+        }
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
         chatRoom.setMember(member);
         chatRoomRepository.save(chatRoom);
         // 기존 채팅이 있는지 없는 지
+
         return chatRoom;
     }
 
@@ -57,5 +64,10 @@ public class ChatService {
 
     public List<ChatMessage> getChatLists(Long id) {
         return chatMessageRepository.findByChatRoomId(id);
+    }
+
+    public String createHourMinuteString(ChatMessage chatMessage) {
+        LocalDateTime dateTime = chatMessage.getTime();
+        return dateTime.getHour() + "시 " + dateTime.getMinute() + "분";
     }
 }

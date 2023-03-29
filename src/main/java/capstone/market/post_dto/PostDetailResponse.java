@@ -1,11 +1,10 @@
 package capstone.market.post_dto;
 
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.Image;
-import capstone.market.domain.LocationType;
-import capstone.market.domain.Post;
+import capstone.market.domain.*;
 import lombok.Data;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
 public class PostDetailResponse {
     private Long post_id;
     private String title;
-    private String username;
+    private String writer;
     private CategoryType category;
     private String text;
     private Integer price;
@@ -22,20 +21,27 @@ public class PostDetailResponse {
     private Integer likes;
     private LocationType locationType;
     private String location_text;
+    private Long member_id;
 
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
 
     public PostDetailResponse(Post post) {
         this.post_id = post.getPostId();
         this.title = post.getPost_title();
-        this.username = post.getWho_posted().getUsername();
-//            this.category = post.getCategory().getCategory_type();
+        this.member_id = post.getWho_posted().getId();
+        this.writer = post.getWho_posted().getUsername();
+        this.category = post.getCategory().getCategory_type();
         this.text = post.getPost_text();
         this.price = post.getPrice();
         this.views = post.getViews();
         this.likes = post.getLikes();
         this.locationType = post.getLocationType();
         this.location_text = post.getLocation_text();
+        this.createdDate = post.getCreatedDate();
+        this.modifiedDate = post.getModifiedDate();
+
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {

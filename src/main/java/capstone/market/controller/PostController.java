@@ -49,8 +49,6 @@ public class PostController {
 
         List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
         return postDetailDtos;
-
-
     }
 
 
@@ -220,6 +218,8 @@ public class PostController {
         departmentService.UpdateDepartment(department,request.getDepartment());
         post.setDepartment(department);
 
+        List<Image> images = imageService.findImages(request.getImages());
+        post.setImages(images);
 //        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }

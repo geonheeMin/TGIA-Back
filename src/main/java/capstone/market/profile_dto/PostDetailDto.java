@@ -4,16 +4,17 @@ import capstone.market.domain.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class PostDetailDto {
+public class PostDetailDto{
 
     private Long post_id;
     private String title;
-    private String user_id;
+    private Long member_id;
     private CategoryType category;
     private DepartmentType department;
     private String text;
@@ -24,13 +25,14 @@ public class PostDetailDto {
     private LocationType locationType;
     private String location_text;
     private List<String> images = new ArrayList<>();
-
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
 
     public PostDetailDto(Post post) {
         this.post_id = post.getPostId();
         this.title = post.getPost_title();
-        this.user_id = post.getWho_posted().getUser_id();
+        this.member_id = post.getWho_posted().getId();
         this.category = post.getCategory().getCategory_type();
         this.text = post.getPost_text();
         this.price = post.getPrice();
@@ -39,6 +41,8 @@ public class PostDetailDto {
         this.likes = post.getLikes();
         this.locationType = post.getLocationType();
         this.location_text = post.getLocation_text();
+        this.createdDate = post.getCreatedDate();
+        this.modifiedDate = post.getModifiedDate();
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {
