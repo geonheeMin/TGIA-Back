@@ -54,6 +54,7 @@ public class ChatService {
         ChatMessage chatMessage = new ChatMessage(chatRoom, member, message, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         chatMessage.setMember(member);
         chatMessage.setChatRoom(chatRoom);
+        chatMessage.setLooked(false);
         chatMessageRepository.save(chatMessage);
         return chatMessage;
     }
@@ -62,8 +63,13 @@ public class ChatService {
         return chatRoomRepository.findByPostPostId(id);
     }
 
-    public List<ChatMessage> getChatLists(Long id) {
-        return chatMessageRepository.findByChatRoomId(id);
+    public List<ChatMessage> getChatLists(Long id, Long member_id) {
+        List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
+        for (ChatMessage chatMessage : chatMessages) {
+            if (chatMessage.getMember().getId() != member_id)
+                chatMessage.setLooked(true);
+        }
+        return chatMessages;
     }
 
     public String createHourMinuteString(ChatMessage chatMessage) {

@@ -12,6 +12,7 @@ public class ChatMessageResponseDTO {
     String message;
     String time;
     Long chatroom_id;
+    Boolean looked;
 
     public ChatMessageResponseDTO(ChatMessage chatMessage) {
         this.sender = chatMessage.getMember().getId();
@@ -19,6 +20,7 @@ public class ChatMessageResponseDTO {
         this.message = chatMessage.getMessage();
         this.chatroom_id = chatMessage.getChatRoom().getId();
         this.time = createHourMinuteString(chatMessage);
+        this.looked = chatMessage.getLooked();
     }
 
     private String createHourMinuteString(ChatMessage chatMessage) {

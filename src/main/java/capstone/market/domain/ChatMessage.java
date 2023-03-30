@@ -25,6 +25,8 @@ public class ChatMessage {
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private Member member;
+    @Column(name = "looked")
+    private Boolean looked;
 
     LocalDateTime time;
 

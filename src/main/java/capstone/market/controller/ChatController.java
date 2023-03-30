@@ -43,8 +43,8 @@ public class ChatController {
     // 채팅방에 저장된 채팅 메시지 내역을 가져옵니다.
     // 채팅방(ChatRoom) id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_message_list")
-    public List<ChatMessageResponseDTO> getChatMessageList(Long id) {
-        List<ChatMessage> chatLists = chatService.getChatLists(id);
+    public List<ChatMessageResponseDTO> getChatMessageList(Long id, Long member_id) {
+        List<ChatMessage> chatLists = chatService.getChatLists(id, member_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
         for (ChatMessage chatMessage : chatLists) {
@@ -72,24 +72,6 @@ public class ChatController {
         Member member = chatService.findMemberByMemberId(member_id);
 
         ChatRoom chatRoom = chatService.startChatRoomService(post, member);
-
-//        List<ChatMessage> chatLists = chatService.getChatLists(chatRoom.getId());
-//        List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
-//
-//        if (chatLists.isEmpty()) {
-//            ChatMessage chatMessage = new ChatMessage();
-//            chatMessage.setMember(member);
-//            chatMessage.setChatRoom(chatRoom);
-//            chatMessage.setTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
-//            chatMessageResponseDTOS.add(new ChatMessageResponseDTO(chatMessage));
-//            return chatMessageResponseDTOS;
-//        }
-//
-//        for (ChatMessage chatMessage : chatLists) {
-//            chatMessageResponseDTOS.add(new ChatMessageResponseDTO(chatMessage));
-//        }
-//
-//        return chatMessageResponseDTOS;
 
         return new ChatRoomResponseDTO(chatRoom);
     }
@@ -126,7 +108,7 @@ public class ChatController {
         // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
 
 
-        List<ChatMessage> chatLists = chatService.getChatLists(chatroom_id);
+        List<ChatMessage> chatLists = chatService.getChatLists(chatroom_id, sender_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
         for (ChatMessage chatMessage2 : chatLists) {
