@@ -2,6 +2,7 @@ package capstone.market.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class Post extends BaseEntity {
     @ElementCollection
     private Set<Long> viewedUserIds = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToOne(fetch = FetchType.LAZY)
+    @Nullable
     private Purchased purchased;
 
     @OneToMany(mappedBy = "post")

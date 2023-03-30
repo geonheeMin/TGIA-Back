@@ -4,6 +4,7 @@ import capstone.market.domain.Favorite;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.post_dto.PostListResponse;
+import capstone.market.profile_dto.PostDetailDto;
 import capstone.market.service.FavoriteService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
@@ -67,7 +68,7 @@ public class FavoriteController {
 
     //내 좋아요 리스트 => 좋아요가 선택된 리스트
     @GetMapping("/profile/favorite_list")
-    public List<PostListResponse> listFavorite(@RequestParam("userId") Long userId) {
+    public List<PostDetailDto> listFavorite(@RequestParam("userId") Long userId) {
         Member user = memberService.findOne(userId);
         List<Favorite> favorites = user.getFavorites();
 
@@ -80,8 +81,8 @@ public class FavoriteController {
             posts.add(postService.findPostByPostId(postId));
 
         }
-                List<PostListResponse> result = posts.stream()
-                .map(p -> new PostListResponse(p))
+                List<PostDetailDto> result = posts.stream()
+                .map(p -> new PostDetailDto(p))
                 .collect(Collectors.toList());
 
         return result;

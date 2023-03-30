@@ -3,6 +3,7 @@ package capstone.market.controller;
 import capstone.market.domain.*;
 import capstone.market.post_dto.PostDetailResponse;
 import capstone.market.post_dto.PostListResponse;
+import capstone.market.profile_dto.EvaluationDto;
 import capstone.market.profile_dto.ProfileImageChangeDTO;
 import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.profile_dto.TrackUpdateDto;
@@ -33,6 +34,20 @@ public class ProfileController {
         return result;
 
     }
+
+    @GetMapping("/post/buy_list/evaluate")
+    public void evaluateMember (@RequestBody EvaluationDto evaluationDto) {
+
+        Integer evaluation = evaluationDto.getEvaluation();
+        Member findMember = memberService.findOne(evaluationDto.getSell_userId());
+        findMember.setMannerscore(findMember.getMannerscore() + evaluation);
+        memberService.join(findMember);
+
+    }
+
+
+
+
     //@@@@테스트용  성공 유저의 구매리스트
     @GetMapping("/post/buy_list3")
     public  List<PostListResponse> getBuyerList3(@RequestParam Long userId) {

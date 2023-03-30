@@ -3,6 +3,7 @@ package capstone.market.profile_dto;
 import capstone.market.domain.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

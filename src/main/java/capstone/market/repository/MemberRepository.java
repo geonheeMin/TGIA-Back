@@ -1,6 +1,7 @@
 package capstone.market.repository;
 
 import capstone.market.domain.Member;
+import capstone.market.profile_dto.EvaluationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,8 @@ public class MemberRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+
 
     // 찜 목록 추가 함수
 //    public void addLiked(Post post, Long id) {

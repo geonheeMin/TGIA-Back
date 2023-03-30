@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.util.UUID;
 
 @Component
 @Slf4j
@@ -60,9 +62,14 @@ public class DataLoader {
 
     @PostConstruct
     public void init() {
+
+
+
         Member memberA = new Member("memberA");
         memberA.setUsername("건희");
         Member memberB = new Member("memberB");
+        Member memberD = new Member("memberD");
+        memberD.setUsername("아톰");
         memberB.setUsername("영식");
         Member memberC = new Member("memberC");
         memberC.setUsername("용기");
@@ -89,6 +96,7 @@ public class DataLoader {
 
         memberA.setFirstTrack(firstTrack);
         memberA.setSecondTrack(secondTrack);
+       // memberA.setImage(image1);
 
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
@@ -113,7 +121,11 @@ public class DataLoader {
         post1.setWho_posted(memberA);
         post2.setWho_posted(memberA);
         post3.setWho_posted(memberB);
-        post4.setWho_posted(memberB);
+        post4.setWho_posted(memberD);
+
+//        Image image = new Image();
+//        image.setImageFilename("1.png");
+//        imageRepository.save(image);
 
         post1.setPrice(10000);
         post2.setPrice(10000);
@@ -175,7 +187,10 @@ public class DataLoader {
         postRepository.savePost(post4);
 
 
+
+
     }
+
 
 
     /*
