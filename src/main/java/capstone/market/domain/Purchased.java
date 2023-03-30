@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.FetchMode;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ public class Purchased {
     @Id @GeneratedValue
     private Long id;
     private String productName;
+//    private Category category;
     private Integer price;
 
     /**
@@ -21,6 +23,7 @@ public class Purchased {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
+    @Nullable
     private Member member;
 
     /**

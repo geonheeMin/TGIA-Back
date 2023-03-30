@@ -7,6 +7,7 @@ import capstone.market.post_dto.*;
 
 
 import capstone.market.profile_dto.PostDetailDto;
+import capstone.market.profile_dto.PostSellDetailDto;
 import capstone.market.profile_dto.SearchFilterDto;
 import capstone.market.service.*;
 import capstone.market.session.SessionConst;
@@ -14,6 +15,7 @@ import capstone.market.session.SessionManager;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +40,6 @@ public class PostController {
 
     private final DepartmentService departmentService;
 
-
-
     private final SessionManager sessionManager;
     private final FileService fileService;
 
@@ -49,13 +49,7 @@ public class PostController {
 
         List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
         return postDetailDtos;
-
-
     }
-
-
-
-
 
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
@@ -63,7 +57,6 @@ public class PostController {
     public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {
 
         List<Post> posts = postService.SearchByCategory(category);
-
 
         List<PostListResponse> result = posts.stream()
                 .map(p -> new PostListResponse(p))
@@ -159,21 +152,60 @@ public class PostController {
         return result;
     }
 
-    @GetMapping("/post/my_list") // 2.17 -> 판매 목록
-    public List<PostListResponse> findMyPostList(HttpServletRequest request) {
+    //@@@@@@@@@@@@@@@@@@@@@@내가 올린 게시글 == 내가 판매중인 게시글 @@@@@@@@@@@@
+    @GetMapping("/post/my_list") // 2.17 -> 판매중인 목록
+    @Nullable
+    public List<PostDetailDto> findMyPostList(@RequestParam Long userId) {
 
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        log.info("COOKIE! = {}", member.getUser_id());
+        Member findMember = memberService.findOne(userId);
 
-        List<Post> posts = postService.findPostByUserId(member.getUser_id());
+        List<Post> posts = postService.findPostByUserId(findMember.getUser_id());
 
-        List<PostListResponse> result = posts.stream()
-                .map(p -> new PostListResponse(p))
+
+        List<Post> myListPosts = new ArrayList<>();
+
+        for(Post post : posts){
+
+        if(post.getPurchased()==null){
+            myListPosts.add(postService.findPostByPostId(post.getPostId()));
+        }
+        }
+        List<PostDetailDto> result = myListPosts.stream()
+                .map(p -> new PostDetailDto(p))
                 .collect(Collectors.toList());
 
         return result;
     }
+    //@@@@@@@@@@@@@@@@@@@@@@내가 올린 게시글 == 내가 판매중인 게시글 @@@@@@@@@@@@
+
+    //@@@@@@@@@@@@@@@@@@@@@@내가 판매 완료한 게시글 @@@@@@@@@@@@
+    @GetMapping("/post/my_SellList") //
+    public List<PostSellDetailDto> findMySellPostList(@RequestParam Long userId) {
+
+        Member findMember = memberService.findOne(userId);
+
+        List<Post> posts = postService.findPostByUserId(findMember.getUser_id());
+
+
+        List<Post> mySellListPosts = new ArrayList<>();
+
+        for(Post post : posts){
+
+            if(post.getPurchased() != null){
+                mySellListPosts.add(postService.findPostByPostId(post.getPostId()));
+            }
+        }
+
+
+        List<PostSellDetailDto> result = mySellListPosts.stream()
+                .map(p -> new PostSellDetailDto(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+
+    //@@@@@@@@@@@@@@@@@@@@@@내가 판매 완료한 게시글 @@@@@@@@@@@@
 
     //PostDetailResponse 이걸로 추후 바꿔야함 PostListResponse이거 대신에
 //    @GetMapping("/post/list") // 2.17
@@ -220,6 +252,8 @@ public class PostController {
         departmentService.UpdateDepartment(department,request.getDepartment());
         post.setDepartment(department);
 
+        List<Image> images = imageService.findImages(request.getImages());
+        post.setImages(images);
 //        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
@@ -250,17 +284,27 @@ public class PostController {
         Post post = postService.findPostByPostId(postId);
         postService.increaseViewCount(postId,userId);
         return new PostDetailResponse(post);
-
     }
 
     //테스트용@@@@@@2
     @GetMapping("/post/all")
-    public  List<PostDetailResponse> postDetails2() {
+    public  List<PostDetailDto> postDetails2() {
         List<Post> all = postService.findAll();
 
-        List<PostDetailResponse> result = all.stream()
-                .map(p -> new PostDetailResponse(p))
+
+
+        List<Post> myListPosts = new ArrayList<>();
+
+        for(Post post : all){
+
+            if(post.getPurchased()==null){
+                myListPosts.add(postService.findPostByPostId(post.getPostId()));
+            }
+        }
+        List<PostDetailDto> result = myListPosts.stream()
+                .map(p -> new PostDetailDto(p))
                 .collect(Collectors.toList());
+
 
         return result;
 

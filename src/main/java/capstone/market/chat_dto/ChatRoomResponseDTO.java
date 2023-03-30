@@ -5,11 +5,22 @@ import lombok.Data;
 
 @Data
 public class ChatRoomResponseDTO {
-    String member_a;
-    String member_b;
+    Long chatroom_id;
+    Long count;
+    String final_message;
+//    Long member_a;
 
     public ChatRoomResponseDTO(ChatRoom chatRoom) {
-        this.member_a = chatRoom.getPost().getWho_posted().getUsername();
-        this.member_b = chatRoom.getMember().getUsername();
+        this.chatroom_id =chatRoom.getId();
+//        this.member_a = chatRoom.getMember().getId();
+        this.count = chatRoom.getCount();
     }
+
+    //    String member_a;
+//    String member_b;
+//
+//    public ChatRoomResponseDTO(ChatRoom chatRoom) {
+//        this.member_a = chatRoom.getPost().getWho_posted().getUsername();
+//        this.member_b = chatRoom.getMember().getUsername();
+//    }
 }

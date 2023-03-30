@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,11 +36,18 @@ public class ChatService {
     }
 
     public ChatRoom startChatRoomService(Post post, Member member) {
+        List<ChatRoom> chatRooms = post.getChatRooms();
+        for (ChatRoom chatRoom : chatRooms) {
+            if (chatRoom.getMember() == member) {
+                return chatRoom;
+            }
+        }
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
         chatRoom.setMember(member);
         chatRoomRepository.save(chatRoom);
         // 기존 채팅이 있는지 없는 지
+
         return chatRoom;
     }
 
@@ -47,7 +55,9 @@ public class ChatService {
         ChatMessage chatMessage = new ChatMessage(chatRoom, member, message, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         chatMessage.setMember(member);
         chatMessage.setChatRoom(chatRoom);
+        chatMessage.setLooked(false);
         chatMessageRepository.save(chatMessage);
+        chatRoom.updateMessageCount();
         return chatMessage;
     }
 
@@ -55,7 +65,20 @@ public class ChatService {
         return chatRoomRepository.findByPostPostId(id);
     }
 
-    public List<ChatMessage> getChatLists(Long id) {
-        return chatMessageRepository.findByChatRoomId(id);
+    public List<ChatMessage> getChatLists(Long id, Long member_id) {
+        List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
+        ChatRoom chatRoom = chatRoomRepository.findById(id).get();
+        for (ChatMessage chatMessage : chatMessages) {
+            if (chatMessage.getMember().getId() != member_id) {
+                chatMessage.setLooked(true);
+                chatRoom.setCount(0L);
+            }
+        }
+        return chatMessages;
+    }
+
+    public String createHourMinuteString(ChatMessage chatMessage) {
+        LocalDateTime dateTime = chatMessage.getTime();
+        return dateTime.getHour() + "시 " + dateTime.getMinute() + "분";
     }
 }

@@ -23,8 +23,13 @@ public class MemberService {
     // 회원 가입
     public Long join(Member member) {
         memberRepository.save(member);
+
+
         return member.getId();
     }
+
+
+
 
     public Member findMemberByPK(Long id) {
         Member member = memberDataJpa.findById(id).get();
