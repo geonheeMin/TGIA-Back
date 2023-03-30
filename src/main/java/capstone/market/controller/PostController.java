@@ -288,12 +288,23 @@ public class PostController {
 
     //테스트용@@@@@@2
     @GetMapping("/post/all")
-    public  List<PostDetailResponse> postDetails2() {
+    public  List<PostDetailDto> postDetails2() {
         List<Post> all = postService.findAll();
 
-        List<PostDetailResponse> result = all.stream()
-                .map(p -> new PostDetailResponse(p))
+
+
+        List<Post> myListPosts = new ArrayList<>();
+
+        for(Post post : all){
+
+            if(post.getPurchased()==null){
+                myListPosts.add(postService.findPostByPostId(post.getPostId()));
+            }
+        }
+        List<PostDetailDto> result = myListPosts.stream()
+                .map(p -> new PostDetailDto(p))
                 .collect(Collectors.toList());
+
 
         return result;
 
