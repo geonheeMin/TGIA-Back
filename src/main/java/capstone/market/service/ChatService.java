@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -56,6 +57,7 @@ public class ChatService {
         chatMessage.setChatRoom(chatRoom);
         chatMessage.setLooked(false);
         chatMessageRepository.save(chatMessage);
+        chatRoom.updateMessageCount();
         return chatMessage;
     }
 
@@ -65,9 +67,12 @@ public class ChatService {
 
     public List<ChatMessage> getChatLists(Long id, Long member_id) {
         List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
+        ChatRoom chatRoom = chatRoomRepository.findById(id).get();
         for (ChatMessage chatMessage : chatMessages) {
-            if (chatMessage.getMember().getId() != member_id)
+            if (chatMessage.getMember().getId() != member_id) {
                 chatMessage.setLooked(true);
+                chatRoom.setCount(0L);
+            }
         }
         return chatMessages;
     }

@@ -1,9 +1,6 @@
 package capstone.market.controller;
 
-import capstone.market.chat_dto.ChatMessageResponseDTO;
-import capstone.market.chat_dto.ChatRoomResponseDTO;
-import capstone.market.chat_dto.ChatStartRequestDTO;
-import capstone.market.chat_dto.SendMessageRequestDTO;
+import capstone.market.chat_dto.*;
 import capstone.market.domain.ChatMessage;
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Member;
@@ -29,14 +26,15 @@ public class ChatController {
     // 게시물 페이지에서 채팅방 리스트를 조회할 경우
     // 게시물의 id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_room_list")
-    public List<ChatRoomResponseDTO> getChatRoomList(Long id) {
+    public List<ChatRoomListResponseDTO> getChatRoomList(Long id) {
         List<ChatRoom> chatRoomLists = chatService.getChatRoomLists(id);
-        List<ChatRoomResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+        List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
         for (ChatRoom chatRoom : chatRoomLists) {
-            ChatRoomResponseDTO roomResponseDTO = new ChatRoomResponseDTO(chatRoom);
+            int size = chatRoom.getMessages().size();
+            ChatMessage chatMessage = chatRoom.getMessages().get(size-1);
+            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage.getMessage());
             chatRoomResponseDTOS.add(roomResponseDTO);
         }
-
         return chatRoomResponseDTOS;
     }
 
