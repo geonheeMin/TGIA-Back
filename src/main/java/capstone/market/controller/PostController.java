@@ -38,8 +38,6 @@ public class PostController {
 
     private final DepartmentService departmentService;
 
-
-
     private final SessionManager sessionManager;
     private final FileService fileService;
 
@@ -51,17 +49,12 @@ public class PostController {
         return postDetailDtos;
     }
 
-
-
-
-
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
     @GetMapping("/category")
     public List<PostListResponse> SearchByCategory(@RequestParam CategoryType category) {
 
         List<Post> posts = postService.SearchByCategory(category);
-
 
         List<PostListResponse> result = posts.stream()
                 .map(p -> new PostListResponse(p))

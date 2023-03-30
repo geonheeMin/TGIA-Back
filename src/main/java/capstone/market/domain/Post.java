@@ -41,7 +41,7 @@ public class Post extends BaseEntity {
     @ElementCollection
     private Set<Long> viewedUserIds = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "post")
     private Purchased purchased;
 
     @OneToMany(mappedBy = "post")
