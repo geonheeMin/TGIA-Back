@@ -29,8 +29,8 @@ public class Purchased {
     /**
      *
      */
-    @OneToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+//    @OneToOne
+//    @JoinColumn(name = "post_id")
+//    private Post post;
 
 }

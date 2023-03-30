@@ -111,6 +111,7 @@ public class DataLoader {
         memberRepository.save(memberA);
         memberRepository.save(memberB);
         memberRepository.save(memberC);
+        memberRepository.save(memberD);
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
