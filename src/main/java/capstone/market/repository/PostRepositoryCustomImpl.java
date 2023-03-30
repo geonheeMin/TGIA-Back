@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Data
 public class PostRepositoryCustomImpl implements PostRepositoryCustom{
 
-
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -69,7 +68,5 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
                 .collect(Collectors.toList());
 
         return SearchPosts;
-
-
     }
 }

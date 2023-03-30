@@ -1,9 +1,6 @@
 package capstone.market.controller;
 
-import capstone.market.chat_dto.ChatMessageResponseDTO;
-import capstone.market.chat_dto.ChatRoomResponseDTO;
-import capstone.market.chat_dto.ChatStartRequestDTO;
-import capstone.market.chat_dto.SendMessageRequestDTO;
+import capstone.market.chat_dto.*;
 import capstone.market.domain.ChatMessage;
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Member;
@@ -15,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,22 +26,23 @@ public class ChatController {
     // 게시물 페이지에서 채팅방 리스트를 조회할 경우
     // 게시물의 id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_room_list")
-    public List<ChatRoomResponseDTO> getChatRoomList(Long id) {
+    public List<ChatRoomListResponseDTO> getChatRoomList(Long id) {
         List<ChatRoom> chatRoomLists = chatService.getChatRoomLists(id);
-        List<ChatRoomResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+        List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
         for (ChatRoom chatRoom : chatRoomLists) {
-            ChatRoomResponseDTO roomResponseDTO = new ChatRoomResponseDTO(chatRoom);
+            int size = chatRoom.getMessages().size();
+            ChatMessage chatMessage = chatRoom.getMessages().get(size-1);
+            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage.getMessage());
             chatRoomResponseDTOS.add(roomResponseDTO);
         }
-
         return chatRoomResponseDTOS;
     }
 
     // 채팅방에 저장된 채팅 메시지 내역을 가져옵니다.
     // 채팅방(ChatRoom) id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_message_list")
-    public List<ChatMessageResponseDTO> getChatMessageList(Long id) {
-        List<ChatMessage> chatLists = chatService.getChatLists(id);
+    public List<ChatMessageResponseDTO> getChatMessageList(Long id, Long member_id) {
+        List<ChatMessage> chatLists = chatService.getChatLists(id, member_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
         for (ChatMessage chatMessage : chatLists) {
@@ -89,5 +90,32 @@ public class ChatController {
         // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
 
         return new ChatMessageResponseDTO(chatMessage);
+    }
+
+    @PostMapping("/chat/send_V2")
+    public List<ChatMessageResponseDTO> sendMessageV2(@RequestBody SendMessageRequestDTO sendMessageRequestDTO) {
+
+        Long chatroom_id = Long.valueOf(sendMessageRequestDTO.getChatroom_id());
+        Long sender_id = Long.valueOf(sendMessageRequestDTO.getSender_id());
+        String message = sendMessageRequestDTO.getMessage();
+
+        ChatRoom chatRoom = chatService.findChatRoomByChatRoomId(chatroom_id);
+        Member member = chatService.findMemberByMemberId(sender_id);
+
+        ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, member, message);
+        // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
+
+
+        List<ChatMessage> chatLists = chatService.getChatLists(chatroom_id, sender_id);
+        List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
+
+        for (ChatMessage chatMessage2 : chatLists) {
+            chatMessageResponseDTOS.add(new ChatMessageResponseDTO(chatMessage2));
+        }
+
+        return chatMessageResponseDTOS;
+
+
+//        return new ChatMessageResponseDTO(chatMessage);
     }
 }

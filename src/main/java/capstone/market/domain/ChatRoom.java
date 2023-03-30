@@ -21,6 +21,12 @@ public class ChatRoom {
     @JoinColumn(name = "member_b")
     private Member member;
 
+    private Long count = 0L;
+
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
     private List<ChatMessage> messages = new ArrayList<>();
+
+    public void updateMessageCount() {
+        this.count += 1;
+    }
 }

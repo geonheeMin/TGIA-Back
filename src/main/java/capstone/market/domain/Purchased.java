@@ -15,6 +15,7 @@ public class Purchased {
     @Id @GeneratedValue
     private Long id;
     private String productName;
+//    private Category category;
     private Integer price;
 
     /**
@@ -28,8 +29,8 @@ public class Purchased {
     /**
      *
      */
-//    @OneToOne
-//    @JoinColumn(name = "post_id")
-//    private Post post;
+    @OneToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
 }

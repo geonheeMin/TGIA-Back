@@ -7,14 +7,20 @@ import java.time.LocalDateTime;
 
 @Data
 public class ChatMessageResponseDTO {
-    String sender;
+    Long sender;
+    Long message_id;
     String message;
     String time;
+    Long chatroom_id;
+    Boolean looked;
 
     public ChatMessageResponseDTO(ChatMessage chatMessage) {
-        this.sender = chatMessage.getMember().getUsername();
+        this.sender = chatMessage.getMember().getId();
+        this.message_id = chatMessage.getId();
         this.message = chatMessage.getMessage();
+        this.chatroom_id = chatMessage.getChatRoom().getId();
         this.time = createHourMinuteString(chatMessage);
+        this.looked = chatMessage.getLooked();
     }
 
     private String createHourMinuteString(ChatMessage chatMessage) {

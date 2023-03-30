@@ -57,6 +57,24 @@ public class ImageController {
         return filenames;
     }
 
+    private String deepLearn;
+
+    @PostMapping("/send-data")
+    public String sendYolov5(@RequestBody String data) {
+        System.out.println("deepLearn: " + data);
+        deepLearn = data;
+        return data;
+    }
+
+    @GetMapping("/send-data")
+    public String getYolov5() {
+        System.out.println("deepLearn: " + deepLearn);
+        if (deepLearn == "" || deepLearn.isEmpty()) {
+            return "cant";
+        }
+        return deepLearn;
+    }
+
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {

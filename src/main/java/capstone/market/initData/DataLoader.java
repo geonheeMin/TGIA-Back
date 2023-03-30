@@ -68,9 +68,17 @@ public class DataLoader {
         Member memberA = new Member("memberA");
         memberA.setUsername("건희");
         Member memberB = new Member("memberB");
-        memberB.setUsername("코난");
         Member memberD = new Member("memberD");
         memberD.setUsername("아톰");
+        memberB.setUsername("영식");
+        Member memberC = new Member("memberC");
+        memberC.setUsername("용기");
+
+        Image image = new Image();
+        image.setImageFilename("basic profile.png");
+        imageRepository.save(image);
+        memberC.setImage(image);
+
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
 
@@ -93,20 +101,23 @@ public class DataLoader {
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
 
-        memberD.setFirstTrack(firstTrack);
-        memberD.setSecondTrack(secondTrack);
+        memberC.setFirstTrack(firstTrack1);
+        memberC.setSecondTrack(secondTrack1);
+
+        Image image1 = new Image();
+        image1.setImageFilename("aaa.png");
+        imageRepository.save(image1);
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);
-        memberRepository.save(memberD);
-
+        memberRepository.save(memberC);
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
-        Post post1 = new Post("전영식","전영식");
-        Post post2 = new Post("손민규","손민규");
-        Post post3 = new Post("민건희","민건희");
-        Post post4 = new Post("아톰","아톰입니다");
+        Post post1 = new Post("제목1","내용");
+        Post post2 = new Post("제목2","내용");
+        Post post3 = new Post("제목3","내용");
+        Post post4 = new Post("제목4","내용");
         post1.setWho_posted(memberA);
         post2.setWho_posted(memberA);
         post3.setWho_posted(memberB);
@@ -120,9 +131,6 @@ public class DataLoader {
         post2.setPrice(10000);
         post3.setPrice(10000);
         post4.setPrice(10000);
-
-
-
 
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
@@ -155,6 +163,17 @@ public class DataLoader {
         post2.setDepartment(department);
         post3.setDepartment(department);
         post4.setDepartment(department);
+
+        post1.setLocationType(LocationType.공학관);
+        post1.setLocation_text("101호");
+        post2.setLocationType(LocationType.미래관);
+        post2.setLocation_text("102호");
+        post3.setLocationType(LocationType.낙산관);
+        post3.setLocation_text("103호");
+        post4.setLocationType(LocationType.풋살장);
+        post4.setLocation_text("104");
+
+
 
 
 
