@@ -243,7 +243,6 @@ public class PostController {
         Post post = postService.findPostByPostId(postId);
         postService.increaseViewCount(postId,userId);
         return new PostDetailResponse(post);
-
     }
 
     //테스트용@@@@@@2
