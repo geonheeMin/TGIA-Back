@@ -13,9 +13,14 @@ public class ProfileListDto {
     private TrackType firstTrack;
     private TrackType secondTrack;
 
+    private Long AtrackId;
+    private Long BtrackId;
+
     public ProfileListDto(Member member) {
         this.username = member.getUsername();
         this.firstTrack = member.getFirstTrack().getFirst_track();
         this.secondTrack = member.getSecondTrack().getSecond_track();
+        this.AtrackId = member.getFirstTrack().getTrack_id();
+        this.BtrackId = member.getSecondTrack().getTrack_id();
     }
 }

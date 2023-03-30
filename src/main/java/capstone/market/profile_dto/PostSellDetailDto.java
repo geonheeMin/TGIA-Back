@@ -1,44 +1,48 @@
-package capstone.market.post_dto;
+package capstone.market.profile_dto;
 
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.Image;
-import capstone.market.domain.LocationType;
-import capstone.market.domain.Post;
+import capstone.market.domain.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PostDetailResponse {
+@NoArgsConstructor
+public class PostSellDetailDto {
+
     private Long post_id;
-    private Long user_id;
     private String title;
-    private String writer;
+    private Long user_id;
+
+    private Long buyer_id;
     private CategoryType category;
+    private DepartmentType department;
     private String text;
     private Integer price;
-    private List<String> images = new ArrayList<>();
+
     private Integer views;
     private Integer likes;
     private LocationType locationType;
     private String location_text;
+    private List<String> images = new ArrayList<>();
 
 
 
-
-    public PostDetailResponse(Post post) {
+    public PostSellDetailDto(Post post) {
         this.post_id = post.getPostId();
         this.title = post.getPost_title();
-        this.writer = post.getWho_posted().getUsername();
+        this.user_id = post.getWho_posted().getId();
         this.category = post.getCategory().getCategory_type();
         this.text = post.getPost_text();
         this.price = post.getPrice();
+        this.department = post.getDepartment().getDepartmentType();
         this.views = post.getViews();
         this.likes = post.getLikes();
         this.locationType = post.getLocationType();
         this.location_text = post.getLocation_text();
-        this.user_id = post.getWho_posted().getId();
+        this.buyer_id = post.getPurchased().getMember().getId();
+
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {

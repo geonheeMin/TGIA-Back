@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.util.UUID;
 
 @Component
 @Slf4j
 public class DataLoader {
-
+    @Autowired
+    private ImageRepository imageRepository;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -59,9 +62,15 @@ public class DataLoader {
 
     @PostConstruct
     public void init() {
+
+
+
         Member memberA = new Member("memberA");
         memberA.setUsername("건희");
         Member memberB = new Member("memberB");
+        memberB.setUsername("코난");
+        Member memberD = new Member("memberD");
+        memberD.setUsername("아톰");
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
 
@@ -79,25 +88,33 @@ public class DataLoader {
 
         memberA.setFirstTrack(firstTrack);
         memberA.setSecondTrack(secondTrack);
+       // memberA.setImage(image1);
 
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
 
-
+        memberD.setFirstTrack(firstTrack);
+        memberD.setSecondTrack(secondTrack);
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);
+        memberRepository.save(memberD);
+
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
         Post post1 = new Post("전영식","전영식");
         Post post2 = new Post("손민규","손민규");
         Post post3 = new Post("민건희","민건희");
-        Post post4 = new Post("조용기","조용기");
+        Post post4 = new Post("아톰","아톰입니다");
         post1.setWho_posted(memberA);
         post2.setWho_posted(memberA);
         post3.setWho_posted(memberB);
-        post4.setWho_posted(memberB);
+        post4.setWho_posted(memberD);
+
+//        Image image = new Image();
+//        image.setImageFilename("1.png");
+//        imageRepository.save(image);
 
         post1.setPrice(10000);
         post2.setPrice(10000);
@@ -151,7 +168,10 @@ public class DataLoader {
         postRepository.savePost(post4);
 
 
+
+
     }
+
 
 
     /*
