@@ -13,7 +13,8 @@ import javax.annotation.PostConstruct;
 @Component
 @Slf4j
 public class DataLoader {
-
+    @Autowired
+    private ImageRepository imageRepository;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -65,6 +66,12 @@ public class DataLoader {
         memberB.setUsername("영식");
         Member memberC = new Member("memberC");
         memberC.setUsername("용기");
+
+        Image image = new Image();
+        image.setImageFilename("basic profile.png");
+        imageRepository.save(image);
+        memberC.setImage(image);
+
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
 

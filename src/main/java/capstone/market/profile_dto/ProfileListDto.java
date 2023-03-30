@@ -12,10 +12,12 @@ public class ProfileListDto {
     private String username;
     private TrackType firstTrack;
     private TrackType secondTrack;
+    private String imageFileName;
 
     public ProfileListDto(Member member) {
         this.username = member.getUsername();
         this.firstTrack = member.getFirstTrack().getFirst_track();
         this.secondTrack = member.getSecondTrack().getSecond_track();
+        this.imageFileName = member.getImage().getImageFilename();
     }
 }
