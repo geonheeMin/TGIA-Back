@@ -1,6 +1,7 @@
 # 이미지를 저장시킬 백엔드 디렉토리
 file.dir: /Users/son/Desktop/upload/
 #file.dir: /home/ubuntu/uploads/
+#file.dir: /home/jys/uploads/
 
 spring:
   datasource:
@@ -8,7 +9,7 @@ spring:
     url: jdbc:mysql://localhost:3306/market_v0?serverTimezone=UTC&characterEncoding=UTF-8
     # market_v0: 스키마 이름
     username: root
-    password: capstone
+    password: 6091
 
   jpa:
     hibernate:

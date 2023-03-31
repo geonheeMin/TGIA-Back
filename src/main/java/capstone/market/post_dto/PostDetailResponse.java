@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 public class PostDetailResponse {
+    private String item_name; // 상품명
     private Long post_id;
     private Long user_id;
     private String title;
@@ -43,6 +44,7 @@ public class PostDetailResponse {
         this.location_text = post.getLocation_text();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
+        this.item_name = post.getItem_name();
 
         if (post.getImages().isEmpty()) {
             images.add("hello world");

@@ -20,6 +20,7 @@ public class PostForm {
     private Long image_id;
     private LocationType locationType;
     private String location_text;
+    private String item_name; // 상품명
 
     public PostForm() {
     }
@@ -31,5 +32,6 @@ public class PostForm {
         this.departmentType = postForm.getDepartmentType();
         this.locationType = postForm.getLocationType();
         this.location_text = postForm.getLocation_text();
+        this.item_name = postForm.getItem_name();
     }
 }
