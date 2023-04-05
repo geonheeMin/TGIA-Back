@@ -6,15 +6,13 @@ import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.service.ChatService;
+import capstone.market.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,20 +20,49 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatController {
     private final ChatService chatService;
+    private final MemberService memberService;
 
     // 게시물 페이지에서 채팅방 리스트를 조회할 경우
     // 게시물의 id(PK)를 넘겨줘야 됩니다.
     @GetMapping("/chat/get_chat_room_list")
-    public List<ChatRoomListResponseDTO> getChatRoomList(Long id) {
+    public List<ChatRoomListResponseDTO> getChatRoomList(Long id, Long member_id) {
         List<ChatRoom> chatRoomLists = chatService.getChatRoomLists(id);
         List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+        Long count;
         for (ChatRoom chatRoom : chatRoomLists) {
             int size = chatRoom.getMessages().size();
-            ChatMessage chatMessage = chatRoom.getMessages().get(size-1);
-            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage.getMessage());
+            ChatMessage chatMessage;
+            if (size != 0) {
+                chatMessage = chatRoom.getMessages().get(size-1);
+            } else {
+                chatMessage = null;
+            }
+            if (member_id == chatRoom.getMemberA().getId()) {
+                count = chatRoom.getCount_a();
+            } else {
+                count = chatRoom.getCount_b();
+            }
+            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage, count);
             chatRoomResponseDTOS.add(roomResponseDTO);
         }
         return chatRoomResponseDTOS;
+    }
+
+    /*
+    멤버 id를 주면 해당 멤버가 참가하고 있는 채팅방 리스트 띄우기
+    기존 ChatRoomListResponseDTO에 post_id를 추가해서 넘겨주기
+     */
+
+    @GetMapping("/chat/get_last_message")
+    public String getLastMessage(Long id) {
+        ChatMessage message = chatService.findChatMessageById(id);
+        return message.getMessage();
+    }
+
+    @GetMapping("/chat/get_username")
+    public String getUsername(Long id) {
+        Member member = memberService.findOne(id);
+        return member.getUsername();
     }
 
     // 채팅방에 저장된 채팅 메시지 내역을 가져옵니다.
@@ -59,6 +86,27 @@ public class ChatController {
         "member_b": "건희"
         }
      */
+
+    /*
+    chatroom_id, member_id를 주면 -> 그거에 해당하는 메시지 중에서 looked가 0인
+     */
+
+//    @PostMapping("/chat/startV2")
+//    public ChatRoomResponseDTO chatStartV2(@RequestBody ChatStartRequestDTO chatStartRequestDTO) {
+//        Long postId = chatStartRequestDTO.getPost_id();
+//        Long myId = chatStartRequestDTO.getMy_member_id();
+//        Long sender_id = chatStartRequestDTO.getMember_id();
+//        Post post = chatService.findPostByPostId(postId);
+//        Member sender = chatService.findMemberByMemberId(sender_id);
+////        chatService.findMemberByMemberId(sender_id);
+//        Member receiver = post.getWho_posted();
+//
+//        chatService.startChatRoomServiceV2(post, sender, receiver);
+//        chatService.startChatRoomServiceV2(post, sender, receiver);
+//
+//        if (myId == )
+//    }
+
     @PostMapping("/chat/start")
     public ChatRoomResponseDTO chatStart(@RequestBody ChatStartRequestDTO chatStartRequestDTO) {
         System.out.println("chatStartRequestDTO.getPost_id() = " + chatStartRequestDTO.getPost_id());
@@ -68,11 +116,48 @@ public class ChatController {
 
         Post post = chatService.findPostByPostId(post_id);
         Member member = chatService.findMemberByMemberId(member_id);
+        Member receiver = post.getWho_posted();
 
-        ChatRoom chatRoom = chatService.startChatRoomService(post, member);
+        ChatRoom chatRoom = chatService.startChatRoomService(post, member, receiver);
+//        ChatRoom chatRoom2 = chatService.startChatRoomService(post, receiver);
 
         return new ChatRoomResponseDTO(chatRoom);
     }
+
+//    @GetMapping("/chat/get_chatroom_member_id")
+//    public List<ChatRoomListResponseDTO> getChatListByMemberId(Long member_id) {
+//        List<ChatRoom> chatRoomLists = chatService.getChatRoomListsByMemberId(member_id);
+//
+//        List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+//        for (ChatRoom chatRoom : chatRoomLists) {
+//            int size = chatRoom.getMessages().size();
+//            ChatMessage chatMessage;
+//            if (size != 0) {
+//                chatMessage = chatRoom.getMessages().get(size-1);
+//            } else {
+//                chatMessage = null;
+//            }
+//            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage);
+//            chatRoomResponseDTOS.add(roomResponseDTO);
+//        }
+//        return chatRoomResponseDTOS;
+//    }
+
+//    @PostMapping("/chat/start_ver2")
+//    public ChatRoomResponseDTO chatStartVer2(@RequestBody ChatStartRequestDTO chatStartRequestDTO) {
+//        System.out.println("chatStartRequestDTO.getPost_id() = " + chatStartRequestDTO.getPost_id());
+//
+//        Long post_id = Long.valueOf(chatStartRequestDTO.getPost_id());
+//        Long member_id = Long.valueOf(chatStartRequestDTO.getMember_id());
+//
+//        Post post = chatService.findPostByPostId(post_id);
+//        Member receiver = post.getWho_posted();
+//        Member member = chatService.findMemberByMemberId(member_id);
+//
+//        ChatRoom chatRoom = chatService.startChatRoomService(post, member);
+//
+//        return new ChatRoomResponseDTO(chatRoom);
+//    }
 
     // chat_room_id, member_id, message 필요
     // 메시지 전송 버튼을 눌렀을 경우

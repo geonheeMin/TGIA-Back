@@ -18,15 +18,31 @@ public class ChatRoom {
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "member_b")
-    private Member member;
+    @JoinColumn(name = "member_a")
+    private Member memberA;
 
-    private Long count = 0L;
+    @ManyToOne
+    @JoinColumn(name = "member_b")
+    private Member memberB;
+
+//    @ManyToOne
+//    @JoinColumn(name = "sender")
+//    private Member sender;
+
+//    @ManyToOne
+//    @JoinColumn(name = "member")
+//    private Member member;
+    private Long count_a = 0L;
+    private Long count_b = 0L;
 
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
     private List<ChatMessage> messages = new ArrayList<>();
 
-    public void updateMessageCount() {
-        this.count += 1;
+    public void updateMessageCountA() {
+        this.count_a += 1;
+    }
+
+    public void updateMessageCountB() {
+        this.count_b += 1;
     }
 }

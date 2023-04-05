@@ -3,25 +3,26 @@ package capstone.market.controller;
 import capstone.market.domain.*;
 import capstone.market.post_dto.PostDetailResponse;
 import capstone.market.post_dto.PostListResponse;
-import capstone.market.profile_dto.EvaluationDto;
-import capstone.market.profile_dto.ProfileImageChangeDTO;
-import capstone.market.profile_dto.ProfileListDto;
-import capstone.market.profile_dto.TrackUpdateDto;
+import capstone.market.profile_dto.*;
+import capstone.market.service.ImageService;
 import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.service.TrackService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 @RequiredArgsConstructor
 public class ProfileController {
     private final MemberService memberService;
     private final PostService postService;
     private final TrackService trackService;
+    private final ImageService imageService;
     //이게 지금 dto 널값 오류로 이게 안되고 아래꺼가 된다.
     @GetMapping("/post/buy_list")
     public  List<PostDetailResponse> getBuyerList(@RequestParam Long userId) {
@@ -74,6 +75,17 @@ public class ProfileController {
     @PostMapping("/profile/image_change")
     public void setProfileImage(@RequestBody ProfileImageChangeDTO profileImageChangeDTO) {
         memberService.setMemberImage(profileImageChangeDTO.getMember_id(), profileImageChangeDTO.getImage_filename());
+    }
+
+    @PostMapping("/profile/change")
+    public ProfileListDto setProfile(@RequestBody ProfileChangeDTO profileChangeDTO) {
+        memberService.setMemberImage(profileChangeDTO.getMember_id(), profileChangeDTO.getImage_filename());
+        Member member = memberService.findMemberByPK(profileChangeDTO.getMember_id());
+        member.setUsername(profileChangeDTO.getUsername());
+        log.info("hello world 324234234= {}", profileChangeDTO.getImage_filename());
+        member.setImage(imageService.findImageByName(profileChangeDTO.getImage_filename()));
+        ProfileListDto profileListDto = new ProfileListDto(member);
+        return profileListDto;
     }
 
     //트랙 설정 및 업데이트

@@ -1,9 +1,6 @@
 package capstone.market.service;
 
-import capstone.market.domain.ChatMessage;
-import capstone.market.domain.ChatRoom;
-import capstone.market.domain.Member;
-import capstone.market.domain.Post;
+import capstone.market.domain.*;
 import capstone.market.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +20,10 @@ public class ChatService {
     private final ChatMessageRepository chatMessageRepository;
     private final MemberDataJpa memberDataJpa;
 
+    public ChatMessage findChatMessageById(Long id) {
+        return chatMessageRepository.findById(id).get();
+    }
+
     public Post findPostByPostId(Long id) {
         return postDataJpaRepository.findById(id).get();
     }
@@ -35,21 +36,33 @@ public class ChatService {
         return chatRoomRepository.findById(id).get();
     }
 
-    public ChatRoom startChatRoomService(Post post, Member member) {
-        List<ChatRoom> chatRooms = post.getChatRooms();
-        for (ChatRoom chatRoom : chatRooms) {
-            if (chatRoom.getMember() == member) {
-                return chatRoom;
-            }
-        }
+    public ChatRoom startChatRoomService(Post post, Member memberA, Member memberB) {
+//        List<ChatRoom> chatRooms = post.getChatRooms();
+//        for (ChatRoom chatRoom : chatRooms) {
+//            if (chatRoom.getMemberA() == member) {
+//                return chatRoom;
+//            }
+//        }
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
-        chatRoom.setMember(member);
+        chatRoom.setMemberA(memberA);
+        chatRoom.setMemberB(memberB);
         chatRoomRepository.save(chatRoom);
         // 기존 채팅이 있는지 없는 지
 
         return chatRoom;
     }
+
+//    public ChatRoom startChatRoomServiceV2(Post post, Member sender, Member receiver) {
+////        List<REChatRoom> chatRooms = post.getChatRooms();
+//        ChatRoom chatRoom = new ChatRoom();
+//        chatRoom.setPost(post);
+//        chatRoom.setSender(sender);
+//        chatRoom.setReceiver(receiver);
+//        chatRoomRepository.save(chatRoom);
+//
+//        return chatRoom;
+//    }
 
     public ChatMessage startChatMessageService(ChatRoom chatRoom, Member member, String message) {
         ChatMessage chatMessage = new ChatMessage(chatRoom, member, message, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
@@ -57,7 +70,15 @@ public class ChatService {
         chatMessage.setChatRoom(chatRoom);
         chatMessage.setLooked(false);
         chatMessageRepository.save(chatMessage);
-        chatRoom.updateMessageCount();
+
+        Long member_id = member.getId();
+
+        System.out.println("$$$$$$$$ memberId = " +  member_id);
+        if(member.getId() != chatRoom.getMemberA().getId()) {
+            chatRoom.updateMessageCountA();
+        } else {
+            chatRoom.updateMessageCountB();
+        }
         return chatMessage;
     }
 
@@ -65,13 +86,23 @@ public class ChatService {
         return chatRoomRepository.findByPostPostId(id);
     }
 
+//    public List<ChatRoom> getChatRoomListsByMemberId(Long member_id) {
+//        List<ChatRoom> chatRoomList = chatRoomRepository.findByMemberId(member_id);
+//        List<ChatRoom> chatRooms = chatRoomRepository.findByMemberAId(member_id);
+//        chatRoomList.addAll(chatRooms);
+//        return chatRoomList;
+//    }
+
     public List<ChatMessage> getChatLists(Long id, Long member_id) {
         List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
         ChatRoom chatRoom = chatRoomRepository.findById(id).get();
+        Long memberB_id = chatRoom.getMemberB().getId();
         for (ChatMessage chatMessage : chatMessages) {
-            if (chatMessage.getMember().getId() != member_id) {
+            if (chatMessage.getMember().getId() != memberB_id) {
+                chatRoom.setCount_b(0L);
+            } else {
                 chatMessage.setLooked(true);
-                chatRoom.setCount(0L);
+                chatRoom.setCount_a(0L);
             }
         }
         return chatMessages;

@@ -77,7 +77,7 @@ public class DataLoader {
         Image image = new Image();
         image.setImageFilename("basic profile.png");
         imageRepository.save(image);
-        memberC.setImage(image);
+
 
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
@@ -107,6 +107,7 @@ public class DataLoader {
         Image image1 = new Image();
         image1.setImageFilename("aaa.png");
         imageRepository.save(image1);
+        memberC.setImage(image1);
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);

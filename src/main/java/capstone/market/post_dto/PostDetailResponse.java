@@ -23,10 +23,9 @@ public class PostDetailResponse {
     private LocationType locationType;
     private String location_text;
     private Long member_id;
-
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
-
+//    private List<PostForm> postForms;
 
 
     public PostDetailResponse(Post post) {
@@ -43,6 +42,9 @@ public class PostDetailResponse {
         this.location_text = post.getLocation_text();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
+//        for (PostForm postForm : postForms) {
+//            posts.add(post);
+//        }
 
         if (post.getImages().isEmpty()) {
             images.add("hello world");

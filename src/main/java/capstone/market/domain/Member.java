@@ -28,7 +28,7 @@ public class Member {
 
     private String username;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "memberB", fetch = FetchType.LAZY)
     private List<ChatRoom> chatRoom = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
@@ -38,10 +38,6 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
-
-
-
-
 
     public Member() {
     }
