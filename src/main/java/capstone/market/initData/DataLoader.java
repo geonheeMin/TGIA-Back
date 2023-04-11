@@ -76,7 +76,7 @@ public class DataLoader {
         memberC.setUsername("용기");
 
         Image image = new Image();
-        image.setImageFilename("basic profile.png");
+        image.setImageFilename("basicprofile.png");
         imageRepository.save(image);
 
 
@@ -175,6 +175,22 @@ public class DataLoader {
         post3.setLocation_text("103호");
         post4.setLocationType(LocationType.풋살장);
         post4.setLocation_text("104");
+
+
+
+        post1.setItem_name("MacBook Pro 13");
+        post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
+        post3.setItem_name("아이패드 에어 4세대 블루");
+        post4.setItem_name("토비의 스프링 1편");
+
+
+
+
+
+
+
+
+
 
         postRepository.savePost(post1);
         postRepository.savePost(post2);

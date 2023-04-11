@@ -65,6 +65,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public ProfileListDto findMyProfileList(@RequestParam Long userId){
+        log.info("hello world 23323 = {}", userId);
         Member findmember = memberService.findOne(userId);
         ProfileListDto profileListDto = new ProfileListDto(findmember);
         return profileListDto;

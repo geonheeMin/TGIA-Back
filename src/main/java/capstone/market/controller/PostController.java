@@ -5,7 +5,6 @@ import capstone.market.domain.*;
 import capstone.market.post_dto.*;
 
 
-
 import capstone.market.profile_dto.PostDetailDto;
 import capstone.market.profile_dto.PostSellDetailDto;
 import capstone.market.profile_dto.SearchFilterDto;
@@ -43,7 +42,7 @@ public class PostController {
 
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     @GetMapping("/detailSearch")
-    public List<PostDetailDto> Search(@RequestBody SearchFilterDto searchFilterDto){
+    public List<PostDetailDto> Search(@RequestBody SearchFilterDto searchFilterDto) {
 
         List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
         return postDetailDtos;
@@ -65,11 +64,9 @@ public class PostController {
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
 
 
-
-
     //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@ 3월 15일
     @GetMapping("/search")
-        public List<PostListResponse> findByTitleContaining(@RequestParam String keyword) {
+    public List<PostListResponse> findByTitleContaining(@RequestParam String keyword) {
 
         List<Post> posts = postService.findByTitleContaing(keyword);
 
@@ -79,6 +76,7 @@ public class PostController {
 
         return result;
     }
+
     //@@@@@@@@@@@@@@@@@포스트 제목으로 검색하기 추가@@@@@@@@@@@@@@@@@@@ 3월 15일
     // 3월 18일 추가
     // 게시물을 수정하기 위한 기존 정보 가져온다.
@@ -161,11 +159,11 @@ public class PostController {
 
         List<Post> myListPosts = new ArrayList<>();
 
-        for(Post post : posts){
+        for (Post post : posts) {
 
-        if(post.getPurchased()==null){
-            myListPosts.add(postService.findPostByPostId(post.getPostId()));
-        }
+            if (post.getPurchased() == null) {
+                myListPosts.add(postService.findPostByPostId(post.getPostId()));
+            }
         }
         List<PostDetailDto> result = myListPosts.stream()
                 .map(p -> new PostDetailDto(p))
@@ -186,9 +184,9 @@ public class PostController {
 
         List<Post> mySellListPosts = new ArrayList<>();
 
-        for(Post post : posts){
+        for (Post post : posts) {
 
-            if(post.getPurchased() != null){
+            if (post.getPurchased() != null) {
                 mySellListPosts.add(postService.findPostByPostId(post.getPostId()));
             }
         }
@@ -233,7 +231,7 @@ public class PostController {
 
     // 3월 17일 프론트와 연동 시 Image 테이블과 Post 테이블 매핑 문제 해결
     @PostMapping("/post/insert")
-    public void postAdd (@RequestBody AddPostRequest request) {
+    public void postAdd(@RequestBody AddPostRequest request) {
         Post post = new Post();
 
         log.info("request_info = {}", request.getUser_id());
@@ -243,10 +241,10 @@ public class PostController {
         post.setPost_text(request.getContent());
         post.setPrice(request.getPrice());
         Category category = new Category();
-        categoryService.UpdateCategory(category,request.getCategory());
+        categoryService.UpdateCategory(category, request.getCategory());
         post.setCategory(category);
         Department department = new Department();
-        departmentService.UpdateDepartment(department,request.getDepartment());
+        departmentService.UpdateDepartment(department, request.getDepartment());
         post.setDepartment(department);
 
         List<Image> images = imageService.findImages(request.getImages());
@@ -256,7 +254,7 @@ public class PostController {
     }
 
     @PostMapping("/post/insert_image_test")
-    public void postAddImage (@RequestBody PostRequestImage request) {
+    public void postAddImage(@RequestBody PostRequestImage request) {
         Post post = new Post();
 
         log.info("request_info = {}", request.getUser_id());
@@ -277,29 +275,35 @@ public class PostController {
     // 게시물 상세 구현 2월 21일
     // + 가격 추가 3월 3일
     @GetMapping("/post/details")
-    public PostDetailResponse postDetails(@RequestParam Long postId,@RequestParam Long userId) {
+    public PostDetailResponse postDetails(@RequestParam Long postId, @RequestParam Long userId) {
         Post post = postService.findPostByPostId(postId);
+
         postService.increaseViewCount(postId,userId);
 //        List<Post> posts = togetherViewedService.add(post, postId);
 
         return new PostDetailResponse(post);
     }
+    // hhhhhh
     @GetMapping("/post/get_info")
     public PostDetailResponse postInfo(Long post_id) {
         Post post = postService.findPostByPostId(post_id);
+
+        postService.increaseViewCount(postId, userId);
+
         return new PostDetailResponse(post);
     }
 
     //테스트용@@@@@@2
     @GetMapping("/post/all")
-    public  List<PostDetailDto> postDetails2() {
+    public List<PostDetailDto> postDetails2() {
         List<Post> all = postService.findAll();
+
 
         List<Post> myListPosts = new ArrayList<>();
 
-        for(Post post : all){
+        for (Post post : all) {
 
-            if(post.getPurchased()==null){
+            if (post.getPurchased() == null) {
                 myListPosts.add(postService.findPostByPostId(post.getPostId()));
             }
         }
@@ -358,8 +362,6 @@ public class PostController {
 //            this.location_text = post.getLocation_text();
 //        }
 //    }
-
-
 
 
 //    static class PostLikedResponse {

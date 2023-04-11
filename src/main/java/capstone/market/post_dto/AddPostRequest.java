@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class AddPostRequest {
+    private String item_name; // 상품명
     private String title;
     private Long user_id;
     private CategoryType category;

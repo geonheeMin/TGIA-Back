@@ -17,6 +17,8 @@ public class ProfileListDto {
     private Long AtrackId;
     private Long BtrackId;
 
+    private Integer mannerscore;
+
     public ProfileListDto(Member member) {
         this.username = member.getUsername();
         this.firstTrack = member.getFirstTrack().getFirst_track();
@@ -24,5 +26,6 @@ public class ProfileListDto {
         this.AtrackId = member.getFirstTrack().getTrack_id();
         this.BtrackId = member.getSecondTrack().getTrack_id();
         this.imageFileName = member.getImage().getImageFilename();
+        this.mannerscore = member.getMannerscore();
     }
 }

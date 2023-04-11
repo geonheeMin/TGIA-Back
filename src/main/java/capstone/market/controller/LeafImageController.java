@@ -31,7 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LeafImageController {
 
-//    private final ItemRepository itemRepository;
+    //    private final ItemRepository itemRepository;
     private final FileService fileService;
     private final PostService postService;
     private final MemberService memberService;

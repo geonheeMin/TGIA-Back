@@ -26,4 +26,5 @@ public class Favorite extends BaseEntity {
         this.member = member;
         this.post = post;
     }
+
 }

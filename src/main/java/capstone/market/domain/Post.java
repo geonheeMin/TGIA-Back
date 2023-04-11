@@ -59,6 +59,9 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post")
     private List<Image> images = new ArrayList<>();
 
+
+    private String item_name; // 상품명
+
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "image_id")
 //    private Image image;
