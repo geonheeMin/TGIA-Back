@@ -37,11 +37,17 @@ public class ChatController {
             } else {
                 chatMessage = null;
             }
-            if (member_id == chatRoom.getMemberA().getId()) {
-                count = chatRoom.getCount_a();
+            if (chatMessage.getMember().getId() == member_id) {
+                count = 0L;
             } else {
-                count = chatRoom.getCount_b();
+                count = chatService.getUnreadMessageCount(chatRoom.getId());
             }
+            System.out.println("7878788778 count = " + count);
+//            if (member_id == chatRoom.getMemberA().getId()) {
+//                count = chatRoom.getCount_a();
+//            } else {
+//                count = chatRoom.getCount_b();
+//            }
             ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage, count);
             chatRoomResponseDTOS.add(roomResponseDTO);
         }
@@ -180,8 +186,8 @@ public class ChatController {
     @PostMapping("/chat/send_V2")
     public List<ChatMessageResponseDTO> sendMessageV2(@RequestBody SendMessageRequestDTO sendMessageRequestDTO) {
 
-        Long chatroom_id = Long.valueOf(sendMessageRequestDTO.getChatroom_id());
-        Long sender_id = Long.valueOf(sendMessageRequestDTO.getSender_id());
+        Long chatroom_id = sendMessageRequestDTO.getChatroom_id();
+        Long sender_id = sendMessageRequestDTO.getSender_id();
         String message = sendMessageRequestDTO.getMessage();
 
         ChatRoom chatRoom = chatService.findChatRoomByChatRoomId(chatroom_id);

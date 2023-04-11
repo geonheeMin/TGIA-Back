@@ -1,6 +1,6 @@
 # 이미지를 저장시킬 백엔드 디렉토리
-file.dir: /Users/son/Desktop/upload/
-#file.dir: /home/ubuntu/uploads/
+#file.dir: /Users/son/Desktop/upload/
+file.dir: /home/ubuntu/uploads/
 
 spring:
   datasource:

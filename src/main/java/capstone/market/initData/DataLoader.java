@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -175,22 +176,13 @@ public class DataLoader {
         post4.setLocationType(LocationType.풋살장);
         post4.setLocation_text("104");
 
-
-
-
-
-
-
-
-
         postRepository.savePost(post1);
         postRepository.savePost(post2);
         postRepository.savePost(post3);
         postRepository.savePost(post4);
 
-
-
-
+        ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
+        chatService.startChatMessageService(chatRoom, memberB, "hello world");
     }
 
 

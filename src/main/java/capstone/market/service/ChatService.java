@@ -37,12 +37,12 @@ public class ChatService {
     }
 
     public ChatRoom startChatRoomService(Post post, Member memberA, Member memberB) {
-//        List<ChatRoom> chatRooms = post.getChatRooms();
-//        for (ChatRoom chatRoom : chatRooms) {
-//            if (chatRoom.getMemberA() == member) {
-//                return chatRoom;
-//            }
-//        }
+        List<ChatRoom> chatRooms = post.getChatRooms();
+        for (ChatRoom chatRoom : chatRooms) {
+            if (chatRoom.getMemberA() == memberB) {
+                return chatRoom;
+            }
+        }
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
         chatRoom.setMemberA(memberA);
@@ -64,6 +64,7 @@ public class ChatService {
 //        return chatRoom;
 //    }
 
+
     public ChatMessage startChatMessageService(ChatRoom chatRoom, Member member, String message) {
         ChatMessage chatMessage = new ChatMessage(chatRoom, member, message, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         chatMessage.setMember(member);
@@ -74,11 +75,15 @@ public class ChatService {
         Long member_id = member.getId();
 
         System.out.println("$$$$$$$$ memberId = " +  member_id);
-        if(member.getId() != chatRoom.getMemberA().getId()) {
-            chatRoom.updateMessageCountA();
-        } else {
+        System.out.println("$$$$$$$$ chatRoom.getMemberA().getId() = " + chatRoom.getMemberA().getId());
+        if(member.getId() == chatRoom.getMemberA().getId()) {
             chatRoom.updateMessageCountB();
+            System.out.println("worked updateMessageCountB" + chatRoom.getCount_b());
+        } else {
+            chatRoom.updateMessageCountA();
+            System.out.println("worked updateMessageCountA " + chatRoom.getCount_a());
         }
+        chatRoomRepository.save(chatRoom);
         return chatMessage;
     }
 
@@ -93,16 +98,21 @@ public class ChatService {
 //        return chatRoomList;
 //    }
 
+    public Long getUnreadMessageCount(Long chatroom_id) {
+        return chatMessageRepository.countByLookedAndChatRoomId(false, chatroom_id);
+    }
+
     public List<ChatMessage> getChatLists(Long id, Long member_id) {
         List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
         ChatRoom chatRoom = chatRoomRepository.findById(id).get();
         Long memberB_id = chatRoom.getMemberB().getId();
         for (ChatMessage chatMessage : chatMessages) {
             if (chatMessage.getMember().getId() != memberB_id) {
-                chatRoom.setCount_b(0L);
+
             } else {
                 chatMessage.setLooked(true);
                 chatRoom.setCount_a(0L);
+//                chatRoom.setCount_b(0L);
             }
         }
         return chatMessages;

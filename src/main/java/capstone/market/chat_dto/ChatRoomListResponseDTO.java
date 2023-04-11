@@ -21,7 +21,7 @@ public class ChatRoomListResponseDTO {
         this.last_chatMessage = message.getId();
         this.count = count;
 //        this.final_message = message;
-        this.member_a = chatRoom.getMemberA().getId();
+        this.member_a = chatRoom.getMemberB().getId();
         this.member_b = chatRoom.getPost().getWho_posted().getId();
     }
 }
