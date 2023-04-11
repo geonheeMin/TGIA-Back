@@ -34,11 +34,9 @@ public class PostController {
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
     private final MemberService memberService;
     private final CategoryService categoryService;
-
     private final ImageService imageService;
-
     private final DepartmentService departmentService;
-
+//    private final TogetherViewedService togetherViewedService;
     private final SessionManager sessionManager;
     private final FileService fileService;
 
@@ -71,7 +69,6 @@ public class PostController {
     public List<PostListResponse> findByTitleContaining(@RequestParam String keyword) {
 
         List<Post> posts = postService.findByTitleContaing(keyword);
-
 
         List<PostListResponse> result = posts.stream()
                 .map(p -> new PostListResponse(p))
@@ -280,7 +277,19 @@ public class PostController {
     @GetMapping("/post/details")
     public PostDetailResponse postDetails(@RequestParam Long postId, @RequestParam Long userId) {
         Post post = postService.findPostByPostId(postId);
+
+        postService.increaseViewCount(postId,userId);
+//        List<Post> posts = togetherViewedService.add(post, postId);
+
+        return new PostDetailResponse(post);
+    }
+    // hhhhhh
+    @GetMapping("/post/get_info")
+    public PostDetailResponse postInfo(Long post_id) {
+        Post post = postService.findPostByPostId(post_id);
+
         postService.increaseViewCount(postId, userId);
+
         return new PostDetailResponse(post);
     }
 

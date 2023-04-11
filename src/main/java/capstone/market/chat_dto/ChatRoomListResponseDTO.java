@@ -1,17 +1,27 @@
 package capstone.market.chat_dto;
 
+import capstone.market.domain.ChatMessage;
 import capstone.market.domain.ChatRoom;
 import lombok.Data;
 
 @Data
 public class ChatRoomListResponseDTO {
+    Long post_id;
     Long chatroom_id;
     Long count;
-    String final_message;
+//    String final_message;
+    Long member_a;
+    Long member_b;
+    Long last_chatMessage;
 
-    public ChatRoomListResponseDTO(ChatRoom chatRoom, String message) {
+
+    public ChatRoomListResponseDTO(ChatRoom chatRoom, ChatMessage message, Long count) {
+        this.post_id = chatRoom.getPost().getPostId();
         this.chatroom_id = chatRoom.getId();
-        this.count = chatRoom.getCount();
-        this.final_message = message;
+        this.last_chatMessage = message.getId();
+        this.count = count;
+//        this.final_message = message;
+        this.member_a = chatRoom.getMemberB().getId();
+        this.member_b = chatRoom.getPost().getWho_posted().getId();
     }
 }

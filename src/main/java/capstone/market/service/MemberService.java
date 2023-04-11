@@ -28,9 +28,6 @@ public class MemberService {
         return member.getId();
     }
 
-
-
-
     public Member findMemberByPK(Long id) {
         Member member = memberDataJpa.findById(id).get();
         return member;

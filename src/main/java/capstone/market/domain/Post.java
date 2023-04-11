@@ -22,6 +22,9 @@ public class Post extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     protected Category category;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "tv_id")
+//    private TogetherViewed togetherViewed;
     private Integer price;
 
     private String post_title;

@@ -57,6 +57,20 @@ public class ImageController {
         return filenames;
     }
 
+    @PostMapping("/image/send_image")
+//    public List<String> uploadImages(List<MultipartFile> images) throws IOException {
+    public String uploadImage(MultipartFile image) throws IOException {
+        // 파일 처리 작업 수행
+//        List<String> filenames = new ArrayList<>();
+//        List<UploadFile> uploadFiles = fileService.storeFiles(files);
+        Image imageFile = fileService.storeFile(image);
+        return imageFile.getImageFilename();
+//        List<Image> uploadFiles = fileService.storeFiles(image);
+//        for (Image uploadFile : uploadFiles) {
+//            filenames.add(uploadFile.getImageFilename());
+//        }
+    }
+
     private String deepLearn;
 
     @PostMapping("/send-data")
@@ -68,11 +82,14 @@ public class ImageController {
 
     @GetMapping("/send-data")
     public String getYolov5() {
-        System.out.println("deepLearn: " + deepLearn);
-        if (deepLearn == "" || deepLearn.isEmpty()) {
-            return "cant";
-        }
-        return deepLearn;
+//        if (deepLearn == null) {
+//            return "null";
+//        }
+//        System.out.println("deepLearn: " + deepLearn);
+//        if (deepLearn == "" || deepLearn.isEmpty()) {
+//            return "cant";
+//        }
+        return "deepLearn";
     }
 
     @ResponseBody
