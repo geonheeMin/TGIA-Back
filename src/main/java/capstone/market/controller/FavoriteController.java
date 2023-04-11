@@ -45,7 +45,7 @@ public class FavoriteController {
 
     //좋아요 추가
     @PostMapping("/profile/add_favorite")   //좀 애매 하네 어디서든 지 포스트 검색 할 수 있음
-    public void addFavorite(@RequestParam Long postId, @RequestParam Long userId) {
+    public Long addFavorite(@RequestParam Long postId, @RequestParam Long userId) {
 
           Member user = memberService.findOne(userId);
           Post post = postService.findPostByPostId(postId);
@@ -54,6 +54,7 @@ public class FavoriteController {
           user.getFavorites().add(favorite);
           postService.savePost(post);
           favoriteService.save(favorite);
+          return favorite.getFav_id();
     }
 
     //좋아요 삭제
@@ -64,6 +65,21 @@ public class FavoriteController {
         postService.savePost(findFavorite.getPost());
         favoriteService.delete(favoriteId);
 
+
+
+    }
+    @DeleteMapping("/profile/delete_favorite3")   //좀 애매 하네 어디서든 지 포스트 검색 할 수 있음
+    public void deleteFavorite3(@RequestParam Long postId,@RequestParam Long userId) {
+        Member findmember = memberService.findOne(userId);
+        List<Favorite> favorites = findmember.getFavorites();
+        for(Favorite favorite : favorites){
+            if(favorite.getPost().getPostId() == postId){
+                Favorite findFavorite = favorite;
+                findFavorite.getPost().setLikes(findFavorite.getPost().getLikes()-1);
+                postService.savePost(findFavorite.getPost());
+                favoriteService.delete(findFavorite.getFav_id());
+            }
+        }
     }
 
     //내 좋아요 리스트 => 좋아요가 선택된 리스트

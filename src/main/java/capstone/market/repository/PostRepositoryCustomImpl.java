@@ -27,7 +27,6 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
         QPost post = QPost.post;
         BooleanBuilder whereBuilder = new BooleanBuilder();
 
-
         if (searchFilterDto.getCategories() != null && !searchFilterDto.getCategories().isEmpty()) {
             BooleanExpression[] categoryExpressions = searchFilterDto.getCategories().stream()
                     .map(post.category.category_type::eq)

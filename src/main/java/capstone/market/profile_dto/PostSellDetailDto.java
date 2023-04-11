@@ -26,6 +26,7 @@ public class PostSellDetailDto {
     private LocationType locationType;
     private String location_text;
     private List<String> images = new ArrayList<>();
+    private String item_name; // 상품명
 
 
 
@@ -42,6 +43,7 @@ public class PostSellDetailDto {
         this.locationType = post.getLocationType();
         this.location_text = post.getLocation_text();
         this.buyer_id = post.getPurchased().getMember().getId();
+        this.item_name = post.getItem_name();
 
         if (post.getImages().isEmpty()) {
             images.add("hello world");

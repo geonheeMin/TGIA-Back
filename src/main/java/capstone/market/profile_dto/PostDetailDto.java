@@ -28,6 +28,7 @@ public class PostDetailDto{
     private List<String> images = new ArrayList<>();
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private String item_name; // 상품명
 
 
     public PostDetailDto(Post post) {
@@ -44,6 +45,7 @@ public class PostDetailDto{
         this.location_text = post.getLocation_text();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
+        this.item_name = post.getItem_name();
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {

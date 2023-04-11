@@ -7,13 +7,15 @@ import lombok.Data;
 public class ChatRoomResponseDTO {
     Long chatroom_id;
     Long count;
-    String final_message;
+//    String final_message;
+    Long member;
 //    Long member_a;
 
     public ChatRoomResponseDTO(ChatRoom chatRoom) {
         this.chatroom_id =chatRoom.getId();
+        this.member = chatRoom.getMemberA().getId();
 //        this.member_a = chatRoom.getMember().getId();
-        this.count = chatRoom.getCount();
+        this.count = 0L;
     }
 
     //    String member_a;

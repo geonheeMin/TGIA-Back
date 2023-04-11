@@ -52,6 +52,7 @@ public class MemberController {
         memberResponseDTO.setSecondtrack(member.getSecondTrack().getSecond_track());
         memberResponseDTO.setUser_id(member.getUser_id());
         memberResponseDTO.setMember_id(member.getId());
+//        memberResponseDTO.setImageFilename("aaa.png");
         return memberResponseDTO;
     }
 
@@ -120,6 +121,7 @@ public class MemberController {
         private String username;
         private TrackType firsttrack;
         private TrackType secondtrack;
+        private String imageFilename;
 
         public MemberResponseDTO() {
         }

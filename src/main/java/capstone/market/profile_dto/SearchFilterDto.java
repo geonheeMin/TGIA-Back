@@ -19,6 +19,4 @@ public class SearchFilterDto {
     Integer likes;
     String sort;
     String keyword;
-
-
 }
