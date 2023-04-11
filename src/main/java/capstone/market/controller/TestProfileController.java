@@ -19,7 +19,7 @@ public class TestProfileController {
 
 
     @GetMapping("/testing/profile")
-    public ProfileListDto findMyProfileList(@RequestParam Long userId){
+    public ProfileListDto findMyProfileList(@RequestParam Long userId) {
         Member findmember = memberService.findOne(userId);
         ProfileListDto profileListDto = new ProfileListDto(findmember);
         return profileListDto;

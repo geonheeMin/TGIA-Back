@@ -75,7 +75,7 @@ public class DataLoader {
         memberC.setUsername("용기");
 
         Image image = new Image();
-        image.setImageFilename("basic profile.png");
+        image.setImageFilename("basicprofile.png");
         imageRepository.save(image);
         memberC.setImage(image);
 

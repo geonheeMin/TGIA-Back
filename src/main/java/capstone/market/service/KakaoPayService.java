@@ -63,19 +63,20 @@ public class KakaoPayService {
 //        String itemName = kakaoPayDto.getItem_name();
 
 
-
         // 카카오페이 요청 양식
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
         parameters.add("partner_order_id", String.valueOf(partner_order_id));
-        parameters.add("partner_user_id", String.valueOf(partner_user_id));
+        parameters.add("partner_user_id", String.valueOf(seller_id));
         parameters.add("item_name", item_name);
         parameters.add("quantity", String.valueOf(1)); // 상품수량
         parameters.add("total_amount", String.valueOf(item_price)); //상품 총액
         //parameters.add("vat_amount", String.valueOf(item_price*0.1)); //상품총액 - 상품 비과세 금액 에 10퍼센트 => 값 안보내면 자동저장
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
-        parameters.add("approval_url", "http://localhost:8080/payment/success"); // 성공 시 redirect url
+        //parameters.add("approval_url", "http://localhost:8080/payment/success"); // 성공 시 redirect url
+        // parameters.add("approval_url", "http://15.164.93.133:8080/payment/success"); // 성공 시 redirect url ec2
+        parameters.add("approval_url", "http://192.168.219.124:8080/payment/success"); // 성공 시 redirect url
         parameters.add("cancel_url", "http://localhost:8080/payment/cancel"); // 취소 시 redirect url
         parameters.add("fail_url", "http://localhost:8080/payment/fail"); // 실패 시 redirect url
 
@@ -119,9 +120,8 @@ public class KakaoPayService {
         parameters.add("cid", cid);
         parameters.add("tid", kakaoReady.getTid());
         parameters.add("partner_order_id", String.valueOf(partner_order_id));
-        parameters.add("partner_user_id", String.valueOf(partner_user_id));
+        parameters.add("partner_user_id", String.valueOf(seller_id));
         parameters.add("pg_token", pgToken);
-
 
 
         // 파라미터, 헤더
@@ -138,6 +138,7 @@ public class KakaoPayService {
 
         return approveResponse;
     }
+
     /**
      * 결제 환불
      */
@@ -164,6 +165,7 @@ public class KakaoPayService {
 
         return cancelResponse;
     }
+
     /**
      * 카카오 요구 헤더값
      */

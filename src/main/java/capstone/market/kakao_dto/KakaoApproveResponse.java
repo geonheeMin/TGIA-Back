@@ -1,6 +1,7 @@
 package capstone.market.kakao_dto;
 
 import lombok.Data;
+
 /**
  * 결제 승인 요청 시 사용
  */

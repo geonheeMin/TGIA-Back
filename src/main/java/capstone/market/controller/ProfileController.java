@@ -11,12 +11,14 @@ import capstone.market.service.MemberService;
 import capstone.market.service.PostService;
 import capstone.market.service.TrackService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Slf4j
 @RequiredArgsConstructor
 public class ProfileController {
     private final MemberService memberService;
@@ -64,6 +66,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public ProfileListDto findMyProfileList(@RequestParam Long userId){
+        log.info("hello world 23323 = {}", userId);
         Member findmember = memberService.findOne(userId);
         ProfileListDto profileListDto = new ProfileListDto(findmember);
         return profileListDto;
