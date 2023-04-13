@@ -14,8 +14,6 @@ public class Image {
     @Id @GeneratedValue
     private Long id;
     private String imageFilename;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;

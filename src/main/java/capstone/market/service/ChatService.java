@@ -91,12 +91,12 @@ public class ChatService {
         return chatRoomRepository.findByPostPostId(id);
     }
 
-//    public List<ChatRoom> getChatRoomListsByMemberId(Long member_id) {
-//        List<ChatRoom> chatRoomList = chatRoomRepository.findByMemberId(member_id);
-//        List<ChatRoom> chatRooms = chatRoomRepository.findByMemberAId(member_id);
-//        chatRoomList.addAll(chatRooms);
-//        return chatRoomList;
-//    }
+    public List<ChatRoom> getChatRoomListsByMemberId(Long member_id) {
+        List<ChatRoom> chatRoomList = chatRoomRepository.findByMemberAId(member_id);
+        List<ChatRoom> chatRooms = chatRoomRepository.findByMemberBId(member_id);
+        chatRoomList.addAll(chatRooms);
+        return chatRoomList;
+    }
 
     public Long getUnreadMessageCount(Long chatroom_id) {
         return chatMessageRepository.countByLookedAndChatRoomId(false, chatroom_id);

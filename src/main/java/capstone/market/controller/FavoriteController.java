@@ -61,13 +61,11 @@ public class FavoriteController {
     @DeleteMapping("/profile/delete_favorite")   //좀 애매 하네 어디서든 지 포스트 검색 할 수 있음
     public void deleteFavorite(@RequestParam Long favoriteId) {
         Favorite findFavorite = favoriteService.findById(favoriteId);
-        findFavorite.getPost().setLikes(findFavorite.getPost().getLikes()-1);
+        findFavorite.getPost().setLikes(findFavorite.getPost().getLikes() - 1);
         postService.savePost(findFavorite.getPost());
         favoriteService.delete(favoriteId);
-
-
-
     }
+
     @DeleteMapping("/profile/delete_favorite3")   //좀 애매 하네 어디서든 지 포스트 검색 할 수 있음
     public void deleteFavorite3(@RequestParam Long postId,@RequestParam Long userId) {
         Member findmember = memberService.findOne(userId);

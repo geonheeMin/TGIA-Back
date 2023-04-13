@@ -14,7 +14,7 @@ spring:
     url: jdbc:mysql://localhost:3306/market_v0?serverTimezone=UTC&characterEncoding=UTF-8
     # market_v0: 스키마 이름
     username: root
-    password: 6091
+    password: capstone
 
   jpa:
     hibernate:
@@ -27,8 +27,8 @@ spring:
   # native 에서 파일 업로드 크기 제한을 사실상 해제
   servlet:
     multipart:
-      max-file-size: 1GB
-      max-request-size: 1GB
+      max-file-size: 10GB
+      max-request-size: 10GB
 
 logging:
   level:
@@ -36,7 +36,7 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
 
-server:
-  address: 0.0.0.0
-  port: 8080
+#server:
+#  address: 0.0.0.0
+#  port: 8080
 

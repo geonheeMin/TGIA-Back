@@ -52,7 +52,7 @@ public class MemberController {
         memberResponseDTO.setSecondtrack(member.getSecondTrack().getSecond_track());
         memberResponseDTO.setUser_id(member.getUser_id());
         memberResponseDTO.setMember_id(member.getId());
-//        memberResponseDTO.setImageFilename("aaa.png");
+        memberResponseDTO.setImageFilename(member.getImage().getImageFilename());
         return memberResponseDTO;
     }
 
