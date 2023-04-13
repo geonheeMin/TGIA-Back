@@ -199,6 +199,7 @@ public class DataLoader {
 
         ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
         chatService.startChatMessageService(chatRoom, memberB, "hello world");
+        // 그냥 테스트
 
         ChatRoom chatRoom2 = chatService.startChatRoomService(post1, post4.getWho_posted(), memberB);
         chatService.startChatMessageService(chatRoom2, memberB, "hello world");
