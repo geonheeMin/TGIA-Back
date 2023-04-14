@@ -288,7 +288,7 @@ public class PostController {
     public PostDetailResponse postInfo(Long post_id) {
         Post post = postService.findPostByPostId(post_id);
 
-        postService.increaseViewCount(postId, userId);
+        //postService.increaseViewCount(postId, userId);
 
         return new PostDetailResponse(post);
     }
