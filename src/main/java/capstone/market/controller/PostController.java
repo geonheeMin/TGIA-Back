@@ -101,6 +101,8 @@ public class PostController {
         return new PostForm(request);
     }
 
+    @DeleteMapping("")
+
     //@GetMapping("/post/list")
     public List<Post> postListV3(HttpServletRequest request) {
         log.info("@GetMapping(\"/post/list\")");
@@ -288,7 +290,7 @@ public class PostController {
     public PostDetailResponse postInfo(Long post_id) {
         Post post = postService.findPostByPostId(post_id);
 
-        postService.increaseViewCount(postId, userId);
+//        postService.increaseViewCount(postId, userId);
 
         return new PostDetailResponse(post);
     }

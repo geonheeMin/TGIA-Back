@@ -46,9 +46,6 @@ public class ProfileController {
 
     }
 
-
-
-
     //@@@@테스트용  성공 유저의 구매리스트
     @GetMapping("/post/buy_list3")
     public  List<PostListResponse> getBuyerList3(@RequestParam Long userId) {

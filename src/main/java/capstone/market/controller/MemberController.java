@@ -42,6 +42,12 @@ public class MemberController {
         memberService.join(member);
     }
 
+    @GetMapping("/member/get_image")
+    public String memberProfileName(Long member_id) {
+        Member member = memberService.findMemberByPK(member_id);
+        return member.getImage().getImageFilename();
+    }
+
     // userId
     @GetMapping("/member/get")
     public MemberResponseDTO getMember(@RequestParam String user_id) {
@@ -52,7 +58,7 @@ public class MemberController {
         memberResponseDTO.setSecondtrack(member.getSecondTrack().getSecond_track());
         memberResponseDTO.setUser_id(member.getUser_id());
         memberResponseDTO.setMember_id(member.getId());
-//        memberResponseDTO.setImageFilename("aaa.png");
+        memberResponseDTO.setImageFilename(member.getImage().getImageFilename());
         return memberResponseDTO;
     }
 

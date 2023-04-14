@@ -130,24 +130,36 @@ public class ChatController {
         return new ChatRoomResponseDTO(chatRoom);
     }
 
-//    @GetMapping("/chat/get_chatroom_member_id")
-//    public List<ChatRoomListResponseDTO> getChatListByMemberId(Long member_id) {
-//        List<ChatRoom> chatRoomLists = chatService.getChatRoomListsByMemberId(member_id);
-//
-//        List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
-//        for (ChatRoom chatRoom : chatRoomLists) {
-//            int size = chatRoom.getMessages().size();
-//            ChatMessage chatMessage;
-//            if (size != 0) {
-//                chatMessage = chatRoom.getMessages().get(size-1);
+    @GetMapping("/chat/get_chatroom_member_id")
+    public List<ChatRoomListResponseDTO> getChatListByMemberId(Long member_id) {
+        List<ChatRoom> chatRoomLists = chatService.getChatRoomListsByMemberId(member_id);
+
+        List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+        Long count;
+        for (ChatRoom chatRoom : chatRoomLists) {
+            int size = chatRoom.getMessages().size();
+            ChatMessage chatMessage;
+            if (size != 0) {
+                chatMessage = chatRoom.getMessages().get(size-1);
+            } else {
+                chatMessage = null;
+            }
+            if (chatMessage.getMember().getId() == member_id) {
+                count = 0L;
+            } else {
+                count = chatService.getUnreadMessageCount(chatRoom.getId());
+            }
+            System.out.println("7878788778 count = " + count);
+//            if (member_id == chatRoom.getMemberA().getId()) {
+//                count = chatRoom.getCount_a();
 //            } else {
-//                chatMessage = null;
+//                count = chatRoom.getCount_b();
 //            }
-//            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage);
-//            chatRoomResponseDTOS.add(roomResponseDTO);
-//        }
-//        return chatRoomResponseDTOS;
-//    }
+            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage, count);
+            chatRoomResponseDTOS.add(roomResponseDTO);
+        }
+        return chatRoomResponseDTOS;
+    }
 
 //    @PostMapping("/chat/start_ver2")
 //    public ChatRoomResponseDTO chatStartVer2(@RequestBody ChatStartRequestDTO chatStartRequestDTO) {

@@ -24,20 +24,12 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private final PostDataJpaRepository postDataJpaRepository;
-
-
-
-
-
     public Post findPostByPostId(Long post_id) {
         return postRepository.findOne(post_id);
     }
 
     public void savePost(Post post) {
         postRepository.savePost(post);
-
-
-
     }
 
     public List<Post> findPostByUserId(String user_id) {
@@ -98,6 +90,8 @@ public class PostService {
         post.setPost_text(request.getContent());
         post.setPrice(request.getPrice());
         post.getDepartment().setDepartmentType(request.getDepartmentType());
-
+        post.setLocation_text(request.getLocation_text());
+        post.setLocationType(request.getLocationType());
+//        postRepository.savePost(post);
     }
 }
