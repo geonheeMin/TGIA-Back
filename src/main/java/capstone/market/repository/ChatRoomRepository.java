@@ -10,7 +10,7 @@ import java.util.List;
 @Transactional
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
     List<ChatRoom> findByPostPostId(Long postId);
-//    List<ChatRoom> findByMemberAId(Long memberId);
+    List<ChatRoom> findByMemberAId(Long memberId);
     List<ChatRoom> findByMemberBId(Long memberId);
 //    List<ChatRoom> finByPostWhoPosted(Long memberId);
 
