@@ -42,6 +42,12 @@ public class MemberController {
         memberService.join(member);
     }
 
+    @GetMapping("/member/get_image")
+    public String memberProfileName(Long member_id) {
+        Member member = memberService.findMemberByPK(member_id);
+        return member.getImage().getImageFilename();
+    }
+
     // userId
     @GetMapping("/member/get")
     public MemberResponseDTO getMember(@RequestParam String user_id) {
