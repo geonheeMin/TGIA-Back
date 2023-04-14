@@ -12,12 +12,14 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Data
+@Transactional
 public class PostRepositoryCustomImpl implements PostRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
@@ -44,6 +46,26 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
             whereBuilder.and(post.post_title.containsIgnoreCase(searchFilterDto.getKeyword())
                     .or(post.post_text.containsIgnoreCase(searchFilterDto.getKeyword())));
         }
+      /*  if (searchFilterDto.getLocation().toString() != null && !searchFilterDto.getLocation().toString().isEmpty()) {
+            whereBuilder.and(post.locationType.stringValue().containsIgnoreCase(searchFilterDto.getLocation().toString()));
+        }
+        if (searchFilterDto.getDepartment().toString() != null && !searchFilterDto.getDepartment().toString().isEmpty()) {
+            whereBuilder.and(post.department.departmentType.stringValue().containsIgnoreCase(searchFilterDto.getDepartment().toString()));
+        }*/
+        if (searchFilterDto.getLocations() != null && !searchFilterDto.getLocations().isEmpty()) {
+            BooleanExpression[] categoryExpressions2 = searchFilterDto.getLocations().stream()
+                    .map(post.locationType::eq)
+                    .toArray(BooleanExpression[]::new);
+            whereBuilder.andAnyOf(categoryExpressions2);
+        }
+        if (searchFilterDto.getDepartments() != null && !searchFilterDto.getDepartments().isEmpty()) {
+            BooleanExpression[] categoryExpressions3 = searchFilterDto.getDepartments().stream()
+                    .map(post.department.departmentType::eq)
+                    .toArray(BooleanExpression[]::new);
+            whereBuilder.andAnyOf(categoryExpressions3);
+        }
+
+
 
         Predicate where = whereBuilder.getValue();
         //BooleanExpression where = (BooleanExpression)whereBuilder.getValue();
