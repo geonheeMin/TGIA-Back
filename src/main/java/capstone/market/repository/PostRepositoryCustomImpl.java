@@ -1,7 +1,6 @@
 package capstone.market.repository;
 
-import capstone.market.domain.Post;
-import capstone.market.domain.QPost;
+import capstone.market.domain.*;
 import capstone.market.profile_dto.PostDetailDto;
 import capstone.market.profile_dto.SearchFilterDto;
 import com.querydsl.core.BooleanBuilder;
@@ -21,8 +20,9 @@ import java.util.stream.Collectors;
 @Data
 @Transactional
 public class PostRepositoryCustomImpl implements PostRepositoryCustom{
-
+    
     private final JPAQueryFactory queryFactory;
+
 
     @Override
     public List<PostDetailDto> searchFilter(SearchFilterDto searchFilterDto) {

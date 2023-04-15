@@ -41,7 +41,7 @@ public class PostController {
     private final FileService fileService;
 
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
-    @GetMapping("/detailSearch")
+    @PostMapping("/detailSearch")
     public List<PostDetailDto> Search(@RequestBody SearchFilterDto searchFilterDto) {
 
         List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
