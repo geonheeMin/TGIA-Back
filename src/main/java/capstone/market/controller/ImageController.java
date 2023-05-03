@@ -90,7 +90,7 @@ public class ImageController {
 //        if (deepLearn == "" || deepLearn.isEmpty()) {
 //            return "cant";
 //        }
-        return "deepLearn";
+        return "뷰티미용";
     }
 
     @ResponseBody

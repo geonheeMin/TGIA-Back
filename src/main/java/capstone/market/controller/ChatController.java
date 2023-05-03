@@ -121,11 +121,11 @@ public class ChatController {
         Long member_id = Long.valueOf(chatStartRequestDTO.getMember_id());
 
         Post post = chatService.findPostByPostId(post_id);
-        Member member = chatService.findMemberByMemberId(member_id);
+        Member sender = chatService.findMemberByMemberId(member_id);
         Member receiver = post.getWho_posted();
 
-        ChatRoom chatRoom = chatService.startChatRoomService(post, member, receiver);
-//        ChatRoom chatRoom2 = chatService.startChatRoomService(post, receiver);
+//        ChatRoom chatRoom = chatService.startChatRoomService(post, sender, receiver);
+        ChatRoom chatRoom = chatService.startChatRoomServiceV2(post, sender, receiver);
 
         return new ChatRoomResponseDTO(chatRoom);
     }
@@ -133,6 +133,7 @@ public class ChatController {
     @GetMapping("/chat/get_chatroom_member_id")
     public List<ChatRoomListResponseDTO> getChatListByMemberId(Long member_id) {
         List<ChatRoom> chatRoomLists = chatService.getChatRoomListsByMemberId(member_id);
+        System.out.println("dfafasdfsdf" + member_id);
 
         List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
         Long count;
@@ -141,12 +142,16 @@ public class ChatController {
             ChatMessage chatMessage;
             if (size != 0) {
                 chatMessage = chatRoom.getMessages().get(size-1);
+                System.out.println("313123");
             } else {
+                System.out.println("3412341234");
                 chatMessage = null;
             }
             if (chatMessage.getMember().getId() == member_id) {
+                System.out.println("1341234");
                 count = 0L;
             } else {
+                System.out.println("13413444");
                 count = chatService.getUnreadMessageCount(chatRoom.getId());
             }
             System.out.println("7878788778 count = " + count);

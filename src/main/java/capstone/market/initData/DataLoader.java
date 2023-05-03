@@ -1,8 +1,11 @@
 package capstone.market.initData;
 
 import capstone.market.domain.*;
+import capstone.market.post_dto.PostDetailResponse;
 import capstone.market.repository.*;
 import capstone.market.service.ChatService;
+import capstone.market.service.ImageService;
+import capstone.market.service.PostService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class DataLoader {
+    @Autowired
+    private PostService postService;
     @Autowired
     private ImageRepository imageRepository;
     @Autowired
@@ -33,6 +38,8 @@ public class DataLoader {
 //    private ChatMessageRepository chatMessageRepository;
     @Autowired
     private PostDataJpaRepository postDataJpaRepository;
+    @Autowired
+    private ImageService imageService;
     @Autowired
     private FirstTrackJpaRepository firstTrackJpaRepository;
     @Autowired
@@ -120,7 +127,13 @@ public class DataLoader {
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
-        Post post1 = new Post("제목1","내용");
+        Post post1 = new Post();
+        post1.setPost_title("제목1");
+        post1.setPost_text("내용");
+        System.out.println("afdsfasdfasd" + post1.getPostId());
+
+
+//        Post post1 = new Post("제목1","내용");
         Post post2 = new Post("제목2","내용");
         Post post3 = new Post("제목3","내용");
         Post post4 = new Post("제목4","내용");
@@ -129,9 +142,7 @@ public class DataLoader {
         post3.setWho_posted(memberB);
         post4.setWho_posted(memberD);
 
-//        Image image = new Image();
-//        image.setImageFilename("1.png");
-//        imageRepository.save(image);
+
 
         post1.setPrice(10000);
         post2.setPrice(10000);
@@ -145,13 +156,29 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
+        Image our_memory_image1 = new Image();
+        our_memory_image1.setImageFilename("miss1.png");
+        imageRepository.save(our_memory_image1);
+        our_memory_image1.getImageFilename();
+
+        Image our_memory_image2 = new Image();
+        our_memory_image2.setImageFilename("5558025b-a73f-4fcf-a0d7-87300924f989.jpg");
+        imageRepository.save(our_memory_image2);
+        our_memory_image2.getImageFilename();
+
+        List<Image> images = new ArrayList<>();
+        images.add(our_memory_image1);
+        images.add(our_memory_image2);
+
+        post1.setImages(images);
+
         Category post1category = new Category();
         Category post2category = new Category();
         Category post3category = new Category();
         Category post4category = new Category();
 
         post1category.setCategory_type(CategoryType.도서);
-        post2category.setCategory_type(CategoryType.생활);
+        post2category.setCategory_type(CategoryType.생활가전);
         post3category.setCategory_type(CategoryType.부기굿즈);
         post4category.setCategory_type(CategoryType.전자기기);
 
@@ -170,6 +197,8 @@ public class DataLoader {
         post3.setDepartment(department);
         post4.setDepartment(department);
 
+
+
         post1.setLocationType(LocationType.공학관);
         post1.setLocation_text("101호");
         post2.setLocationType(LocationType.미래관);
@@ -184,25 +213,26 @@ public class DataLoader {
         post3.setItem_name("아이패드 에어 4세대 블루");
         post4.setItem_name("토비의 스프링 1편");
 
-//        List<Image> images = new ArrayList<>();
-//        images.add(image1);
-//        images.add(image1);
-//        post1.setImages(images);
-//        post2.setImages(images);
-//        post3.setImages(images);
-//        post4.setImages(images);
-
         postRepository.savePost(post1);
         postRepository.savePost(post2);
         postRepository.savePost(post3);
         postRepository.savePost(post4);
 
-        ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
-        chatService.startChatMessageService(chatRoom, memberB, "hello world");
-        // 그냥 테스트
+//        post2.setImages(images);
+//        post3.setImages(images);
+//        post4.setImages(images);
 
-        ChatRoom chatRoom2 = chatService.startChatRoomService(post1, post4.getWho_posted(), memberB);
-        chatService.startChatMessageService(chatRoom2, memberB, "hello world");
+//        ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
+//        chatService.startChatMessageService(chatRoom, memberB, "안녕하세요!");
+//        // 그냥 테스트
+//
+//        ChatRoom chatRoom2 = chatService.startChatRoomService(post1, post4.getWho_posted(), memberB);
+//        chatService.startChatMessageService(chatRoom2, memberB, "안녕하십니까?");
+
+//        Post post34 = postService.findPostByPostId(post1.getPostId());
+//        System.out.println("post34.getPostId() = " + post34.getPostId());
+//        PostDetailResponse testing = new PostDetailResponse(post34);
+//        System.out.println(testing);
     }
 
 
