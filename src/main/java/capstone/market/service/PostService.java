@@ -92,6 +92,7 @@ public class PostService {
         post.getDepartment().setDepartmentType(request.getDepartmentType());
         post.setLocation_text(request.getLocation_text());
         post.setLocationType(request.getLocationType());
+        post.setItem_name(request.getItem_name());
 //        postRepository.savePost(post);
     }
 }
