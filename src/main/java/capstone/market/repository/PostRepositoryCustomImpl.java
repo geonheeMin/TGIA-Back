@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,8 +85,18 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
                 .orderBy(order)
                 .fetch();
 
+        List<Post> SellPosts = new ArrayList<>();
+        for (Post post1 : posts) {
 
-        List<PostDetailDto> SearchPosts = posts.stream().map(p -> new PostDetailDto(p))
+            if(post1.getPurchased()==null){
+                SellPosts.add(post1);
+            }
+
+        }
+
+
+
+        List<PostDetailDto> SearchPosts = SellPosts.stream().map(p -> new PostDetailDto(p))
                 .collect(Collectors.toList());
 
         return SearchPosts;
