@@ -78,7 +78,14 @@ public class ChatController {
         List<ChatMessage> chatLists = chatService.getChatLists(id, member_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
+        System.out.println("/chat/get_chat_message_list");
+
         for (ChatMessage chatMessage : chatLists) {
+            if (chatMessage.getMember().getId() != member_id) {
+                System.out.println("chatMessage.setLooked(true);");
+                chatMessage.setLooked(true);
+                chatService.updateLooked(chatMessage);
+            }
             chatMessageResponseDTOS.add(new ChatMessageResponseDTO(chatMessage));
         }
 
@@ -130,6 +137,42 @@ public class ChatController {
         return new ChatRoomResponseDTO(chatRoom);
     }
 
+
+    @GetMapping("/chat/get_chatroom_member_id_V2")
+    public List<ChatRoomListResponseDTO> getChatListByMemberIdV2(Long member_id) {
+        List<ChatRoom> chatRoomLists = chatService.getChatRoomListsByMemberId(member_id);
+        System.out.println("dfafasdfsdf" + member_id);
+
+        List<ChatRoomListResponseDTO> chatRoomResponseDTOS = new ArrayList<>();
+        Long count;
+        for (ChatRoom chatRoom : chatRoomLists) {
+            int size = chatRoom.getMessages().size();
+            ChatMessage chatMessage;
+            if (size != 0) {
+                chatMessage = chatRoom.getMessages().get(size-1);
+                System.out.println("313123");
+            } else {
+                System.out.println("3412341234");
+                chatMessage = null;
+            }
+            if (chatMessage.getMember().getId() == member_id) {
+                System.out.println("1341234");
+                count = 0L;
+            } else {
+                System.out.println("13413444");
+                count = chatService.getUnreadMessageCount(chatRoom.getId());
+            }
+            System.out.println("7878788778 count = " + count);
+//            if (member_id == chatRoom.getMemberA().getId()) {
+//                count = chatRoom.getCount_a();
+//            } else {
+//                count = chatRoom.getCount_b();
+//            }
+            ChatRoomListResponseDTO roomResponseDTO = new ChatRoomListResponseDTO(chatRoom, chatMessage, count);
+            chatRoomResponseDTOS.add(roomResponseDTO);
+        }
+        return chatRoomResponseDTOS;
+    }
     @GetMapping("/chat/get_chatroom_member_id")
     public List<ChatRoomListResponseDTO> getChatListByMemberId(Long member_id) {
         List<ChatRoom> chatRoomLists = chatService.getChatRoomListsByMemberId(member_id);
@@ -214,7 +257,7 @@ public class ChatController {
         // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
 
 
-        List<ChatMessage> chatLists = chatService.getChatLists(chatroom_id, sender_id);
+        List<ChatMessage> chatLists = chatService.getChatListsV2(chatroom_id, sender_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
         for (ChatMessage chatMessage2 : chatLists) {

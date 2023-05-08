@@ -35,6 +35,9 @@ public class ChatService {
         return chatRoomRepository.findById(id).get();
     }
 
+    public void updateLooked(ChatMessage chatMessage) {
+        chatMessageRepository.save(chatMessage);
+    }
     public ChatRoom startChatRoomService(Post post, Member sender, Member receiver) {
         List<ChatRoom> chatRooms = post.getChatRooms();
         for (ChatRoom chatRoom : chatRooms) {
@@ -95,13 +98,13 @@ public class ChatService {
 
         System.out.println("$$$$$$$$ memberId = " +  member_id);
         System.out.println("$$$$$$$$ chatRoom.getMemberA().getId() = " + chatRoom.getMemberA().getId());
-        if(member.getId() == chatRoom.getMemberA().getId()) {
-            chatRoom.updateMessageCountB();
-            System.out.println("worked updateMessageCountB" + chatRoom.getCount_b());
-        } else {
-            chatRoom.updateMessageCountA();
-            System.out.println("worked updateMessageCountA " + chatRoom.getCount_a());
-        }
+//        if(member.getId() == chatRoom.getMemberA().getId()) {
+//            chatRoom.updateMessageCountB();
+//            System.out.println("worked updateMessageCountB" + chatRoom.getCount_b());
+//        } else {
+//            chatRoom.updateMessageCountA();
+//            System.out.println("worked updateMessageCountA " + chatRoom.getCount_a());
+//        }
         chatRoomRepository.save(chatRoom);
         return chatMessage;
     }
@@ -121,6 +124,17 @@ public class ChatService {
         return chatMessageRepository.countByLookedAndChatRoomId(false, chatroom_id);
     }
 
+    public List<ChatMessage> getChatListsV2(Long id, Long member_id) {
+        List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
+        ChatRoom chatRoom = chatRoomRepository.findById(id).get();
+//        for (ChatMessage chatMessage : chatMessages) {
+//            if (chatMessage.getMember().getId() == member_id) {
+//                chatMessage.setLooked(true);
+//            }
+//        }
+        return chatMessages;
+    }
+
     public List<ChatMessage> getChatLists(Long id, Long member_id) {
         List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
         ChatRoom chatRoom = chatRoomRepository.findById(id).get();
@@ -130,7 +144,7 @@ public class ChatService {
 
             } else {
                 chatMessage.setLooked(true);
-                chatRoom.setCount_a(0L);
+//                chatRoom.setCount_a(0L);
 //                chatRoom.setCount_b(0L);
             }
         }

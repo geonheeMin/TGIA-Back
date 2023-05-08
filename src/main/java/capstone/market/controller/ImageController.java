@@ -78,19 +78,24 @@ public class ImageController {
     public String sendYolov5(@RequestBody String data) {
         System.out.println("deepLearn: " + data);
         deepLearn = data;
+
         return data;
     }
 
     @GetMapping("/send-data")
     public String getYolov5() {
-//        if (deepLearn == null) {
-//            return "null";
-//        }
-//        System.out.println("deepLearn: " + deepLearn);
-//        if (deepLearn == "" || deepLearn.isEmpty()) {
-//            return "cant";
-//        }
-        return "뷰티미용";
+        String objectName = deepLearn.substring(1, deepLearn.length() - 1);
+        if (objectName == null) {
+            return "null";
+        }
+        System.out.println("deepLearn: " + objectName);
+        if (objectName.equals("laptop")) {
+            return "전자기기";
+        } else if (objectName.equals("bicycle")) {
+            return "생활가전";
+        } else {
+            return "뷰티미용";
+        }
     }
 
     @ResponseBody
