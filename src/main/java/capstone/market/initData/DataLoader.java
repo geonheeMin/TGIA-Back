@@ -27,7 +27,7 @@ public class DataLoader {
     private PurchasedRepository purchasedRepository;
     @Autowired
     private DepartMentJpaRepository departMentJpaRepository;
-//    @Autowired
+    //    @Autowired
 //    private ChatRoomRepository chatRoomRepository;
 //    @Autowired
 //    private ChatMessageRepository chatMessageRepository;
@@ -98,7 +98,7 @@ public class DataLoader {
 
         memberA.setFirstTrack(firstTrack);
         memberA.setSecondTrack(secondTrack);
-       // memberA.setImage(image1);
+        // memberA.setImage(image1);
 
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
@@ -151,7 +151,7 @@ public class DataLoader {
         Category post4category = new Category();
 
         post1category.setCategory_type(CategoryType.도서);
-        post2category.setCategory_type(CategoryType.생활);
+        post2category.setCategory_type(CategoryType.생활가전);
         post3category.setCategory_type(CategoryType.부기굿즈);
         post4category.setCategory_type(CategoryType.전자기기);
 

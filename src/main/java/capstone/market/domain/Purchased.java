@@ -11,7 +11,7 @@ import javax.persistence.*;
 // 구매 목록
 @Entity
 @Data
-public class Purchased {
+public class Purchased extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
     private String productName;
@@ -34,3 +34,4 @@ public class Purchased {
 //    private Post post;
 
 }
+

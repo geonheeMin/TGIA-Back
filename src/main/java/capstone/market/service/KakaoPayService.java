@@ -75,11 +75,11 @@ public class KakaoPayService {
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
        //parameters.add("approval_url", "http://localhost:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("approval_url", "http://3.36.116.10:8080/payment/success"); // 성공 시 redirect url
+        parameters.add("approval_url", "http://223.194.133.163:8080/payment/success"); // 성공 시 redirect url
         // parameters.add("approval_url", "http://15.164.93.133:8080/payment/success"); // 성공 시 redirect url ec2
         //parameters.add("approval_url", "http://223.194.135.152:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://3.36.116.10:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://3.36.116.10:8080/payment/fail"); // 실패 시 redirect url
+        parameters.add("cancel_url", "http://223.194.133.163:8080/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://223.194.133.163:8080/payment/fail"); // 실패 시 redirect url
 
 
         //http://43.201.77.124:8080 => ec2주소
