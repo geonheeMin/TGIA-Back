@@ -1,6 +1,7 @@
 package capstone.market.service;
 
 import capstone.market.domain.CategoryType;
+import capstone.market.domain.Image;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
 import capstone.market.post_dto.PostForm;
@@ -78,6 +79,10 @@ public class PostService {
         }
     }
 
+    // 5/8 이미지 설정 코드 수정
+    public void setImage(Post post, List<Image> images) {
+        post.setImages(images);
+    }
 
     //필터링 추가 3/23 @@@@@@@@ final version
 
@@ -92,6 +97,7 @@ public class PostService {
         post.getDepartment().setDepartmentType(request.getDepartmentType());
         post.setLocation_text(request.getLocation_text());
         post.setLocationType(request.getLocationType());
+        post.setItem_name(request.getItem_name());
 //        postRepository.savePost(post);
     }
 }

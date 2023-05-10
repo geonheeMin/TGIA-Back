@@ -3,20 +3,23 @@ package capstone.market.initData;
 import capstone.market.domain.*;
 import capstone.market.repository.*;
 import capstone.market.service.ChatService;
+import capstone.market.service.ImageService;
+import capstone.market.service.PostService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
 
 @Component
 @Slf4j
 public class DataLoader {
+    @Autowired
+    private PostService postService;
     @Autowired
     private ImageRepository imageRepository;
     @Autowired
@@ -27,12 +30,14 @@ public class DataLoader {
     private PurchasedRepository purchasedRepository;
     @Autowired
     private DepartMentJpaRepository departMentJpaRepository;
-//    @Autowired
+    //    @Autowired
 //    private ChatRoomRepository chatRoomRepository;
 //    @Autowired
 //    private ChatMessageRepository chatMessageRepository;
     @Autowired
     private PostDataJpaRepository postDataJpaRepository;
+    @Autowired
+    private ImageService imageService;
     @Autowired
     private FirstTrackJpaRepository firstTrackJpaRepository;
     @Autowired
@@ -79,7 +84,8 @@ public class DataLoader {
         Image image = new Image();
         image.setImageFilename("basicprofile.png");
         imageRepository.save(image);
-
+        CategoryType[] categories = CategoryType.values();
+        Random random = new Random();
 
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
@@ -98,7 +104,7 @@ public class DataLoader {
 
         memberA.setFirstTrack(firstTrack);
         memberA.setSecondTrack(secondTrack);
-       // memberA.setImage(image1);
+        // memberA.setImage(image1);
 
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
@@ -120,18 +126,49 @@ public class DataLoader {
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
-        Post post1 = new Post("제목1","내용");
-        Post post2 = new Post("제목2","내용");
+        Category post1category = new Category();
+        Category post2category = new Category();
+        Category post3category = new Category();
+        Category post4category = new Category();
+        Category post5category = new Category();
+
+
+        post1category.setCategory_type(CategoryType.도서);
+        post2category.setCategory_type(CategoryType.생활가전);
+        post3category.setCategory_type(CategoryType.부기굿즈);
+        post4category.setCategory_type(CategoryType.전자기기);
+        post5category.setCategory_type(CategoryType.뷰티미용);
+
+
+        categoryJpaRepository.save(post1category);
+        categoryJpaRepository.save(post2category);
+        categoryJpaRepository.save(post3category);
+        categoryJpaRepository.save(post4category);
+        categoryJpaRepository.save(post5category);
+
+        LocationType[] locations = LocationType.values();
+
+//            our_memory_image1.setPost(post2);
+
+
+
+        Post post1 = new Post();
+        post1.setPost_title("제목1");
+        post1.setPost_text("내용");
+        System.out.println("afdsfasdfasd" + post1.getPostId());
+//        Post post1 = new Post("제목1","내용");
+        Post post2 = new Post();
+        post2.setPost_title("제발 좀 되라");
+        post2.setPost_text("제발!");
+
+        System.out.println("dfadfadf: " + post2.getPostId());
+
         Post post3 = new Post("제목3","내용");
         Post post4 = new Post("제목4","내용");
         post1.setWho_posted(memberA);
         post2.setWho_posted(memberA);
         post3.setWho_posted(memberB);
         post4.setWho_posted(memberD);
-
-//        Image image = new Image();
-//        image.setImageFilename("1.png");
-//        imageRepository.save(image);
 
         post1.setPrice(10000);
         post2.setPrice(10000);
@@ -145,20 +182,151 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
-        Category post1category = new Category();
-        Category post2category = new Category();
-        Category post3category = new Category();
-        Category post4category = new Category();
+        for (int i =0;i<30;i++) {
+            Post dummyPost = new Post();
 
-        post1category.setCategory_type(CategoryType.도서);
-        post2category.setCategory_type(CategoryType.생활);
-        post3category.setCategory_type(CategoryType.부기굿즈);
-        post4category.setCategory_type(CategoryType.전자기기);
+            Category randomCategory = new Category();
+            randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
+            categoryJpaRepository.save(randomCategory);
+            dummyPost.setCategory(randomCategory);
 
-        categoryJpaRepository.save(post1category);
-        categoryJpaRepository.save(post2category);
-        categoryJpaRepository.save(post3category);
-        categoryJpaRepository.save(post4category);
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.의류) {
+                dummyPost.setPost_title("더미 옷 팔아요"+i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
+                dummyPost.setPost_title("더미 부기굿즈 팔아요"+i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
+                dummyPost.setPost_title("더미 도서 팔아요"+i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
+                dummyPost.setPost_title("더미 생활가전 팔아요"+i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
+                dummyPost.setPost_title("더미 뷰티미용 팔아요"+i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
+                dummyPost.setPost_title("더미 필기구 팔아요" + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
+                dummyPost.setPost_title("더미 전자기기 팔아요" + i);
+                dummyPost.setPost_text("내용");
+            }
+            dummyPost.setWho_posted(memberA);
+            dummyPost.setPrice(10000);
+
+            dummyPost.setDepartment(department);
+
+            dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
+            dummyPost.setLocation_text("101호");
+
+            dummyPost.setItem_name("MacBook Pro 13");
+//            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
+//            post3.setItem_name("아이패드 에어 4세대 블루");
+//            post4.setItem_name("토비의 스프링 1편");
+
+            postRepository.savePost(dummyPost);
+
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.의류) {
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("clothes" + randomNumber + "_0.jpg");
+                dummyImage1.setImageFilename("clothes" + randomNumber + "_1.jpg");
+                dummyImage2.setImageFilename("clothes" + randomNumber + "_2.jpg");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+
+                dummyImage.setImageFilename("boggie" + randomNumber + ".png");
+
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("elec" + randomNumber + "_0.jpeg");
+                dummyImage1.setImageFilename("elec" + randomNumber + "_1.jpeg");
+                dummyImage2.setImageFilename("elec" + randomNumber + "_2.jpeg");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
+
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("beauty" + randomNumber + "_0.webp");
+                dummyImage1.setImageFilename("beauty" + randomNumber + "_1.webp");
+                dummyImage2.setImageFilename("beauty" + randomNumber + "_2.webp");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(5) + 1;
+                dummyImage.setImageFilename("book" + randomNumber + ".jpeg");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
+                Image dummyImage = new Image();
+                dummyImage.setImageFilename("writing_implement1.png");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(5) + 1;
+                dummyImage.setImageFilename("appliances" + randomNumber + ".jpeg");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            }
+        }
+//        our_memory_image1.getImageFilename();
+
+//        Image our_memory_image2 = new Image();
+//        our_memory_image2.setImageFilename("5558025b-a73f-4fcf-a0d7-87300924f989.jpg");
+//        imageRepository.save(our_memory_image2);
+//        our_memory_image2.getImageFilename();
+
+
+
+//        List<Image> images = imageService.findImages(imageNames);
+
+
+//        images.add(our_memory_image2);
+
+
+
+//        Category post1category = new Category();
+//        Category post2category = new Category();
+//        Category post3category = new Category();
+//        Category post4category = new Category();
+//
+//        post1category.setCategory_type(CategoryType.도서);
+//        post2category.setCategory_type(CategoryType.생활가전);
+//        post3category.setCategory_type(CategoryType.부기굿즈);
+//        post4category.setCategory_type(CategoryType.전자기기);
+//
+//        categoryJpaRepository.save(post1category);
+//        categoryJpaRepository.save(post2category);
+//        categoryJpaRepository.save(post3category);
+//        categoryJpaRepository.save(post4category);
 
         post1.setCategory(post1category);
         post2.setCategory(post2category);
@@ -169,6 +337,8 @@ public class DataLoader {
         post2.setDepartment(department);
         post3.setDepartment(department);
         post4.setDepartment(department);
+
+
 
         post1.setLocationType(LocationType.공학관);
         post1.setLocation_text("101호");
@@ -184,25 +354,37 @@ public class DataLoader {
         post3.setItem_name("아이패드 에어 4세대 블루");
         post4.setItem_name("토비의 스프링 1편");
 
-//        List<Image> images = new ArrayList<>();
-//        images.add(image1);
-//        images.add(image1);
-//        post1.setImages(images);
-//        post2.setImages(images);
-//        post3.setImages(images);
-//        post4.setImages(images);
-
         postRepository.savePost(post1);
         postRepository.savePost(post2);
         postRepository.savePost(post3);
         postRepository.savePost(post4);
 
-        ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
-        chatService.startChatMessageService(chatRoom, memberB, "hello world");
-        // 그냥 테스트
+        Image our_memory_image1 = new Image();
+        our_memory_image1.setImageFilename("miss1.png");
+        our_memory_image1.setPost(post2);
+        imageRepository.save(our_memory_image1);
 
-        ChatRoom chatRoom2 = chatService.startChatRoomService(post1, post4.getWho_posted(), memberB);
-        chatService.startChatMessageService(chatRoom2, memberB, "hello world");
+        List<Image> images = new ArrayList<>();
+        images.add(our_memory_image1);
+//        postService.savePost(post2);
+
+        System.out.println("ddfadf" + post2.getPostId());
+
+//        post2.setImages(images);
+//        post3.setImages(images);
+//        post4.setImages(images);
+
+//        ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
+//        chatService.startChatMessageService(chatRoom, memberB, "안녕하세요!");
+//        // 그냥 테스트
+//
+//        ChatRoom chatRoom2 = chatService.startChatRoomService(post1, post4.getWho_posted(), memberB);
+//        chatService.startChatMessageService(chatRoom2, memberB, "안녕하십니까?");
+
+//        Post post34 = postService.findPostByPostId(post1.getPostId());
+//        System.out.println("post34.getPostId() = " + post34.getPostId());
+//        PostDetailResponse testing = new PostDetailResponse(post34);
+//        System.out.println(testing);
     }
 
 

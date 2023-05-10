@@ -74,12 +74,13 @@ public class KakaoPayService {
         //parameters.add("vat_amount", String.valueOf(item_price*0.1)); //상품총액 - 상품 비과세 금액 에 10퍼센트 => 값 안보내면 자동저장
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
-        //parameters.add("approval_url", "http://localhost:8080/payment/success"); // 성공 시 redirect url
-        // parameters.add("approval_url", "http://15.164.93.133:8080/payment/success"); // 성공 시 redirect url ec2
-        parameters.add("approval_url", "http://192.168.219.124:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://localhost:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://localhost:8080/payment/fail"); // 실패 시 redirect url
+    
+        parameters.add("approval_url", " http://223.194.132.111:8080/payment/success"); // 성공 시 redirect url
+        parameters.add("cancel_url", " http://223.194.132.111:8080/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", " http://223.194.132.111:8080/payment/fail"); // 실패 시 redirect url
 
+
+        //http://43.201.77.124:8080 => ec2주소
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -104,8 +105,12 @@ public class KakaoPayService {
          * 구매내역 만들어주자(buyer도 설정해주자.)
          */
 
+
+
         Purchased purchased = new Purchased();
         purchased.setMember(memberRepository.findOne(buyer_id));
+        purchased.setPrice(item_price);
+        purchased.setProductName(item_name);
         purchasedRepository.save(purchased);
         Post post = postRepository.findOne(post_id);
         post.setPurchased(purchased);

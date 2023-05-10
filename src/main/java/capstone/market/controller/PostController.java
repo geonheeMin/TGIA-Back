@@ -248,10 +248,15 @@ public class PostController {
         Department department = new Department();
         departmentService.UpdateDepartment(department, request.getDepartment());
         post.setDepartment(department);
+        post.setItem_name(request.getItem_name());
+        post.setLocation_text(request.getLocation_text());
+        post.setLocationType(request.getLocationType());
+
 
         List<Image> images = imageService.findImages(request.getImages());
+//        postService.setImage(post, images);
         post.setImages(images);
-//        post.setImage(fileService.findImageFilename(request.image_file_name));
+///        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
 

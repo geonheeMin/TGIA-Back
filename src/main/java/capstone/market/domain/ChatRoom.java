@@ -32,17 +32,21 @@ public class ChatRoom {
 //    @ManyToOne
 //    @JoinColumn(name = "member")
 //    private Member member;
-    private Long count_a = 0L;
-    private Long count_b = 0L;
+//    private Long count_a = 0L;
+//    private Long count_b = 0L;
+
+    //latest_msg
+    @OneToOne
+    private ChatMessage finalMsg;
 
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
     private List<ChatMessage> messages = new ArrayList<>();
 
-    public void updateMessageCountA() {
-        this.count_a += 1;
-    }
-
-    public void updateMessageCountB() {
-        this.count_b += 1;
-    }
+//    public void updateMessageCountA() {
+//        this.count_a += 1;
+//    }
+//
+//    public void updateMessageCountB() {
+//        this.count_b += 1;
+//    }
 }
