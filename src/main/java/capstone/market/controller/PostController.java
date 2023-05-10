@@ -254,8 +254,9 @@ public class PostController {
 
 
         List<Image> images = imageService.findImages(request.getImages());
+//        postService.setImage(post, images);
         post.setImages(images);
-//        post.setImage(fileService.findImageFilename(request.image_file_name));
+///        post.setImage(fileService.findImageFilename(request.image_file_name));
         postService.savePost(post);
     }
 

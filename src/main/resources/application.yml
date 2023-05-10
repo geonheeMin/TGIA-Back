@@ -1,6 +1,6 @@
 # 이미지를 저장시킬 백엔드 디렉토리
 
-#file.dir: /Users/son/Desktop/upload/
+file.dir: /Users/son/Desktop/upload/
 #file.dir: /home/ubuntu/uploads/
 
 file.dir: /Users/jys/Desktop/upload/
@@ -14,7 +14,7 @@ spring:
     url: jdbc:mysql://localhost:3306/market_v0?serverTimezone=UTC&characterEncoding=UTF-8
     # market_v0: 스키마 이름
     username: root
-    password: 6091
+    password: capstone
 
   jpa:
     hibernate:
@@ -35,8 +35,8 @@ logging:
     # hibernate 가 생성하는 sql 문을 모두 보여준다.
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-#
-#server:
-#  address: 0.0.0.0
-#  port: 8080
-#
+
+server:
+  address: 0.0.0.0
+  port: 8080
+

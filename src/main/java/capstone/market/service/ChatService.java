@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -36,34 +35,57 @@ public class ChatService {
         return chatRoomRepository.findById(id).get();
     }
 
-    public ChatRoom startChatRoomService(Post post, Member memberA, Member memberB) {
+    public void updateLooked(ChatMessage chatMessage) {
+        chatMessageRepository.save(chatMessage);
+    }
+    public ChatRoom startChatRoomService(Post post, Member sender, Member receiver) {
         List<ChatRoom> chatRooms = post.getChatRooms();
         for (ChatRoom chatRoom : chatRooms) {
-            if (chatRoom.getMemberA() == memberB) {
+            if (chatRoom.getMemberA() == receiver) {
                 return chatRoom;
             }
         }
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setPost(post);
-        chatRoom.setMemberA(memberA);
-        chatRoom.setMemberB(memberB);
+        chatRoom.setMemberA(sender);
+        chatRoom.setMemberB(receiver);
         chatRoomRepository.save(chatRoom);
         // 기존 채팅이 있는지 없는 지
 
         return chatRoom;
     }
 
-//    public ChatRoom startChatRoomServiceV2(Post post, Member sender, Member receiver) {
-////        List<REChatRoom> chatRooms = post.getChatRooms();
-//        ChatRoom chatRoom = new ChatRoom();
-//        chatRoom.setPost(post);
-//        chatRoom.setSender(sender);
-//        chatRoom.setReceiver(receiver);
-//        chatRoomRepository.save(chatRoom);
-//
-//        return chatRoom;
-//    }
+    public ChatRoom startChatRoomServiceV2(Post post, Member sender, Member receiver) {
+        // 현재 receiver 는 게시물의 작성자로 만약 sender, receiver 가 이전 채팅방 목록에 같은 짝이 있다면
+        // 무조건 채팅방을 만들지 말라고 한다면, 게시글 작성자가 다른 글을 올렸을 때 문의하기를 할 수 없다.
+        // 이를 방지하기 위해서 게시글 id가 같을 경우에만을 검사한다.
 
+        List<ChatRoom> chatRooms = chatRoomRepository.findByPostPostId(post.getPostId());
+        for (ChatRoom chatRoom: chatRooms) {
+            if (chatRoom.getMemberA() == sender && chatRoom.getMemberB() == receiver) {
+                return chatRoom;
+            }
+        }
+
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setPost(post);
+        chatRoom.setMemberA(sender);
+        chatRoom.setMemberB(receiver);
+        chatRoomRepository.save(chatRoom);
+
+        return chatRoom;
+    }
+
+    public ChatMessage startChatMessageServiceV2(ChatRoom chatRoom, Member member, String message) {
+        ChatMessage chatMessage = new ChatMessage(chatRoom, member, message, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+        chatMessage.setMember(member);
+        chatMessage.setChatRoom(chatRoom);
+        chatMessage.setLooked(false);
+        chatMessageRepository.save(chatMessage);
+
+        chatRoomRepository.save(chatRoom);
+        return chatMessage;
+    }
 
     public ChatMessage startChatMessageService(ChatRoom chatRoom, Member member, String message) {
         ChatMessage chatMessage = new ChatMessage(chatRoom, member, message, LocalDateTime.now(ZoneId.of("Asia/Seoul")));
@@ -76,13 +98,13 @@ public class ChatService {
 
         System.out.println("$$$$$$$$ memberId = " +  member_id);
         System.out.println("$$$$$$$$ chatRoom.getMemberA().getId() = " + chatRoom.getMemberA().getId());
-        if(member.getId() == chatRoom.getMemberA().getId()) {
-            chatRoom.updateMessageCountB();
-            System.out.println("worked updateMessageCountB" + chatRoom.getCount_b());
-        } else {
-            chatRoom.updateMessageCountA();
-            System.out.println("worked updateMessageCountA " + chatRoom.getCount_a());
-        }
+//        if(member.getId() == chatRoom.getMemberA().getId()) {
+//            chatRoom.updateMessageCountB();
+//            System.out.println("worked updateMessageCountB" + chatRoom.getCount_b());
+//        } else {
+//            chatRoom.updateMessageCountA();
+//            System.out.println("worked updateMessageCountA " + chatRoom.getCount_a());
+//        }
         chatRoomRepository.save(chatRoom);
         return chatMessage;
     }
@@ -102,6 +124,17 @@ public class ChatService {
         return chatMessageRepository.countByLookedAndChatRoomId(false, chatroom_id);
     }
 
+    public List<ChatMessage> getChatListsV2(Long id, Long member_id) {
+        List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
+        ChatRoom chatRoom = chatRoomRepository.findById(id).get();
+//        for (ChatMessage chatMessage : chatMessages) {
+//            if (chatMessage.getMember().getId() == member_id) {
+//                chatMessage.setLooked(true);
+//            }
+//        }
+        return chatMessages;
+    }
+
     public List<ChatMessage> getChatLists(Long id, Long member_id) {
         List<ChatMessage> chatMessages = chatMessageRepository.findByChatRoomId(id);
         ChatRoom chatRoom = chatRoomRepository.findById(id).get();
@@ -111,7 +144,7 @@ public class ChatService {
 
             } else {
                 chatMessage.setLooked(true);
-                chatRoom.setCount_a(0L);
+//                chatRoom.setCount_a(0L);
 //                chatRoom.setCount_b(0L);
             }
         }
