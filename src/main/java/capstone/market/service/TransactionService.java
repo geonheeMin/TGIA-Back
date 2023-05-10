@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -68,7 +70,23 @@ public class TransactionService {
         adminStatisticsDTO.setMonthlyTransactions(transactionRepository.getTransactionCountByPeriod("MONTHLY"));
         adminStatisticsDTO.setYearlyTransactions(transactionRepository.getTransactionCountByPeriod("YEARLY"));
 
+        /**
+         * 7.  각 월 별 거래량(1~12월)
+         */
+       adminStatisticsDTO.setMonthlyPostCountsByCategory(transactionRepository.getMonthlyPostCountsByCategory(2023));
+       adminStatisticsDTO.setMonthlyTransactionCountsByCategory(transactionRepository.getMonthlyTransactionCountsByCategory(2023));
+
         return adminStatisticsDTO;
+    }
+
+
+
+    /**
+     * 8. 월별 카테고리별 거래 횟수 조회 (테스트용) (사실상 위의 로직에서 끝남 이건 테스트 용)
+     */
+    public Map<String, Map<String, Long>> getMonthlyPostCountsByCategory(int year) {
+        return transactionRepository.getMonthlyPostCountsByCategory(year);
+
     }
 
 
