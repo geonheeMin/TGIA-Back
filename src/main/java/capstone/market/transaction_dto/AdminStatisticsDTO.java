@@ -2,6 +2,8 @@ package capstone.market.transaction_dto;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class AdminStatisticsDTO {
 
@@ -42,6 +44,16 @@ public class AdminStatisticsDTO {
     private Long weeklyTransactions; // 한주동안 거래량
     private Long monthlyTransactions; // 한달동안 거래량
     private Long yearlyTransactions;  // 일년동안 거래량
+
+
+    /**
+     * 5. 1~12월 각 카테고리별 게시물 갯수
+     */
+    private Map<String, Map<String, Long>> monthlyPostCountsByCategory;
+    /**
+     * 6. 1~12월 각 카테고리별 거래량
+     */
+    private Map<String, Map<String, Long>> monthlyTransactionCountsByCategory;
 
 
 }

@@ -84,15 +84,20 @@ public class ImageController {
 
     @GetMapping("/send-data")
     public String getYolov5() {
+
         String objectName = deepLearn.substring(1, deepLearn.length() - 1);
         if (objectName == null) {
-            return "null";
+            return "생활가전";
         }
         System.out.println("deepLearn: " + objectName);
         if (objectName.equals("laptop")) {
             return "전자기기";
         } else if (objectName.equals("bicycle")) {
             return "생활가전";
+        } else if (objectName.equals("clock")) {
+            return "의류";
+        } else if (objectName.equals("0")) {
+            return "도서";
         } else {
             return "뷰티미용";
         }
