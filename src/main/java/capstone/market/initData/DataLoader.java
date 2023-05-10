@@ -30,7 +30,7 @@ public class DataLoader {
     private PurchasedRepository purchasedRepository;
     @Autowired
     private DepartMentJpaRepository departMentJpaRepository;
-//    @Autowired
+    //    @Autowired
 //    private ChatRoomRepository chatRoomRepository;
 //    @Autowired
 //    private ChatMessageRepository chatMessageRepository;
@@ -104,7 +104,7 @@ public class DataLoader {
 
         memberA.setFirstTrack(firstTrack);
         memberA.setSecondTrack(secondTrack);
-       // memberA.setImage(image1);
+        // memberA.setImage(image1);
 
         memberB.setFirstTrack(firstTrack1);
         memberB.setSecondTrack(secondTrack1);
