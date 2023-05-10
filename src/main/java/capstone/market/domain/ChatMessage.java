@@ -30,6 +30,10 @@ public class ChatMessage {
 
     LocalDateTime time;
 
+    public void setLookedTrue() {
+        this.looked = true;
+    }
+
     public ChatMessage(String message) {
         this.message = message;
     }
