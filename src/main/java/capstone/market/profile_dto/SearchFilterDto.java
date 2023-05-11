@@ -1,8 +1,6 @@
 package capstone.market.profile_dto;
 
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.DepartmentType;
-import capstone.market.domain.LocationType;
+import capstone.market.domain.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,10 +16,17 @@ public class SearchFilterDto {
 
     Integer views;
 
-    List<DepartmentType> departments;
+
     List<LocationType> locations;
 
     Integer likes;
     String sort;
     String keyword;
+
+
+    List<DepartmentType> departments;
+    TrackType track;
+    CollegeType collegeType;
+
+
 }

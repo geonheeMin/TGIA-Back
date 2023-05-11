@@ -252,6 +252,76 @@ public class PostController {
         post.setLocation_text(request.getLocation_text());
         post.setLocationType(request.getLocationType());
 
+        post.setTrack(request.getTrack());
+        post.getDepartment().setDepartmentType(request.getDepartment());
+
+        if(request.getDepartment() == DepartmentType.컴퓨터공학부 ||
+                request.getDepartment() == DepartmentType.기계전자공학부 ||
+            request.getDepartment() == DepartmentType.스마트경영공학부){
+
+            post.setCollege(CollegeType.IT공과대학);
+        }
+
+
+        if(request.getDepartment() == DepartmentType.상상력인재학부 ||
+                request.getDepartment() == DepartmentType.문학문화콘텐츠학과 ||
+                request.getDepartment() == DepartmentType.AI응용학과 ||
+                request.getDepartment() == DepartmentType.융합보안학과
+        ){
+
+            post.setCollege(CollegeType.창의융합대학);
+        }
+
+
+        if(request.getDepartment() == DepartmentType.글로벌패션산업학부 ||
+                request.getDepartment() == DepartmentType.ICT디자인학부 ||
+                request.getDepartment() == DepartmentType.뷰티디자인매니지먼트학과
+        ){
+
+            post.setCollege(CollegeType.디자인대학);
+        }
+
+        if(request.getDepartment() == DepartmentType.사회과학부
+        ){
+
+            post.setCollege(CollegeType.미래융합사회과학대학);
+        }
+
+
+
+        if(request.getDepartment() == DepartmentType.크리에이티브인문학부
+        ){
+
+            post.setCollege(CollegeType.크리에이티브인문예술대학);
+        }
+
+
+        if(request.getDepartment() == DepartmentType.호텔외식경영학과 ||
+                request.getDepartment() == DepartmentType.융합행정학과 ||
+                request.getDepartment() == DepartmentType.비즈니스컨설팅학과 ||
+                request.getDepartment() == DepartmentType.뷰티디자인학과 ||
+                request.getDepartment() == DepartmentType.ICT융합디자인학과
+        ){
+
+            post.setCollege(CollegeType.미래플러스대학);
+        }
+
+
+        if(request.getDepartment() == DepartmentType.기초교양학부 ||
+                request.getDepartment() == DepartmentType.소양핵심교양학부 ||
+                request.getDepartment() == DepartmentType.자율교양학부
+        ){
+
+            post.setCollege(CollegeType.상상력교양대학);
+        }
+
+
+
+
+
+
+
+
 
         List<Image> images = imageService.findImages(request.getImages());
 //        postService.setImage(post, images);

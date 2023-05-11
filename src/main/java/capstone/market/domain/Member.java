@@ -39,6 +39,16 @@ public class Member {
     @JoinColumn(name = "image_id")
     private Image image;
 
+
+
+    private DepartmentType first_department;
+
+    private DepartmentType second_department;
+
+    private CollegeType first_college;
+
+    private CollegeType second_college;
+
     public Member() {
     }
 

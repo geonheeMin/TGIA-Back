@@ -23,6 +23,9 @@ public class ProfileController {
     private final PostService postService;
     private final TrackService trackService;
     private final ImageService imageService;
+
+
+
     //이게 지금 dto 널값 오류로 이게 안되고 아래꺼가 된다.
     @GetMapping("/post/buy_list")
     public  List<PostDetailResponse> getBuyerList(@RequestParam Long userId) {
@@ -61,11 +64,20 @@ public class ProfileController {
     //@@@테스트
 
     @GetMapping("/profile")
-    public ProfileListDto findMyProfileList(@RequestParam Long userId){
-        log.info("hello world 23323 = {}", userId);
-        Member findmember = memberService.findOne(userId);
-        ProfileListDto profileListDto = new ProfileListDto(findmember);
-        return profileListDto;
+    public ProfileListDto findMyProfileList(@RequestBody ProfileListDto profileListDto){
+
+
+        return memberService.findMyProfileList(profileListDto.getUserId());
+
+
+    }
+
+    @PostMapping("/profile/add_college")
+    public ProfileListDto addCollege(@RequestBody ProfileListDto profileListDto){
+
+
+        return memberService.addCollege(profileListDto);
+
     }
 
     // 3월 17일

@@ -18,7 +18,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         # 얘도 sql 문을 보여주지만 sout 으로 하기 때문에 않좋다.
