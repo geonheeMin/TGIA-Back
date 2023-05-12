@@ -8,10 +8,12 @@ import java.util.Map;
 public class AdminStatisticsDTO {
 
     /**
-     * 1. 총 거래 갯수
+     * 1. 총 거래 갯수 + 회원 수
      */
     private Long totalPosts; // 총 게시글 갯수
     private Long totalTransactions; // 총 거래 갯수
+
+    private Long totalUsers; // 총 회원 수
 
 
     /**

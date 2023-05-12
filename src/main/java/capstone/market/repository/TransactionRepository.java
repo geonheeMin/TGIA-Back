@@ -25,6 +25,19 @@ public class TransactionRepository {
 
     private final EntityManager em;
 
+
+
+    /**
+     * 0. 회원 수
+     */
+
+    public Long getTotalUsers(){
+        String jpql = "SELECT COUNT(b) FROM Member b";
+        return em.createQuery(jpql, Long.class)
+                .getSingleResult();
+    }
+
+
     /**
      * 1. 총 게시물 갯수
      */
@@ -294,6 +307,8 @@ public class TransactionRepository {
 
         return monthlyTransactionCounts;
     }
+
+
 }
 
 
