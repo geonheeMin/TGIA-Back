@@ -25,9 +25,4 @@ public class TransactionController {
     public Map<String, Map<String, Long>> getMonthlyTransactionCountsByCategory(){
         return transactionService.getMonthlyPostCountsByCategory(2023);
     }
-
-
 }
-
-
-//test
