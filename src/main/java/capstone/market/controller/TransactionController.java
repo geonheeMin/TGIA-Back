@@ -18,9 +18,7 @@ public class TransactionController {
     public AdminStatisticsDTO getTransactionCounts(){
         return transactionService.getTransactionCounts();
     }
-
-
-
+    
     @GetMapping("/transaction2")
     public Map<String, Map<String, Long>> getMonthlyTransactionCountsByCategory(){
         return transactionService.getMonthlyPostCountsByCategory(2023);
