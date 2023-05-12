@@ -20,6 +20,7 @@ public class TransactionController {
     }
 
 
+
     @GetMapping("/transaction2")
     public Map<String, Map<String, Long>> getMonthlyTransactionCountsByCategory(){
         return transactionService.getMonthlyPostCountsByCategory(2023);
@@ -27,3 +28,6 @@ public class TransactionController {
 
 
 }
+
+
+//test
