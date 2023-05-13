@@ -30,6 +30,10 @@ public class PostDetailDto{
     private LocalDateTime modifiedDate;
     private String item_name; // 상품명
 
+    private CollegeType college;
+
+
+    private TrackType track;
 
     public PostDetailDto(Post post) {
         this.post_id = post.getPostId();
@@ -46,6 +50,8 @@ public class PostDetailDto{
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
         this.item_name = post.getItem_name();
+        this.track = post.getTrack();
+        this.college = post.getCollege();
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {

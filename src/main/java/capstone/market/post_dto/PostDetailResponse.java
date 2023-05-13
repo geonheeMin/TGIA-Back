@@ -26,6 +26,9 @@ public class PostDetailResponse {
     private Long member_id;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private CollegeType college;
+    private TrackType track;
+
 //    private List<PostForm> postForms;
 
 
@@ -43,12 +46,14 @@ public class PostDetailResponse {
         this.location_text = post.getLocation_text();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
-
+        this.college = post.getCollege();
+        this.track = post.getTrack();
+        this.item_name = post.getItem_name();
 //        for (PostForm postForm : postForms) {
 //            posts.add(post);
 //        }
 
-        this.item_name = post.getItem_name();
+
 
         if (post.getImages().isEmpty()) {
             images.add("hello world");

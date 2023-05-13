@@ -28,6 +28,11 @@ public class PostSellDetailDto {
     private List<String> images = new ArrayList<>();
     private String item_name; // 상품명
 
+    private CollegeType college;
+
+
+    private TrackType track;
+
 
 
     public PostSellDetailDto(Post post) {
@@ -44,6 +49,8 @@ public class PostSellDetailDto {
         this.location_text = post.getLocation_text();
         this.buyer_id = post.getPurchased().getMember().getId();
         this.item_name = post.getItem_name();
+        this.college = post.getCollege();
+        this.track = post.getTrack();
 
         if (post.getImages().isEmpty()) {
             images.add("hello world");

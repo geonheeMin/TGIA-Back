@@ -24,11 +24,14 @@ public class TransactionService {
 
 
         /**
-         * 2. 총 게시물 갯수
+         * 2. 총 게시물 갯수 + 유저 수
          */
 
         Long totalPosts = transactionRepository.getTotalPosts();
         adminStatisticsDTO.setTotalPosts(totalPosts);
+
+        Long totalUsers = transactionRepository.getTotalUsers();
+        adminStatisticsDTO.setTotalUsers(totalUsers);
 
         /**
          * 3. 총 거래량

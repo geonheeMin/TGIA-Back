@@ -1,8 +1,6 @@
 package capstone.market.post_dto;
 
-import capstone.market.domain.CategoryType;
-import capstone.market.domain.DepartmentType;
-import capstone.market.domain.LocationType;
+import capstone.market.domain.*;
 import lombok.Data;
 
 import java.util.List;
@@ -22,4 +20,9 @@ public class AddPostRequest {
     private String location_text;
 //        private String image_file_name;
     private List<String> images;
+
+    private CollegeType college;
+
+
+    private TrackType track;
 }
