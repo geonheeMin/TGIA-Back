@@ -26,6 +26,15 @@ public class Post extends BaseEntity {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "tv_id")
 //    private TogetherViewed togetherViewed;
+
+    private CollegeType college;
+
+
+    private TrackType track;
+
+
+
+
     private Integer price;
 
     private String post_title;
@@ -56,6 +65,8 @@ public class Post extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
+
 
     @OneToMany(mappedBy = "post")
     private List<Image> images = new ArrayList<>();

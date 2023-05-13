@@ -30,6 +30,16 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
         QPost post = QPost.post;
         BooleanBuilder whereBuilder = new BooleanBuilder();
 
+        //@@@ 문제의  코드들
+        if (searchFilterDto.getTrack() != null && !searchFilterDto.getTrack().toString().isEmpty()) {
+            whereBuilder.and(post.track.eq(searchFilterDto.getTrack()));
+        }
+
+        if (searchFilterDto.getCollegeType() != null && !searchFilterDto.getCollegeType().toString().isEmpty()) {
+            whereBuilder.and(post.college.eq(searchFilterDto.getCollegeType()));
+        }
+
+        //@@@ 문제의  코드들
         if (searchFilterDto.getCategories() != null && !searchFilterDto.getCategories().isEmpty()) {
             BooleanExpression[] categoryExpressions = searchFilterDto.getCategories().stream()
                     .map(post.category.category_type::eq)

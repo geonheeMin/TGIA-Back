@@ -227,6 +227,7 @@ public class DataLoader {
 
             postRepository.savePost(dummyPost);
 
+
             if (dummyPost.getCategory().getCategory_type() == CategoryType.의류) {
                 Image dummyImage0 = new Image();
                 Image dummyImage1 = new Image();
@@ -354,6 +355,32 @@ public class DataLoader {
         post3.setItem_name("아이패드 에어 4세대 블루");
         post4.setItem_name("토비의 스프링 1편");
 
+        post1.setTrack(TrackType.게임그래픽디자인트랙);
+        post1.setCollege(CollegeType.미래융합사회과학대학);
+        Department department1 = new Department(DepartmentType.AI응용학과);
+        post1.setDepartment(department1);
+
+
+        post2.setTrack(TrackType.경제금융투자트랙);
+        post2.setCollege(CollegeType.디자인대학);
+        Department department2 = new Department(DepartmentType.문학문화콘텐츠학과);
+        post2.setDepartment(department2);
+
+        post3.setTrack(TrackType.기업경제분석트랙);
+        post3.setCollege(CollegeType.미래플러스대학);
+        Department department3 = new Department(DepartmentType.IT융합공학부);
+        post3.setDepartment(department3);
+
+        post4.setTrack(TrackType.글로벌비즈니스트랙);
+        post4.setCollege(CollegeType.IT공과대학);
+        Department department4 = new Department(DepartmentType.상상력인재학부);
+        post4.setDepartment(department4);
+
+        departMentJpaRepository.save(department1);
+        departMentJpaRepository.save(department2);
+        departMentJpaRepository.save(department3);
+        departMentJpaRepository.save(department4);
+
         postRepository.savePost(post1);
         postRepository.savePost(post2);
         postRepository.savePost(post3);
@@ -361,7 +388,8 @@ public class DataLoader {
 
         Image our_memory_image1 = new Image();
         our_memory_image1.setImageFilename("miss1.png");
-        our_memory_image1.setPost(post2);
+        our_memory_image1.setPost(post1);
+//        our_memory_image1.setPost(post2);
         imageRepository.save(our_memory_image1);
 
         List<Image> images = new ArrayList<>();

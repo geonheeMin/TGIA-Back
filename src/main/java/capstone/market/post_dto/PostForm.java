@@ -1,7 +1,9 @@
 package capstone.market.post_dto;
 
+import capstone.market.domain.CollegeType;
 import capstone.market.domain.DepartmentType;
 import capstone.market.domain.LocationType;
+import capstone.market.domain.TrackType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,12 +17,14 @@ public class PostForm {
     private Integer price;
     private String title;
     private String content;
-    private DepartmentType departmentType;
+    private DepartmentType department;
     // 파일명으로 uuid로 들어온다.
     private String uuid_imageName;
     private LocationType locationType;
     private String location_text;
     private String item_name; // 상품명
+    private CollegeType college;
+    private TrackType track;
 
     public PostForm() {
     }
@@ -30,9 +34,11 @@ public class PostForm {
         this.title = postForm.getTitle();
         this.content = postForm.getContent();
         this.uuid_imageName = postForm.getUuid_imageName();
-        this.departmentType = postForm.getDepartmentType();
+        this.department = postForm.getDepartment();
         this.locationType = postForm.getLocationType();
         this.location_text = postForm.getLocation_text();
         this.item_name = postForm.getItem_name();
+        this.college = postForm.getCollege();
+        this.track = postForm.getTrack();
     }
 }
