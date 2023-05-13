@@ -388,7 +388,8 @@ public class DataLoader {
 
         Image our_memory_image1 = new Image();
         our_memory_image1.setImageFilename("miss1.png");
-        our_memory_image1.setPost(post2);
+        our_memory_image1.setPost(post1);
+//        our_memory_image1.setPost(post2);
         imageRepository.save(our_memory_image1);
 
         List<Image> images = new ArrayList<>();
