@@ -249,6 +249,7 @@ public class PostController {
         departmentService.UpdateDepartment(department, request.getDepartment());
         post.setDepartment(department);
         post.setItem_name(request.getItem_name());
+        System.out.println("requestadsfadfaf = " + request.getLocationType());
         post.setLocation_text(request.getLocation_text());
         post.setLocationType(request.getLocationType());
 
