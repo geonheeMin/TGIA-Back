@@ -14,9 +14,17 @@ import javax.persistence.*;
 public class Purchased extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
+    private Integer price;
     private String productName;
 //    private Category category;
-    private Integer price;
+
+    private String buyer_username; // 따로입력
+    private String seller_username; // 따로입력
+    private String tid; // 결제 고유 번호
+    private String payment_method_type; // 결제 수단
+    private String item_name; // 상품명
+    private int quantity; // 상품 수량
+    private String approved_at; // 결제 승인 시간
 
     /**
      * 유저 한명당 구매 수 있는게 여러가지
@@ -25,6 +33,10 @@ public class Purchased extends BaseEntity {
     @JoinColumn(name = "buyer_id")
     @Nullable
     private Member member;
+
+
+
+
 
     /**
      *

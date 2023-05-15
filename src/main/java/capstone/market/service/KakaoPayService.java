@@ -12,6 +12,7 @@ import capstone.market.repository.MemberRepository;
 import capstone.market.repository.PostDataJpaRepository;
 import capstone.market.repository.PostRepository;
 import capstone.market.repository.PurchasedRepository;
+import capstone.market.transaction_dto.PurchasedDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +47,12 @@ public class KakaoPayService {
     private Long partner_user_id;  // 판매자 아이디
 
     private Long post_id; //판매 게시글의 기본키
+
+    private String tid; // 결제 고유 번호
+    private String payment_method_type; // 결제 수단
+
+    private int quantity; // 상품 수량
+    private String approved_at; // 결제 승인 시간
 
 
     public KakaoReadyResponse kakaoPayReady(KakaoPayDto kakaoPayDto) {
@@ -108,14 +115,7 @@ public class KakaoPayService {
 
 
 
-        Purchased purchased = new Purchased();
-        purchased.setMember(memberRepository.findOne(buyer_id));
-        purchased.setPrice(item_price);
-        purchased.setProductName(item_name);
-        purchasedRepository.save(purchased);
-        Post post = postRepository.findOne(post_id);
-        post.setPurchased(purchased);
-        postRepository.savePost(post);
+
 
 
         /**
@@ -140,6 +140,20 @@ public class KakaoPayService {
                 "https://kapi.kakao.com/v1/payment/approve",
                 requestEntity,
                 KakaoApproveResponse.class);
+
+        Purchased purchased = new Purchased();
+        purchased.setMember(memberRepository.findOne(buyer_id));
+        purchased.setPrice(item_price);
+        purchased.setProductName(item_name);
+        purchased.setTid(approveResponse.getTid()); // 결제 고유 번호
+        purchased.setPayment_method_type(approveResponse.getPayment_method_type()); // 결제 수단
+        purchased.setQuantity(approveResponse.getQuantity());
+        purchased.setApproved_at(approveResponse.getApproved_at());
+        purchasedRepository.save(purchased);
+        Post post = postRepository.findOne(post_id);
+        post.setPurchased(purchased);
+        postRepository.savePost(post);
+
 
 
         return approveResponse;
@@ -185,4 +199,24 @@ public class KakaoPayService {
 
         return httpHeaders;
     }
+
+//    private PurchasedDTO getPurchasedList(){
+//        PurchasedDTO purchasedDTO = new PurchasedDTO();
+//        purchasedDTO.setPrice(item_price);
+//        purchasedDTO.setItem_name(item_name);
+//        purchasedDTO.setTid(tid);
+//        purchasedDTO.setQuantity(quantity);
+//        purchasedDTO.setApproved_at(approved_at);
+//        Member buyer3 = memberRepository.findOne(buyer_id);
+//        purchasedDTO.setBuyer_username(buyer3.getUsername());
+//        Member seller3 = memberRepository.findOne(seller_id);
+//        purchasedDTO.setSeller_username(seller3.getUsername());
+//        purchasedDTO.setPayment_method_type(payment_method_type);
+//
+//        return purchasedDTO;
+//
+//    }
+
+
+
 }

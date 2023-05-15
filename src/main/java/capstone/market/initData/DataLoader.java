@@ -69,9 +69,6 @@ public class DataLoader {
 
     @PostConstruct
     public void init() {
-
-
-
         Member memberA = new Member("memberA");
         memberA.setUsername("건희");
         Member memberB = new Member("memberB");
@@ -112,12 +109,17 @@ public class DataLoader {
         memberC.setFirstTrack(firstTrack1);
         memberC.setSecondTrack(secondTrack1);
 
+        memberD.setFirstTrack(firstTrack1);
+        memberD.setSecondTrack(secondTrack1);
+
         Image image1 = new Image();
         image1.setImageFilename("aaa.png");
         imageRepository.save(image1);
         memberC.setImage(image1);
         memberB.setImage(image1);
         memberA.setImage(image1);
+        memberD.setImage(image1);
+
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);
@@ -138,7 +140,6 @@ public class DataLoader {
         post3category.setCategory_type(CategoryType.부기굿즈);
         post4category.setCategory_type(CategoryType.전자기기);
         post5category.setCategory_type(CategoryType.뷰티미용);
-
 
         categoryJpaRepository.save(post1category);
         categoryJpaRepository.save(post2category);
@@ -163,17 +164,23 @@ public class DataLoader {
 
         System.out.println("dfadfadf: " + post2.getPostId());
 
-        Post post3 = new Post("제목3","내용");
-        Post post4 = new Post("제목4","내용");
+        Post post3 = new Post("오머~ 너무 싼 맥북 팔아요~","진짜 찐으로 싸게 파는 거에용");
+        Post post4 = new Post("부기 굿즈 팔아요!","부기 팔아요 싸게 파는거에용");
+
         post1.setWho_posted(memberA);
         post2.setWho_posted(memberA);
         post3.setWho_posted(memberB);
         post4.setWho_posted(memberD);
 
+//        post3.generateRandomCreatedDate();
+
         post1.setPrice(10000);
         post2.setPrice(10000);
         post3.setPrice(10000);
         post4.setPrice(10000);
+
+        // Set the created date for post3 with the random month, day, and current year (2023)
+
 
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
@@ -182,8 +189,13 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
+        CollegeType[] collegeTypes = CollegeType.values();
         for (int i =0;i<30;i++) {
             Post dummyPost = new Post();
+            int randomIndex = random.nextInt(collegeTypes.length);
+
+            // 랜덤 CollegeType 설정
+            dummyPost.setCollege(collegeTypes[randomIndex]);
 
             Category randomCategory = new Category();
             randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
@@ -219,6 +231,7 @@ public class DataLoader {
 
             dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
             dummyPost.setLocation_text("101호");
+            dummyPost.generateRandomCreatedDate();
 
             dummyPost.setItem_name("MacBook Pro 13");
 //            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
@@ -339,8 +352,6 @@ public class DataLoader {
         post3.setDepartment(department);
         post4.setDepartment(department);
 
-
-
         post1.setLocationType(LocationType.공학관);
         post1.setLocation_text("101호");
         post2.setLocationType(LocationType.미래관);
@@ -349,6 +360,9 @@ public class DataLoader {
         post3.setLocation_text("103호");
         post4.setLocationType(LocationType.풋살장);
         post4.setLocation_text("104");
+
+
+
 
         post1.setItem_name("MacBook Pro 13");
         post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
@@ -385,6 +399,11 @@ public class DataLoader {
         postRepository.savePost(post2);
         postRepository.savePost(post3);
         postRepository.savePost(post4);
+
+        Image macBookImage = new Image();
+        macBookImage.setImageFilename("macbook.jpeg");
+        macBookImage.setPost(post3);
+        imageRepository.save(macBookImage);
 
         Image our_memory_image1 = new Image();
         our_memory_image1.setImageFilename("miss1.png");
