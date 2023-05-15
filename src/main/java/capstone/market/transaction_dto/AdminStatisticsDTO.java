@@ -58,6 +58,19 @@ public class AdminStatisticsDTO {
     private Map<String, Map<String, Long>> monthlyTransactionCountsByCategory;
 
 
+    /**
+     * 7. 거래 총 금액 , 카테고리 별 총 금액
+     */
+
+    private Long totalTransactionsPrice; // 거래 총 금액
+    private Long totalTransactionsPrice_도서;
+    private Long totalTransactionsPrice_필기구;
+    private Long totalTransactionsPrice_생활가전;
+    private  Long totalTransactionsPrice_의류;
+    private Long totalTransactionsPrice_전자기기;
+    private Long totalTransactionsPrice_부기굿즈;
+    private  Long totalTransactionsPrice_뷰티미용;
+
 }
 
 //테스트 // test

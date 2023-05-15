@@ -67,7 +67,7 @@ public class ProfileController {
     public ProfileListDto findMyProfileList(@RequestBody ProfileListDto profileListDto){
 
 
-        return memberService.findMyProfileList(profileListDto.getUserId());
+        return memberService.findMyProfileList(profileListDto.getMember_id());
 
 
     }

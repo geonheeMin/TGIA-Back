@@ -63,7 +63,7 @@ public class MemberService {
     }
 
     public ProfileListDto addCollege(ProfileListDto profileListDto){
-        Member user = memberRepository.findOne(profileListDto.getUserId());
+        Member user = memberRepository.findOne(profileListDto.getMember_id());
         user.setFirst_department(profileListDto.getFirst_department());
         user.setSecond_department(profileListDto.getSecond_department());
 

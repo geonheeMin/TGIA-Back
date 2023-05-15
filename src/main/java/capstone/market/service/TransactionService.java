@@ -1,5 +1,6 @@
 package capstone.market.service;
 
+import capstone.market.domain.CategoryType;
 import capstone.market.repository.TransactionRepository;
 import capstone.market.transaction_dto.AdminStatisticsDTO;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +80,21 @@ public class TransactionService {
        adminStatisticsDTO.setMonthlyPostCountsByCategory(transactionRepository.getMonthlyPostCountsByCategory(2023));
        adminStatisticsDTO.setMonthlyTransactionCountsByCategory(transactionRepository.getMonthlyTransactionCountsByCategory(2023));
 
+        /**
+         * 9. 거래 총 금액 +  카테고리 별 거래 총 금액
+         */
+
+        adminStatisticsDTO.setTotalTransactionsPrice(transactionRepository.getTotalTransactionsPrice());
+        adminStatisticsDTO.setTotalTransactionsPrice_도서(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.도서));
+        adminStatisticsDTO.setTotalTransactionsPrice_필기구(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.필기구));
+        adminStatisticsDTO.setTotalTransactionsPrice_생활가전(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.생활가전));
+        adminStatisticsDTO.setTotalTransactionsPrice_의류(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.의류));
+        adminStatisticsDTO.setTotalTransactionsPrice_전자기기(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.전자기기));
+        adminStatisticsDTO.setTotalTransactionsPrice_부기굿즈(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.부기굿즈));
+        adminStatisticsDTO.setTotalTransactionsPrice_뷰티미용(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.뷰티미용));
+
+
+
         return adminStatisticsDTO;
     }
 
@@ -91,6 +107,10 @@ public class TransactionService {
         return transactionRepository.getMonthlyPostCountsByCategory(year);
 
     }
+
+
+
+
 
 
 }

@@ -309,6 +309,36 @@ public class TransactionRepository {
     }
 
 
+    /**
+     * 7. 거래 총 금액
+     */
+
+    public Long getTotalTransactionsPrice() {
+        String jpql = "SELECT SUM(p.price) FROM Purchased p";
+        return em.createQuery(jpql, Long.class)
+                .getSingleResult();
+    }
+
+
+
+
+    /**
+     * 8. 카테고리 별 총 금액
+     */
+
+    public Long getTotalTransactionsPriceByCategory(CategoryType category) {
+        String jpql = "SELECT SUM(p.price) FROM Post p WHERE p.category.category_type = :category and p.purchased is not null";
+
+        Long totalAmount = em.createQuery(jpql, Long.class)
+                .setParameter("category", category)
+                .getSingleResult();
+
+        return totalAmount != null ? totalAmount : 0L;
+    }
+
+
+
+
 }
 
 

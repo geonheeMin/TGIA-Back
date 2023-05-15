@@ -30,6 +30,8 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
         QPost post = QPost.post;
         BooleanBuilder whereBuilder = new BooleanBuilder();
 
+
+
         //@@@ 문제의  코드들
         if (searchFilterDto.getTrack() != null && !searchFilterDto.getTrack().toString().isEmpty()) {
             whereBuilder.and(post.track.eq(searchFilterDto.getTrack()));
