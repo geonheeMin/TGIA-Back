@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 @Slf4j
@@ -71,9 +69,6 @@ public class DataLoader {
 
     @PostConstruct
     public void init() {
-
-
-
         Member memberA = new Member("memberA");
         memberA.setUsername("건희");
         Member memberB = new Member("memberB");
@@ -141,7 +136,6 @@ public class DataLoader {
         post4category.setCategory_type(CategoryType.전자기기);
         post5category.setCategory_type(CategoryType.뷰티미용);
 
-
         categoryJpaRepository.save(post1category);
         categoryJpaRepository.save(post2category);
         categoryJpaRepository.save(post3category);
@@ -165,8 +159,9 @@ public class DataLoader {
 
         System.out.println("dfadfadf: " + post2.getPostId());
 
-        Post post3 = new Post("제목3","내용");
-        Post post4 = new Post("제목4","내용");
+        Post post3 = new Post("오머~ 너무 싼 맥북 팔아요~","진짜 찐으로 싸게 파는 거에용");
+        Post post4 = new Post("부기 굿즈 팔아요!","부기 팔아요 싸게 파는거에용");
+
         post1.setWho_posted(memberA);
         post2.setWho_posted(memberA);
         post3.setWho_posted(memberB);
@@ -399,6 +394,11 @@ public class DataLoader {
         postRepository.savePost(post2);
         postRepository.savePost(post3);
         postRepository.savePost(post4);
+
+        Image macBookImage = new Image();
+        macBookImage.setImageFilename("macbook.jpeg");
+        macBookImage.setPost(post3);
+        imageRepository.save(macBookImage);
 
         Image our_memory_image1 = new Image();
         our_memory_image1.setImageFilename("miss1.png");
