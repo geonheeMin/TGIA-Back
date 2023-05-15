@@ -1,8 +1,8 @@
 # 이미지를 저장시킬 백엔드 디렉토리
 
-#file.dir: /Users/son/Desktop/upload/
+file.dir: /Users/son/Desktop/upload/
 #file.dir: /home/ubuntu/uploads/
-file.dir: /home/jys/uploads/
+#file.dir: /home/jys/uploads/
 
 
 spring:
@@ -11,7 +11,7 @@ spring:
     url: jdbc:mysql://localhost:3306/market_v0?serverTimezone=UTC&characterEncoding=UTF-8
     # market_v0: 스키마 이름
     username: root
-    password: 6091
+    password: capstone
 
   jpa:
     hibernate:
@@ -34,6 +34,6 @@ logging:
     org.hibernate.type: trace
 
 
-#server:
-#  address: 0.0.0.0
-#  port: 8080
+server:
+  address: 0.0.0.0
+  port: 8080
