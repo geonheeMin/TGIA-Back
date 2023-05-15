@@ -14,8 +14,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @Transactional
@@ -96,6 +98,16 @@ public class PostService {
 
     //필터링 추가 3/23 @@@@@@@@ final version
 
+    public void randomDate(Post post) {
+        // Generate random month within the range of 1 (January) to 12 (December)
+        int randomMonth = ThreadLocalRandom.current().nextInt(1, 13);
+
+        // Generate random day within the range of 1 to 28 (assumes a non-leap year)
+        int randomDay = ThreadLocalRandom.current().nextInt(1, 29);
+//        post.setCreatedDate(LocalDateTime.of(2023, randomMonth, randomDay, 0, 0));
+        post.setModifiedDate(LocalDateTime.of(2023, randomMonth, randomDay, 0, 0));
+//        postRepository.savePost(post);
+    }
 
     // 3월 18일 추가
     // 게시글 수정
@@ -171,13 +183,5 @@ public class PostService {
 
             post.setCollege(CollegeType.상상력교양대학);
         }
-
-
-
-
-
-
-
-
     }
 }

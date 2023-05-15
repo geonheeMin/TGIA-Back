@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 @Slf4j
@@ -170,10 +172,15 @@ public class DataLoader {
         post3.setWho_posted(memberB);
         post4.setWho_posted(memberD);
 
+//        post3.generateRandomCreatedDate();
+
         post1.setPrice(10000);
         post2.setPrice(10000);
         post3.setPrice(10000);
         post4.setPrice(10000);
+
+        // Set the created date for post3 with the random month, day, and current year (2023)
+
 
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
@@ -182,7 +189,7 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
-        for (int i =0;i<30;i++) {
+        for (int i =0;i<1000;i++) {
             Post dummyPost = new Post();
 
             Category randomCategory = new Category();
@@ -219,6 +226,7 @@ public class DataLoader {
 
             dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
             dummyPost.setLocation_text("101호");
+            dummyPost.generateRandomCreatedDate();
 
             dummyPost.setItem_name("MacBook Pro 13");
 //            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
@@ -339,8 +347,6 @@ public class DataLoader {
         post3.setDepartment(department);
         post4.setDepartment(department);
 
-
-
         post1.setLocationType(LocationType.공학관);
         post1.setLocation_text("101호");
         post2.setLocationType(LocationType.미래관);
@@ -349,6 +355,9 @@ public class DataLoader {
         post3.setLocation_text("103호");
         post4.setLocationType(LocationType.풋살장);
         post4.setLocation_text("104");
+
+
+
 
         post1.setItem_name("MacBook Pro 13");
         post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
