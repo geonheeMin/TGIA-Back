@@ -105,7 +105,13 @@ public class TransactionService {
         adminStatisticsDTO.setTotalTransactionsPrice_부기굿즈(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.부기굿즈));
         adminStatisticsDTO.setTotalTransactionsPrice_뷰티미용(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.뷰티미용));
 
+        /**
+         * 9. 1~12 월 별 포스트 갯수 , 거래 수
+         */
+        adminStatisticsDTO.setMonthlyPostCounts_전체(transactionRepository.getMonthlyPostCounts());
+        adminStatisticsDTO.setMonthlyTransactionCounts_전체(transactionRepository.getMonthlyPurchasedCounts());
 
+        
 
         return adminStatisticsDTO;
     }

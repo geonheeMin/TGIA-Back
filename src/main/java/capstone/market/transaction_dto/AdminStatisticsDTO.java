@@ -71,6 +71,15 @@ public class AdminStatisticsDTO {
     private Long totalTransactionsPrice_부기굿즈;
     private  Long totalTransactionsPrice_뷰티미용;
 
+
+
+    /**
+     * 6. 1~12월  월 별 포스트 갯수 , 거래량
+     */
+    private Map<String, Long> monthlyPostCounts_전체;
+
+    private Map<String, Long> monthlyTransactionCounts_전체;
+
 }
 
 //테스트 // test

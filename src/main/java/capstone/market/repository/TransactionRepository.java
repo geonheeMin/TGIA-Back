@@ -8,10 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.YearMonth;
+import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -334,6 +331,67 @@ public class TransactionRepository {
                 .getSingleResult();
 
         return totalAmount != null ? totalAmount : 0L;
+    }
+
+
+    /**
+     * 9. 월별 포스트 조회
+     */
+
+
+    public Map<String, Long> getMonthlyPostCounts() {
+        int currentYear = Year.now().getValue();
+        Map<String, Long> monthlyPostCounts = new LinkedHashMap<>();
+
+        for (int month = 1; month <= 12; month++) {
+            YearMonth yearMonth = YearMonth.of(currentYear, month);
+            String monthLabel = yearMonth.toString();
+
+            String jpql = "SELECT COUNT(p) " +
+                    "FROM Post p " +
+                    "WHERE YEAR(p.createdDate) = :year " +
+                    "AND MONTH(p.createdDate) = :month";
+
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("year", currentYear)
+                    .setParameter("month", month)
+                    .getSingleResult();
+
+            monthlyPostCounts.put(monthLabel, count);
+        }
+
+        return monthlyPostCounts;
+    }
+
+
+
+
+    /**
+     * 10. 월별 거래량 조회
+     */
+
+    public Map<String, Long> getMonthlyPurchasedCounts() {
+        int currentYear = Year.now().getValue();
+        Map<String, Long> monthlyPostCounts = new LinkedHashMap<>();
+
+        for (int month = 1; month <= 12; month++) {
+            YearMonth yearMonth = YearMonth.of(currentYear, month);
+            String monthLabel = yearMonth.toString();
+
+            String jpql = "SELECT COUNT(p) " +
+                    "FROM Post p " +
+                    "WHERE YEAR(p.createdDate) = :year and p.purchased is not null " +
+                    "AND MONTH(p.createdDate) = :month";
+
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("year", currentYear)
+                    .setParameter("month", month)
+                    .getSingleResult();
+
+            monthlyPostCounts.put(monthLabel, count);
+        }
+
+        return monthlyPostCounts;
     }
 
 
