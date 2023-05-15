@@ -95,6 +95,12 @@ public class MemberController {
 //        SessionConst.POST_ENDED = true;
     }
 
+    @GetMapping("/member/get_username")
+    public String getUsername(@RequestParam Long id) {
+        Member member = memberService.findOne(id);
+        return member.getUsername();
+    }
+
     // @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         sessionManager.expire(request);

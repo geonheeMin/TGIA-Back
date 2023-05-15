@@ -1,11 +1,15 @@
 package capstone.market.controller;
 
+import capstone.market.domain.Member;
+import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.service.TransactionService;
 import capstone.market.transaction_dto.AdminStatisticsDTO;
+import capstone.market.transaction_dto.PurchasedDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +27,20 @@ public class TransactionController {
     public Map<String, Map<String, Long>> getMonthlyTransactionCountsByCategory(){
         return transactionService.getMonthlyPostCountsByCategory(2023);
     }
+
+
+    @GetMapping("/userlist")
+    public List<ProfileListDto> getUserList(){
+        return transactionService.getUserList();
+    }
+
+    @GetMapping("/purchasedlist")
+    public List<PurchasedDTO> getPurchasedList(){
+        return transactionService.getPurchasedList();
+    }
+
+
+
 }
 
 
