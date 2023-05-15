@@ -109,12 +109,17 @@ public class DataLoader {
         memberC.setFirstTrack(firstTrack1);
         memberC.setSecondTrack(secondTrack1);
 
+        memberD.setFirstTrack(firstTrack1);
+        memberD.setSecondTrack(secondTrack1);
+
         Image image1 = new Image();
         image1.setImageFilename("aaa.png");
         imageRepository.save(image1);
         memberC.setImage(image1);
         memberB.setImage(image1);
         memberA.setImage(image1);
+        memberD.setImage(image1);
+
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);

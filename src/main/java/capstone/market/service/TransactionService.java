@@ -1,13 +1,22 @@
 package capstone.market.service;
 
 import capstone.market.domain.CategoryType;
+import capstone.market.domain.Member;
+import capstone.market.domain.Purchased;
+import capstone.market.profile_dto.ProfileListDto;
+import capstone.market.repository.MemberRepository;
+import capstone.market.repository.PurchasedRepository;
 import capstone.market.repository.TransactionRepository;
+import capstone.market.searchKeyword_dto.SearchKeywordDTO;
 import capstone.market.transaction_dto.AdminStatisticsDTO;
+import capstone.market.transaction_dto.PurchasedDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -15,6 +24,9 @@ import java.util.Map;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
+
+    private final MemberRepository memberRepository;
+    private final PurchasedRepository purchasedRepository;
 
     public AdminStatisticsDTO getTransactionCounts(){
 
@@ -110,7 +122,29 @@ public class TransactionService {
 
 
 
+    /**
+     * 9. 유저 리스트 뿌려주기
+     */
 
+    public List<ProfileListDto> getUserList(){
+        List<Member> userList2 = memberRepository.findAll();
+
+        List<ProfileListDto> userList = userList2.stream().map(u -> new ProfileListDto(u))
+                .collect(Collectors.toList());
+
+        return userList;
+    }
+
+    public List<PurchasedDTO> getPurchasedList(){
+
+        List<Purchased> all = purchasedRepository.findAll();
+
+        List<PurchasedDTO> getPurchasedList3 = all.stream().map(u -> new PurchasedDTO(u))
+                .collect(Collectors.toList());
+
+        return  getPurchasedList3;
+
+    }
 
 
 }

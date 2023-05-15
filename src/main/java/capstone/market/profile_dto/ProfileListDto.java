@@ -6,6 +6,7 @@ import capstone.market.domain.Member;
 import capstone.market.domain.TrackType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 @Data
 @NoArgsConstructor
@@ -13,14 +14,19 @@ public class ProfileListDto {
 
     private Long member_id;
     private String username;
+
     private TrackType firstTrack;
+
     private TrackType secondTrack;
     private String imageFileName;
 
+
     private Long AtrackId;
+
     private Long BtrackId;
 
     private Integer mannerscore;
+
 
     private DepartmentType first_department;
 
