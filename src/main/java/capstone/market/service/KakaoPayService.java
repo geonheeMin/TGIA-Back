@@ -59,6 +59,7 @@ public class KakaoPayService {
         buyer_id = kakaoPayDto.getBuyer_id(); //구매자
         post_id = kakaoPayDto.getPost_id(); //게시글 기본 키
 
+
 //        Long buyerId = kakaoPayDto.getBuyer_id();
 //        String itemName = kakaoPayDto.getItem_name();
 

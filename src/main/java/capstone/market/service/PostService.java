@@ -9,6 +9,7 @@ import capstone.market.repository.PostRepository;
 
 
 import capstone.market.repository.PostRepositoryCustomImpl;
+import capstone.market.repository.SearchKeywordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,8 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private final PostDataJpaRepository postDataJpaRepository;
+
+    private final SearchKeywordRepository searchKeywordRepository;
     public Post findPostByPostId(Long post_id) {
         return postRepository.findOne(post_id);
     }
@@ -60,6 +63,16 @@ public class PostService {
 
     //필터링 추가 3/23 @@@@@@@@ final version
     public List<PostDetailDto> SearchFilter(SearchFilterDto searchFilterDto){
+
+        SearchKeyword searchKeyword = searchKeywordRepository.findByKeyword(searchFilterDto.getKeyword());
+        if (searchKeyword == null) {
+            searchKeyword = new SearchKeyword();
+            searchKeyword.setKeyword(searchFilterDto.getKeyword());
+            searchKeyword.setSearchCount(1L);
+        } else {
+            searchKeyword.setSearchCount(searchKeyword.getSearchCount() + 1);
+        }
+        searchKeywordRepository.save(searchKeyword);
 
         return postDataJpaRepository.searchFilter(searchFilterDto);
 

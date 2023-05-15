@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProfileListDto {
 
-    private Long userId;
+    private Long member_id;
     private String username;
     private TrackType firstTrack;
     private TrackType secondTrack;
@@ -34,7 +34,7 @@ public class ProfileListDto {
 
 
     public ProfileListDto(Member member) {
-        this.userId = member.getId();
+        this.member_id = member.getId();
         this.username = member.getUsername();
         this.firstTrack = member.getFirstTrack().getFirst_track();
         this.secondTrack = member.getSecondTrack().getSecond_track();
