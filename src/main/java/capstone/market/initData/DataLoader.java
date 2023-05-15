@@ -189,8 +189,13 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
-        for (int i =0;i<1000;i++) {
+        CollegeType[] collegeTypes = CollegeType.values();
+        for (int i =0;i<30;i++) {
             Post dummyPost = new Post();
+            int randomIndex = random.nextInt(collegeTypes.length);
+
+            // 랜덤 CollegeType 설정
+            dummyPost.setCollege(collegeTypes[randomIndex]);
 
             Category randomCategory = new Category();
             randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
