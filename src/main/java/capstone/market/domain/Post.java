@@ -74,6 +74,8 @@ public class Post extends BaseEntity {
 
     private String item_name; // 상품명
 
+    private StatusType status; //  판매중, 거래예약, 거래완료
+
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "image_id")
 //    private Image image;

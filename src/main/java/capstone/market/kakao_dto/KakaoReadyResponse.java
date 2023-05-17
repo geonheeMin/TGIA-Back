@@ -10,4 +10,5 @@ public class KakaoReadyResponse {
     private String next_redirect_pc_url; // pc 웹일 경우 받는 결제 페이지
     private String created_at;
     private String next_redirect_app_url; // 모바일 앱 일 경우 받는 결제 페이지
+    private String android_app_scheme;
 }

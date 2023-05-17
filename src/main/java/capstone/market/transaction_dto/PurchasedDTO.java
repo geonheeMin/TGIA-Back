@@ -21,6 +21,7 @@ public class PurchasedDTO {
     private String item_name; // 상품명
     private int quantity; // 상품 수량
     private String approved_at; // 결제 승인 시간
+    private String postTitle;
 
 
     public PurchasedDTO(Purchased purchased) {
@@ -32,5 +33,6 @@ public class PurchasedDTO {
         this.item_name = purchased.getItem_name();
         this.quantity = purchased.getQuantity();
         this.approved_at = purchased.getApproved_at();
+        this.postTitle = purchased.getPostTitle();
     }
 }

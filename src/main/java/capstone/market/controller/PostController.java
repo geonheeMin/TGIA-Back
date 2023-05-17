@@ -15,6 +15,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class PostController {
     private final PostService postService;
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
@@ -47,6 +49,18 @@ public class PostController {
         List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
         return postDetailDtos;
     }
+
+    @PostMapping("/reservation_posts")
+    public void reservatePosts(@RequestBody PostDetailDto postDetailDto){
+        System.out.println("@@@@@@@@안녕하세요");
+        System.out.println(postDetailDto.getPost_id());
+        postService.findPostByPostId(postDetailDto.getPost_id()).setStatus(StatusType.거래예약);
+
+
+        System.out.println("@@@@@@@@안녕하세요");
+
+    }
+
 
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
@@ -101,34 +115,33 @@ public class PostController {
         return new PostForm(request);
     }
 
-    @DeleteMapping("")
-
-    //@GetMapping("/post/list")
-    public List<Post> postListV3(HttpServletRequest request) {
-        log.info("@GetMapping(\"/post/list\")");
-        // 세션 관리자에 저장된 회원 정보 조회
-        while (!SessionConst.POST_ENDED) {
-            log.info("WHILE");
-        }
-
-        log.info("BREAK");
-
-        HttpSession session = request.getSession(false);
-
-        if (session == null) {
-            log.info("session error");
-        }
-
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        if (member == null) {
-            log.info("login error");
-        }
-
-        log.info("hello world" + member.getUser_id());
-        List<Post> posts = postService.findPostByUserId(member.getUser_id());
-        return posts;
-    }
+//    @DeleteMapping("")
+//    //@GetMapping("/post/list")
+//    public List<Post> postListV3(HttpServletRequest request) {
+//        log.info("@GetMapping(\"/post/list\")");
+//        // 세션 관리자에 저장된 회원 정보 조회
+//        while (!SessionConst.POST_ENDED) {
+//            log.info("WHILE");
+//        }
+//
+//        log.info("BREAK");
+//
+//        HttpSession session = request.getSession(false);
+//
+//        if (session == null) {
+//            log.info("session error");
+//        }
+//
+//        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+//
+//        if (member == null) {
+//            log.info("login error");
+//        }
+//
+//        log.info("hello world" + member.getUser_id());
+//        List<Post> posts = postService.findPostByUserId(member.getUser_id());
+//        return posts;
+//    }
 
     // @GetMapping("/post/list") // 2.17
     // + 이미지 정보 추가 3월 17일
@@ -252,6 +265,7 @@ public class PostController {
         System.out.println("requestadsfadfaf = " + request.getLocationType());
         post.setLocation_text(request.getLocation_text());
         post.setLocationType(request.getLocationType());
+        post.setStatus(StatusType.판매중);
 
         post.setTrack(request.getTrack());
         post.getDepartment().setDepartmentType(request.getDepartment());

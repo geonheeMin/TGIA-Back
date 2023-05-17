@@ -3,6 +3,7 @@ package capstone.market.service;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
+import capstone.market.domain.StatusType;
 import capstone.market.kakao_dto.KakaoApproveResponse;
 import capstone.market.kakao_dto.KakaoCancelResponse;
 import capstone.market.kakao_dto.KakaoPayDto;
@@ -155,9 +156,12 @@ public class KakaoPayService {
         purchased.setSeller_username(memberRepository.findOne(seller_id).getUsername());
 
 
-        purchasedRepository.save(purchased);
+
         Post post = postRepository.findOne(post_id);
+        purchased.setPostTitle(post.getPost_title());
+        purchasedRepository.save(purchased);
         post.setPurchased(purchased);
+        post.setStatus(StatusType.거래완료);
         postRepository.savePost(post);
 
 

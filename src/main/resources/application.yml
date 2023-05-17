@@ -12,6 +12,7 @@ spring:
     # market_v0: 스키마 이름
     username: root
     password: 6091
+    #password: capstone
 
   jpa:
     hibernate:

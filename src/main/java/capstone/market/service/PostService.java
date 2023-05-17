@@ -120,8 +120,8 @@ public class PostService {
         post.setLocationType(request.getLocationType());
         post.setItem_name(request.getItem_name());
         post.setTrack(request.getTrack());
-//        postRepository.savePost(post);
-
+//      postRepository.savePost(post);
+        post.setStatus(request.getStatusType());
         post.getDepartment().setDepartmentType(request.getDepartment());
 
         if(request.getDepartment() == DepartmentType.컴퓨터공학부 ||

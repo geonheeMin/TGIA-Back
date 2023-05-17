@@ -182,6 +182,8 @@ public class DataLoader {
         // Set the created date for post3 with the random month, day, and current year (2023)
 
 
+
+
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
         Purchased purchased = new Purchased();

@@ -111,7 +111,7 @@ public class TransactionService {
         adminStatisticsDTO.setMonthlyPostCounts_전체(transactionRepository.getMonthlyPostCounts());
         adminStatisticsDTO.setMonthlyTransactionCounts_전체(transactionRepository.getMonthlyPurchasedCounts());
 
-        
+
 
         return adminStatisticsDTO;
     }
