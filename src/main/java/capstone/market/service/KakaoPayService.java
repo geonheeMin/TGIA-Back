@@ -68,8 +68,7 @@ public class KakaoPayService {
         post_id = kakaoPayDto.getPost_id(); //게시글 기본 키
 
 
-//        Long buyerId = kakaoPayDto.getBuyer_id();
-//        String itemName = kakaoPayDto.getItem_name();
+
 
 
         // 카카오페이 요청 양식
@@ -89,7 +88,7 @@ public class KakaoPayService {
         parameters.add("fail_url", "http://54.180.124.49:8080/payment/fail"); // 실패 시 redirect url
 
 
-        //http://43.201.77.124:8080 => ec2주소
+
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -108,13 +107,6 @@ public class KakaoPayService {
      * 결제 완료 승인
      */
     public KakaoApproveResponse ApproveResponse(String pgToken) {
-
-
-
-
-
-
-
 
         /**
          * 이부분 값 설정 잘해줘야한다 오류나면 디벨로퍼 보고 제한사항 다 깔끔하게 적자.
@@ -210,22 +202,6 @@ public class KakaoPayService {
         return httpHeaders;
     }
 
-//    private PurchasedDTO getPurchasedList(){
-//        PurchasedDTO purchasedDTO = new PurchasedDTO();
-//        purchasedDTO.setPrice(item_price);
-//        purchasedDTO.setItem_name(item_name);
-//        purchasedDTO.setTid(tid);
-//        purchasedDTO.setQuantity(quantity);
-//        purchasedDTO.setApproved_at(approved_at);
-//        Member buyer3 = memberRepository.findOne(buyer_id);
-//        purchasedDTO.setBuyer_username(buyer3.getUsername());
-//        Member seller3 = memberRepository.findOne(seller_id);
-//        purchasedDTO.setSeller_username(seller3.getUsername());
-//        purchasedDTO.setPayment_method_type(payment_method_type);
-//
-//        return purchasedDTO;
-//
-//    }
 
 
 

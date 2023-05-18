@@ -7,6 +7,7 @@ import capstone.market.post_dto.*;
 
 import capstone.market.profile_dto.PostDetailDto;
 import capstone.market.profile_dto.PostSellDetailDto;
+import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.profile_dto.SearchFilterDto;
 import capstone.market.service.*;
 import capstone.market.session.SessionConst;
@@ -38,7 +39,7 @@ public class PostController {
     private final CategoryService categoryService;
     private final ImageService imageService;
     private final DepartmentService departmentService;
-//    private final TogetherViewedService togetherViewedService;
+
     private final SessionManager sessionManager;
     private final FileService fileService;
 
@@ -52,14 +53,15 @@ public class PostController {
 
     @PostMapping("/reservation_posts")
     public void reservatePosts(@RequestBody PostDetailDto postDetailDto){
-        System.out.println("@@@@@@@@안녕하세요");
-        System.out.println(postDetailDto.getPost_id());
         postService.findPostByPostId(postDetailDto.getPost_id()).setStatus(StatusType.거래예약);
 
-
-        System.out.println("@@@@@@@@안녕하세요");
-
     }
+
+    @GetMapping("/get_status_type")
+    public StatusType getStatusType(@RequestParam Long post_id){
+       return postService.findPostByPostId(post_id).getStatus();
+    }
+
 
 
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
