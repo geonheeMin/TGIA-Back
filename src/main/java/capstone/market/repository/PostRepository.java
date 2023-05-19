@@ -78,7 +78,7 @@ public class PostRepository {
     // 구매 목록
     public List<Post> findBoughtListByUserId(Long user_id) {
 
-        String jpql2 = "select p from Post p where p.purchased.member.id = :user_id";
+        String jpql2 = "select p from Post p where p.purchased.member.id = :user_id and p.purchased is not null ";
 
 
         List<Post> list = em.createQuery(jpql2, Post.class)
