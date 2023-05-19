@@ -409,6 +409,19 @@ public class PostController {
         return result;
 
     }
+
+
+    @GetMapping("/post/all3")
+    public List<PostDetailDto> getPostAllByPaging (@RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "50") int size) {
+        List<Post> all = postService.findAllPaged(page, size);
+
+        List<PostDetailDto> result = all.stream()
+                .map(p -> new PostDetailDto(p))
+                .collect(Collectors.toList());
+
+        return result;
+    }
     //테스트용@@@@@@2
 
     // 찜 목록 구현 2월 21일

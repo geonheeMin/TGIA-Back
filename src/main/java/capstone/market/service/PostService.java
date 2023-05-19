@@ -11,6 +11,9 @@ import capstone.market.repository.PostRepository;
 import capstone.market.repository.PostRepositoryCustomImpl;
 import capstone.market.repository.SearchKeywordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,16 @@ public class PostService {
     private final PostDataJpaRepository postDataJpaRepository;
 
     private final SearchKeywordRepository searchKeywordRepository;
+
+
+
+    public List<Post> findAllPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return postDataJpaRepository.findAllByOrderByCreatedDateDesc(pageable);
+    }
+
+
+
     public Post findPostByPostId(Long post_id) {
         return postRepository.findOne(post_id);
     }
