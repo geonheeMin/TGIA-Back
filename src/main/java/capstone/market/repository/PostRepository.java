@@ -77,9 +77,7 @@ public class PostRepository {
 
     // 구매 목록
     public List<Post> findBoughtListByUserId(Long user_id) {
-        System.out.println("user_id&&&&&&&&&& = " + user_id);
-//        String jpql = "select p from Post p join p.buyer m where m.user_id = :user_id";
-        String jpql = "select p from Purchased p join p.member m where m.id = :user_id";
+
         String jpql2 = "select p from Post p where p.purchased.member.id = :user_id";
 
 
