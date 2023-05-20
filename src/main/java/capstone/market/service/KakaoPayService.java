@@ -61,11 +61,11 @@ public class KakaoPayService {
         /**
          * 아이템 이름 넣고, 구매자아이디 넣어주고 , 가격 넣어주자 , 디벨로퍼에 나온 기준 엄격히 지키자 가격
          */
-        item_name = kakaoPayDto.getItem_name(); //상품 이름
-        item_price = kakaoPayDto.getPrice();    //상품 가격
-        seller_id = kakaoPayDto.getUser_id();  //판매자
-        buyer_id = kakaoPayDto.getBuyer_id(); //구매자
-        post_id = kakaoPayDto.getPost_id(); //게시글 기본 키
+        String item_name2 = kakaoPayDto.getItem_name(); //상품 이름
+        Integer item_price2 = kakaoPayDto.getPrice();    //상품 가격
+        Long seller_id2 = kakaoPayDto.getUser_id();  //판매자
+        Long buyer_id2 = kakaoPayDto.getBuyer_id(); //구매자
+        Long post_id2 = kakaoPayDto.getPost_id(); //게시글 기본 키
 
 
 
@@ -79,10 +79,10 @@ public class KakaoPayService {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
         parameters.add("partner_order_id", String.valueOf(partner_order_id));
-        parameters.add("partner_user_id", String.valueOf(seller_id));
-        parameters.add("item_name", item_name);
+        parameters.add("partner_user_id", String.valueOf(seller_id2));
+        parameters.add("item_name", item_name2);
         parameters.add("quantity", String.valueOf(1)); // 상품수량
-        parameters.add("total_amount", String.valueOf(item_price)); //상품 총액
+        parameters.add("total_amount", String.valueOf(item_price2)); //상품 총액
         //parameters.add("vat_amount", String.valueOf(item_price*0.1)); //상품총액 - 상품 비과세 금액 에 10퍼센트 => 값 안보내면 자동저장
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
