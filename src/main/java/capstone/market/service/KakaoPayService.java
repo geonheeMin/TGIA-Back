@@ -71,6 +71,10 @@ public class KakaoPayService {
 
 
 
+
+
+
+
         // 카카오페이 요청 양식
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
@@ -99,6 +103,14 @@ public class KakaoPayService {
                 url,
                 requestEntity,
                 KakaoReadyResponse.class);
+
+
+
+        kakaoReady.setItem_name(kakaoPayDto.getItem_name()); // 상품이름
+        kakaoReady.setItem_price(kakaoReady.getItem_price()); // 상품가격
+        kakaoReady.setSeller_id(kakaoReady.getSeller_id()); // 판매자 기본키
+        kakaoReady.setBuyer_id(kakaoReady.getBuyer_id()); // 구매자 기본키
+        kakaoReady.setPost_id(kakaoReady.getPost_id()); // 게시글 기본키
 
         return kakaoReady;
     }
@@ -136,20 +148,20 @@ public class KakaoPayService {
          */
 
         Purchased purchased = new Purchased();
-        purchased.setMember(memberRepository.findOne(buyer_id));
-        purchased.setPrice(item_price);
-        purchased.setProductName(item_name);
+        purchased.setMember(memberRepository.findOne(kakaoReady.getBuyer_id()));
+        purchased.setPrice(kakaoReady.getItem_price());
+        purchased.setProductName(kakaoReady.getItem_name());
         purchased.setTid(approveResponse.getTid()); // 결제 고유 번호
         purchased.setPayment_method_type(approveResponse.getPayment_method_type()); // 결제 수단
         purchased.setQuantity(approveResponse.getQuantity());
         purchased.setApproved_at(approveResponse.getApproved_at());
 
-        purchased.setBuyer_username(memberRepository.findOne(buyer_id).getUsername());
-        purchased.setSeller_username(memberRepository.findOne(seller_id).getUsername());
+        purchased.setBuyer_username(memberRepository.findOne(kakaoReady.getBuyer_id()).getUsername());
+        purchased.setSeller_username(memberRepository.findOne(kakaoReady.getSeller_id()).getUsername());
 
 
 
-        Post post = postRepository.findOne(post_id);
+        Post post = postRepository.findOne(kakaoReady.getPost_id());
         purchased.setPostTitle(post.getPost_title());
         purchasedRepository.save(purchased);
         post.setPurchased(purchased);
