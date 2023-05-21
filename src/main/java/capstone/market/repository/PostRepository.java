@@ -92,7 +92,7 @@ public class PostRepository {
     }
 
     public List<PostDetailDto> findSellList(Long userId) {
-        String jpql = "SELECT p FROM Post p WHERE p.who_posted =:userId AND p.purchased IS NULL ORDER BY p.createdDate DESC";
+        String jpql = "SELECT p FROM Post p WHERE p.who_posted.id =:userId AND p.purchased IS NULL ORDER BY p.createdDate DESC";
         TypedQuery<Post> query = em.createQuery(jpql, Post.class);
         query.setParameter("userId", userId);
         query.setMaxResults(4); // 최대 4개의 결과만 반환하도록 설정

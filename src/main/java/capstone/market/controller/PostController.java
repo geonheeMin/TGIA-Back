@@ -379,15 +379,17 @@ public class PostController {
     }
 
     @GetMapping("/post/details3")
-    public PostDetailResponse postDetailsUpgrade(@RequestParam Long postId, @RequestParam Long userId) {
+    public PostAndSellerPostsDTO postDetailsUpgrade(@RequestParam Long postId, @RequestParam Long userId) {
         Post post = postService.findPostByPostId(postId);
         postService.increaseViewCount(postId,userId);
 
         Member Seller = post.getWho_posted();
-      postService.find
+        PostDetailDto postDetailDto = new PostDetailDto(post);
+        List<PostDetailDto> sellList = postService.findSellList(userId);
+
+       return new PostAndSellerPostsDTO(postDetailDto,sellList);
 
 
-        return new PostDetailResponse(post);
     }
 
 
