@@ -104,6 +104,21 @@ public class PostRepository {
 
     }
 
+    public List<PostDetailDto> findListByCategory(CategoryType categoryType) {
+        String jpql = "SELECT p FROM Post p WHERE p.category.category_type =: categoryType AND p.purchased IS NULL ORDER BY p.createdDate DESC";
+        TypedQuery<Post> query = em.createQuery(jpql, Post.class);
+        query.setParameter("categoryType", categoryType);
+        query.setMaxResults(8); // 최대 4개의 결과만 반환하도록 설정
+        List<Post> resultList = query.getResultList();
+
+        List<PostDetailDto> SearchPosts = resultList.stream().map(p -> new PostDetailDto(p))
+                .collect(Collectors.toList());
+        return SearchPosts;
+
+    }
+
+
+
 
 
 

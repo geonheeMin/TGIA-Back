@@ -10,8 +10,11 @@ public class PostAndSellerPostsDTO {
     private PostDetailDto currentPost;
     private List<PostDetailDto> sellerPosts;
 
-    public PostAndSellerPostsDTO(PostDetailDto currentPost, List<PostDetailDto> sellerPosts) {
+    private List<PostDetailDto> PostsByCategory;
+
+    public PostAndSellerPostsDTO(PostDetailDto currentPost, List<PostDetailDto> sellerPosts,List<PostDetailDto> PostsByCategory) {
         this.currentPost = currentPost;
         this.sellerPosts = sellerPosts;
+        this.PostsByCategory = PostsByCategory;
     }
 }

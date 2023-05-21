@@ -386,8 +386,9 @@ public class PostController {
         Member Seller = post.getWho_posted();
         PostDetailDto postDetailDto = new PostDetailDto(post);
         List<PostDetailDto> sellList = postService.findSellList(userId);
+        List<PostDetailDto> PostsByCategory = postService.findListByCategory(post.getCategory().getCategory_type());
 
-       return new PostAndSellerPostsDTO(postDetailDto,sellList);
+        return new PostAndSellerPostsDTO(postDetailDto,sellList,PostsByCategory);
 
 
     }
