@@ -377,6 +377,20 @@ public class PostController {
 
         return new PostDetailResponse(post);
     }
+
+    @GetMapping("/post/details3")
+    public PostDetailResponse postDetailsUpgrade(@RequestParam Long postId, @RequestParam Long userId) {
+        Post post = postService.findPostByPostId(postId);
+        postService.increaseViewCount(postId,userId);
+
+        Member Seller = post.getWho_posted();
+      postService.find
+
+
+        return new PostDetailResponse(post);
+    }
+
+
     // hhhhhh
     @GetMapping("/post/get_info")
     public PostDetailResponse postInfo(Long post_id) {

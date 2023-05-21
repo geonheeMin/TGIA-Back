@@ -104,6 +104,12 @@ public class PostService {
         }
     }
 
+    public List<PostDetailDto> findSellList(Long userId) {
+
+        return postRepository.findSellList(userId);
+
+    }
+
     // 5/8 이미지 설정 코드 수정
     public void setImage(Post post, List<Image> images) {
         post.setImages(images);
