@@ -90,9 +90,7 @@ public class PostRepository {
         return list;
     }
 
-
-
-
-
-
+    public void setPurchased(Purchased purchased) {
+        this.setPurchased(purchased);
+    }
 }

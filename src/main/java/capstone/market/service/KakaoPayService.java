@@ -82,10 +82,10 @@ public class KakaoPayService {
         //parameters.add("vat_amount", String.valueOf(item_price*0.1)); //상품총액 - 상품 비과세 금액 에 10퍼센트 => 값 안보내면 자동저장
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
-
-        parameters.add("approval_url", "http://54.180.124.49:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://54.180.124.49:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://54.180.124.49:8080/payment/fail"); // 실패 시 redirect url
+    
+        parameters.add("approval_url", "http://223.194.133.126:8080/payment/success"); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://223.194.133.126:8080/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://223.194.133.126:8080/payment/fail"); // 실패 시 redirect url
 
 
         //http://43.201.77.124:8080 => ec2주소
@@ -109,6 +109,9 @@ public class KakaoPayService {
     public KakaoApproveResponse ApproveResponse(String pgToken) {
 
 
+        /**
+         * 구매내역 만들어주자(buyer도 설정해주자.)
+         */
 
 
 
@@ -138,10 +141,6 @@ public class KakaoPayService {
                 requestEntity,
                 KakaoApproveResponse.class);
 
-        /**
-         * 구매내역 만들어주자(buyer도 설정해주자.)
-         */
-
         Purchased purchased = new Purchased();
         purchased.setMember(memberRepository.findOne(buyer_id));
         purchased.setPrice(item_price);
@@ -150,11 +149,6 @@ public class KakaoPayService {
         purchased.setPayment_method_type(approveResponse.getPayment_method_type()); // 결제 수단
         purchased.setQuantity(approveResponse.getQuantity());
         purchased.setApproved_at(approveResponse.getApproved_at());
-
-        purchased.setBuyer_username(memberRepository.findOne(buyer_id).getUsername());
-        purchased.setSeller_username(memberRepository.findOne(seller_id).getUsername());
-
-
         purchasedRepository.save(purchased);
         Post post = postRepository.findOne(post_id);
         post.setPurchased(purchased);
