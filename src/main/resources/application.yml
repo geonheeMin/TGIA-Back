@@ -1,8 +1,8 @@
 # 이미지를 저장시킬 백엔드 디렉토리
 
 #file.dir: /Users/son/Desktop/upload/
-#file.dir: /home/ubuntu/uploads/
-file.dir: /home/jys/uploads/
+file.dir: /home/ubuntu/uploads/
+#file.dir: /home/jys/uploads/
 
 
 spring:
@@ -16,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         # 얘도 sql 문을 보여주지만 sout 으로 하기 때문에 않좋다.

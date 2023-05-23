@@ -87,9 +87,9 @@ public class KakaoPayService {
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
 
-        parameters.add("approval_url", "http://223.194.130.205:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://223.194.130.205:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://223.194.130.205:8080/payment/fail"); // 실패 시 redirect url
+        parameters.add("approval_url", "http://43.200.182.96:8080/payment/success"); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://43.200.182.96:8080/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://43.200.182.96:8080//payment/fail"); // 실패 시 redirect url
 
 
 
@@ -106,10 +106,10 @@ public class KakaoPayService {
 
 
         kakaoReady.setItem_name(kakaoPayDto.getItem_name()); // 상품이름
-        kakaoReady.setItem_price(kakaoReady.getItem_price()); // 상품가격
-        kakaoReady.setSeller_id(kakaoReady.getSeller_id()); // 판매자 기본키
-        kakaoReady.setBuyer_id(kakaoReady.getBuyer_id()); // 구매자 기본키
-        kakaoReady.setPost_id(kakaoReady.getPost_id()); // 게시글 기본키
+        kakaoReady.setItem_price(kakaoPayDto.getPrice()); // 상품가격
+        kakaoReady.setSeller_id(kakaoPayDto.getUser_id()); // 판매자 기본키
+        kakaoReady.setBuyer_id(kakaoPayDto.getBuyer_id()); // 구매자 기본키
+        kakaoReady.setPost_id(kakaoPayDto.getPost_id()); // 게시글 기본키
 
         return kakaoReady;
     }
@@ -127,7 +127,7 @@ public class KakaoPayService {
         parameters.add("cid", cid);
         parameters.add("tid", kakaoReady.getTid());
         parameters.add("partner_order_id", String.valueOf(partner_order_id));
-        parameters.add("partner_user_id", String.valueOf(seller_id));
+        parameters.add("partner_user_id", String.valueOf(kakaoReady.getSeller_id()));
         parameters.add("pg_token", pgToken);
 
 
@@ -150,6 +150,7 @@ public class KakaoPayService {
         purchased.setMember(memberRepository.findOne(kakaoReady.getBuyer_id()));
         purchased.setPrice(kakaoReady.getItem_price());
         purchased.setProductName(kakaoReady.getItem_name());
+        purchased.setItem_name(kakaoReady.getItem_name());
         purchased.setTid(approveResponse.getTid()); // 결제 고유 번호
         purchased.setPayment_method_type(approveResponse.getPayment_method_type()); // 결제 수단
         purchased.setQuantity(approveResponse.getQuantity());
