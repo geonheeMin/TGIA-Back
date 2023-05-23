@@ -14,7 +14,9 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-    private Integer mannerscore = 0;
+    @OneToOne
+    private Manner manner;
+    private Integer mannerscore = 80;
     private String user_id;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "track_id")

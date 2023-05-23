@@ -199,7 +199,7 @@ public class DataLoader {
 //        macBookPost.setPurchased(purchased2);
 
         CollegeType[] collegeTypes = CollegeType.values();
-        for (int i =0;i<30;i++) {
+        for (int i =0;i<1;i++) {
             Post dummyPost = new Post();
             int randomIndex = random.nextInt(collegeTypes.length);
 
