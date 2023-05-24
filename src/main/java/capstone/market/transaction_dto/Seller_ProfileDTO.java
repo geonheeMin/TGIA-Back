@@ -11,8 +11,12 @@ public class Seller_ProfileDTO {
 
     private List<PurchaseReviewDTO> latestPurchaseReviews;
 
+    private Long PurchaseReview_전체개수;
+
+
     public Seller_ProfileDTO(ProfileListDto profileListDto, List<PurchaseReviewDTO> latestPurchaseReviews) {
         this.profileListDto = profileListDto;
         this.latestPurchaseReviews = latestPurchaseReviews;
     }
 }
+

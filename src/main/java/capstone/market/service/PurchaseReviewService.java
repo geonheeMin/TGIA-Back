@@ -54,7 +54,10 @@ public class PurchaseReviewService {
         ProfileListDto profileListDto = new ProfileListDto(one);
         List<PurchaseReviewDTO> latestPurchaseReviews = purchaseReviewRepository.findLatestPurchaseReviews(userId);
 
-      return new Seller_ProfileDTO(profileListDto,latestPurchaseReviews);
+        Seller_ProfileDTO sellerProfileDTO = new Seller_ProfileDTO(profileListDto, latestPurchaseReviews);
+        sellerProfileDTO.setPurchaseReview_전체개수(purchaseReviewRepository.getPurchaseReviewCount(userId));
+        
+        return sellerProfileDTO;
 
     }
 

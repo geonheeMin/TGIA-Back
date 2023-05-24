@@ -49,6 +49,16 @@ public class PurchaseReviewRepository {
     }
 
 
+    public Long getPurchaseReviewCount(Long userId) {
+        String jpql = "SELECT COUNT(p) FROM PurchaseReview p WHERE p.seller_id = :userId";
+        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+        query.setParameter("userId", userId);
+        Long result = query.getSingleResult();
+        return result;
+    }
+
+
+
 
 
 

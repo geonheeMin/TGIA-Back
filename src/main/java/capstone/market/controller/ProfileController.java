@@ -64,10 +64,10 @@ public class ProfileController {
     //@@@테스트
 
     @GetMapping("/profile")
-    public ProfileListDto findMyProfileList(@RequestBody ProfileListDto profileListDto){
+    public ProfileListDto findMyProfileList(@RequestParam Long userId){
 
 
-        return memberService.findMyProfileList(profileListDto.getMember_id());
+        return memberService.findMyProfileList(userId);
 
 
     }
