@@ -25,8 +25,8 @@ public class MannerController {
         mannerService.setMannerScore(request);
     }
 
-    @GetMapping("/manner/getTop3")
+    @GetMapping("/manner/getTop3AndDealingRate")
     public List<Map<String, Long>> getTop3(Long userId) {
-        return mannerService.topThree(userId);
+        return mannerService.topThreeAndReDealingRate(userId);
     }
 }

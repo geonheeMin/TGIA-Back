@@ -21,6 +21,8 @@ public class DataLoader {
     @Autowired
     private PostService postService;
     @Autowired
+    private MannerRepository mannerRepository;
+    @Autowired
     private ImageRepository imageRepository;
     @Autowired
     private MemberRepository memberRepository;
@@ -126,6 +128,21 @@ public class DataLoader {
         memberA.setImage(image1);
         memberD.setImage(image1);
 
+        Manner mannerA = new Manner();
+        mannerRepository.save(mannerA);
+        memberA.setManner(mannerA);
+
+        Manner mannerB = new Manner();
+        mannerRepository.save(mannerB);
+        memberB.setManner(mannerB);
+
+        Manner mannerC = new Manner();
+        mannerRepository.save(mannerC);
+        memberC.setManner(mannerC);
+
+        Manner mannerD = new Manner();
+        mannerRepository.save(mannerD);
+        memberD.setManner(mannerD);
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);

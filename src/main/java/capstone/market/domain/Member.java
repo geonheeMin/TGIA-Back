@@ -41,9 +41,6 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
-
-
-
     private DepartmentType first_department;
 
     private DepartmentType second_department;

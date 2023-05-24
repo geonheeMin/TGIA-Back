@@ -1,8 +1,9 @@
 # 이미지를 저장시킬 백엔드 디렉토리
 
-file.dir: /Users/son/Desktop/upload/
-deepLearnFile.dir: /Users/son/Downloads/yolov5-master/spring_sended/
-#file.dir: /home/ubuntu/uploads/
+#file.dir: /Users/son/Desktop/upload/
+#deepLearnFile.dir: /Users/son/Downloads/yolov5-master/spring_sended/
+file.dir: /home/ubuntu/upload/
+deepLearnFile.dir: /home/ubuntu/deeplearn/
 #file.dir: /home/jys/uploads/
 
 
