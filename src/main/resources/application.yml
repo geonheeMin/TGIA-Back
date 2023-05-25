@@ -17,8 +17,6 @@ spring:
     # market_v0: 스키마 이름
     username: root
 
-    password: capstone
-
     password: 6091
 
 
