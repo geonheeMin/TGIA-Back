@@ -27,14 +27,13 @@ public class ChatMessageResponseDTO {
         String myTime;
         LocalDateTime dateTime = chatMessage.getTime();
         int hour = dateTime.getHour();
-        int minute = dateTime.getMinute();
-        if (minute < 10) {
-            minute = 0 + minute;
-        }
+        int minute = dateTime.getMinute() - 10;
+        String minuteString = String.valueOf((minute < 10) ? "0" + minute : minute);
+        // 변수 = (조건) ? 참인 경우의 값 : 거짓인 경우의 값;
         if (hour > 12) {
-            myTime = "오후" + (hour - 12) + ":" + minute;
+            myTime = "오후 " + (hour - 12) + ":" + minuteString;
         } else {
-            myTime = "오전" + hour + minute;
+            myTime = "오전 " + hour + minuteString;
         }
         return myTime;
     }
