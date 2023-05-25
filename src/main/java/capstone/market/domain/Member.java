@@ -15,7 +15,9 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-    private Integer mannerscore = 0;
+    @OneToOne
+    private Manner manner;
+    private Integer mannerscore = 80;
     private String user_id;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "track_id")
@@ -40,9 +42,6 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
-
-
-
     private DepartmentType first_department;
 
     private DepartmentType second_department;

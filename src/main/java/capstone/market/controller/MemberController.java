@@ -100,7 +100,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/get_username")
-    public String getUsername(@RequestParam Long id) {
+    public String getUsername(Long id) {
         Member member = memberService.findOne(id);
         return member.getUsername();
     }

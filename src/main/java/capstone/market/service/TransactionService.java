@@ -10,6 +10,7 @@ import capstone.market.repository.TransactionRepository;
 import capstone.market.searchKeyword_dto.SearchKeywordDTO;
 import capstone.market.transaction_dto.AdminStatisticsDTO;
 import capstone.market.transaction_dto.PurchasedDTO;
+import capstone.market.transaction_dto.PurchasedWithPostTitleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -152,5 +153,13 @@ public class TransactionService {
 
     }
 
+    public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
 
+        List<Purchased> all = purchasedRepository.findAll();
+
+        List<PurchasedWithPostTitleDTO> getPurchasedList3 = all.stream().map(u -> new PurchasedWithPostTitleDTO(u))
+                .collect(Collectors.toList());
+
+        return getPurchasedList3;
+    }
 }

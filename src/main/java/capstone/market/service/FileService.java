@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,9 +26,15 @@ public class FileService {
     private final ImageRepository imageRepository;
     @Value("${file.dir}")
     private String fileDir;
+    @Value("${deepLearnFile.dir}")
+    private String fileDirForDeepLearning;
 
     public String getFullPath(String filename) {
         return fileDir + filename;
+    }
+
+    public String getFullPathForDeepLearning(String filename) {
+        return fileDirForDeepLearning + filename;
     }
 
     public List<Image> getAllImagesName() {
@@ -55,9 +63,14 @@ public class FileService {
             return null;
         }
 
+//        multipartFile.transferTo(new File(getFullPathForDeepLearning("originalFilename")));
+
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
-        multipartFile.transferTo(new File(getFullPath(storeFileName)));
+        File file = new File(getFullPath(storeFileName));
+        File destinationFile = new File(getFullPathForDeepLearning("deeplearn.png"));
+        multipartFile.transferTo(file);
+        Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
         // 이미지 파일명 저장
         Image image = new Image(storeFileName);
@@ -77,6 +90,4 @@ public class FileService {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
     }
-
-
 }

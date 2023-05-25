@@ -21,6 +21,8 @@ public class DataLoader {
     @Autowired
     private PostService postService;
     @Autowired
+    private MannerRepository mannerRepository;
+    @Autowired
     private ImageRepository imageRepository;
     @Autowired
     private MemberRepository memberRepository;
@@ -70,19 +72,30 @@ public class DataLoader {
     @PostConstruct
     public void init() {
         Member memberA = new Member("memberA");
-        memberA.setUsername("건희");
+        memberA.setUsername("민규");
+
         Member memberB = new Member("memberB");
-        Member memberD = new Member("memberD");
-        memberD.setUsername("아톰");
-        memberB.setUsername("영식");
+        memberB.setUsername("건희");
+
         Member memberC = new Member("memberC");
-        memberC.setUsername("용기");
+        memberC.setUsername("영식");
+
+        Member memberD = new Member("memberD");
+        memberD.setUsername("용기");
+
+
 
         Image image = new Image();
         image.setImageFilename("basicprofile.png");
         imageRepository.save(image);
         CategoryType[] categories = CategoryType.values();
+        DepartmentType[] departmentTypes = DepartmentType.values();
         Random random = new Random();
+//        int r = random.nextInt(10); //0~9
+//
+//        if ( r < 3 )
+
+
 
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
@@ -120,6 +133,21 @@ public class DataLoader {
         memberA.setImage(image1);
         memberD.setImage(image1);
 
+        Manner mannerA = new Manner();
+        mannerRepository.save(mannerA);
+        memberA.setManner(mannerA);
+
+        Manner mannerB = new Manner();
+        mannerRepository.save(mannerB);
+        memberB.setManner(mannerB);
+
+        Manner mannerC = new Manner();
+        mannerRepository.save(mannerC);
+        memberC.setManner(mannerC);
+
+        Manner mannerD = new Manner();
+        mannerRepository.save(mannerD);
+        memberD.setManner(mannerD);
 
         memberRepository.save(memberA);
         memberRepository.save(memberB);
@@ -134,10 +162,9 @@ public class DataLoader {
         Category post4category = new Category();
         Category post5category = new Category();
 
-
         post1category.setCategory_type(CategoryType.도서);
         post2category.setCategory_type(CategoryType.생활가전);
-        post3category.setCategory_type(CategoryType.부기굿즈);
+        post3category.setCategory_type(CategoryType.전자기기);
         post4category.setCategory_type(CategoryType.전자기기);
         post5category.setCategory_type(CategoryType.뷰티미용);
 
@@ -156,30 +183,29 @@ public class DataLoader {
         Post post1 = new Post();
         post1.setPost_title("제목1");
         post1.setPost_text("내용");
-        System.out.println("afdsfasdfasd" + post1.getPostId());
 //        Post post1 = new Post("제목1","내용");
-        Post post2 = new Post();
-        post2.setPost_title("제발 좀 되라");
-        post2.setPost_text("제발!");
 
-        System.out.println("dfadfadf: " + post2.getPostId());
 
-        Post post3 = new Post("오머~ 너무 싼 맥북 팔아요~","진짜 찐으로 싸게 파는 거에용");
-        Post post4 = new Post("부기 굿즈 팔아요!","부기 팔아요 싸게 파는거에용");
+        Post javaBookPost = new Post();
+        javaBookPost.setPost_title("객지2 교재 팝니다!");
+        javaBookPost.setPost_text("메모 거의 없습니다!");
+
+        Post macBookPost = new Post("오머~ 맥북 프로 싸게 팔아요~","진짜 찐으로 싸게 파는 거라서 가격협상은 힙들어요..");
+        Post bugiPost = new Post("부기 굿즈 팔아요!","부기 팔아요 싸게 파는거에용");
 
         post1.setWho_posted(memberA);
-        post2.setWho_posted(memberA);
-        post3.setWho_posted(memberB);
-        post4.setWho_posted(memberD);
+        javaBookPost.setWho_posted(memberA);
+        macBookPost.setWho_posted(memberB);
+        bugiPost.setWho_posted(memberD);
 
-//        post3.generateRandomCreatedDate();
+//        macBookPost.generateRandomCreatedDate();
 
         post1.setPrice(10000);
-        post2.setPrice(10000);
-        post3.setPrice(10000);
-        post4.setPrice(10000);
+        javaBookPost.setPrice(8000);
+        macBookPost.setPrice(900000);
+        bugiPost.setPrice(2000);
 
-        // Set the created date for post3 with the random month, day, and current year (2023)
+        // Set the created date for macBookPost with the random month, day, and current year (2023)
 
 
 
@@ -191,8 +217,13 @@ public class DataLoader {
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
+//        Purchased purchased2 = new Purchased();
+//        purchased2.setMember(memberC);
+//        purchasedRepository.save(purchased2);
+//        macBookPost.setPurchased(purchased2);
+
         CollegeType[] collegeTypes = CollegeType.values();
-        for (int i =0;i<30;i++) {
+        for (int i =0;i<1;i++) {
             Post dummyPost = new Post();
             int randomIndex = random.nextInt(collegeTypes.length);
 
@@ -229,7 +260,10 @@ public class DataLoader {
             dummyPost.setWho_posted(memberA);
             dummyPost.setPrice(10000);
 
-            dummyPost.setDepartment(department);
+            Department dummyDepartment = new Department();
+            dummyDepartment.setDepartmentType(departmentTypes[random.nextInt(departmentTypes.length)]);
+            departMentJpaRepository.save(dummyDepartment);
+            dummyPost.setDepartment(dummyDepartment);
 
             dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
             dummyPost.setLocation_text("101호");
@@ -237,11 +271,23 @@ public class DataLoader {
 
             dummyPost.setItem_name("MacBook Pro 13");
 //            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
-//            post3.setItem_name("아이패드 에어 4세대 블루");
+//            macBookPost.setItem_name("아이패드 에어 4세대 블루");
 //            post4.setItem_name("토비의 스프링 1편");
 
-            postRepository.savePost(dummyPost);
 
+            if (i %2 == 0) {
+                Purchased dummyPurchased = new Purchased();
+                dummyPurchased.setMember(memberB);
+                dummyPurchased.setPrice(dummyPost.getPrice());
+                dummyPurchased.setPostTitle(dummyPost.getPost_title());
+                dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
+                dummyPurchased.setQuantity(1);
+                dummyPurchased.setBuyer_username(memberB.getUsername());
+                purchasedRepository.save(dummyPurchased);
+                dummyPost.setPurchased(dummyPurchased);
+            }
+
+            postRepository.savePost(dummyPost);
 
             if (dummyPost.getCategory().getCategory_type() == CategoryType.의류) {
                 Image dummyImage0 = new Image();
@@ -313,63 +359,32 @@ public class DataLoader {
                 imageRepository.save(dummyImage);
             }
         }
-//        our_memory_image1.getImageFilename();
-
-//        Image our_memory_image2 = new Image();
-//        our_memory_image2.setImageFilename("5558025b-a73f-4fcf-a0d7-87300924f989.jpg");
-//        imageRepository.save(our_memory_image2);
-//        our_memory_image2.getImageFilename();
 
 
-
-//        List<Image> images = imageService.findImages(imageNames);
-
-
-//        images.add(our_memory_image2);
-
-
-
-//        Category post1category = new Category();
-//        Category post2category = new Category();
-//        Category post3category = new Category();
-//        Category post4category = new Category();
-//
-//        post1category.setCategory_type(CategoryType.도서);
-//        post2category.setCategory_type(CategoryType.생활가전);
-//        post3category.setCategory_type(CategoryType.부기굿즈);
-//        post4category.setCategory_type(CategoryType.전자기기);
-//
-//        categoryJpaRepository.save(post1category);
-//        categoryJpaRepository.save(post2category);
-//        categoryJpaRepository.save(post3category);
-//        categoryJpaRepository.save(post4category);
 
         post1.setCategory(post1category);
-        post2.setCategory(post2category);
-        post3.setCategory(post3category);
-        post4.setCategory(post4category);
+        javaBookPost.setCategory(post2category);
+        macBookPost.setCategory(post3category);
+        bugiPost.setCategory(post4category);
 
         post1.setDepartment(department);
-        post2.setDepartment(department);
-        post3.setDepartment(department);
-        post4.setDepartment(department);
+        javaBookPost.setDepartment(department);
+        macBookPost.setDepartment(department);
+        bugiPost.setDepartment(department);
 
         post1.setLocationType(LocationType.공학관);
         post1.setLocation_text("101호");
-        post2.setLocationType(LocationType.미래관);
-        post2.setLocation_text("102호");
-        post3.setLocationType(LocationType.낙산관);
-        post3.setLocation_text("103호");
-        post4.setLocationType(LocationType.풋살장);
-        post4.setLocation_text("104");
-
-
-
+        javaBookPost.setLocationType(LocationType.미래관);
+        javaBookPost.setLocation_text("102호");
+        macBookPost.setLocationType(LocationType.공학관);
+        macBookPost.setLocation_text("103호");
+        bugiPost.setLocationType(LocationType.풋살장);
+        bugiPost.setLocation_text("104");
 
         post1.setItem_name("MacBook Pro 13");
-        post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
-        post3.setItem_name("아이패드 에어 4세대 블루");
-        post4.setItem_name("토비의 스프링 1편");
+        javaBookPost.setItem_name("아이폰 14 프로 맥스 실버 256GB");
+        macBookPost.setItem_name("맥북 프로 14");
+        bugiPost.setItem_name("토비의 스프링 1편");
 
         post1.setTrack(TrackType.게임그래픽디자인트랙);
         post1.setCollege(CollegeType.미래융합사회과학대학);
@@ -377,35 +392,68 @@ public class DataLoader {
         post1.setDepartment(department1);
 
 
-        post2.setTrack(TrackType.경제금융투자트랙);
-        post2.setCollege(CollegeType.디자인대학);
+        javaBookPost.setTrack(TrackType.경제금융투자트랙);
+        javaBookPost.setCollege(CollegeType.디자인대학);
         Department department2 = new Department(DepartmentType.문학문화콘텐츠학과);
-        post2.setDepartment(department2);
+        javaBookPost.setDepartment(department2);
 
-        post3.setTrack(TrackType.기업경제분석트랙);
-        post3.setCollege(CollegeType.미래플러스대학);
+        macBookPost.setTrack(TrackType.기업경제분석트랙);
+        macBookPost.setCollege(CollegeType.미래플러스대학);
         Department department3 = new Department(DepartmentType.IT융합공학부);
-        post3.setDepartment(department3);
+        macBookPost.setDepartment(department3);
 
-        post4.setTrack(TrackType.글로벌비즈니스트랙);
-        post4.setCollege(CollegeType.IT공과대학);
+        bugiPost.setTrack(TrackType.글로벌비즈니스트랙);
+        bugiPost.setCollege(CollegeType.IT공과대학);
         Department department4 = new Department(DepartmentType.상상력인재학부);
-        post4.setDepartment(department4);
+        bugiPost.setDepartment(department4);
 
         departMentJpaRepository.save(department1);
         departMentJpaRepository.save(department2);
         departMentJpaRepository.save(department3);
         departMentJpaRepository.save(department4);
 
+        Post airPodPost = makeHardCodePost(memberA, "에어팟 팔아요~", "테스트", "에어팟", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
+        Post osBookPost = makeHardCodePost(memberA, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
+        Post webBookPost = makeHardCodePost(memberA, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
+
         postRepository.savePost(post1);
-        postRepository.savePost(post2);
-        postRepository.savePost(post3);
-        postRepository.savePost(post4);
+        postRepository.savePost(osBookPost);
+        postRepository.savePost(javaBookPost);
+        postRepository.savePost(macBookPost);
+        postRepository.savePost(webBookPost);
+        postRepository.savePost(bugiPost);
+        postRepository.savePost(airPodPost);
+
+        // ======= 하드 코딩 데이터 이미지 설정 (랜덤 X) =======
+        Image webBookImage = new Image();
+        webBookImage.setImageFilename("webBook.png");
+        webBookImage.setPost(webBookPost);
+        imageRepository.save(webBookImage);
+
+        Image osBookImage = new Image();
+        osBookImage.setImageFilename("osBook.png");
+        osBookImage.setPost(osBookPost);
+        imageRepository.save(osBookImage);
+
+        Image airPodImage = new Image();
+        airPodImage.setImageFilename("airpod.jpeg");
+        airPodImage.setPost(airPodPost);
+        imageRepository.save(airPodImage);
 
         Image macBookImage = new Image();
         macBookImage.setImageFilename("macbook.jpeg");
-        macBookImage.setPost(post3);
+        macBookImage.setPost(macBookPost);
         imageRepository.save(macBookImage);
+
+        Image bugiImage = new Image();
+        bugiImage.setImageFilename("bugi.png");
+        bugiImage.setPost(bugiPost);
+        imageRepository.save(bugiImage);
+
+        Image javaBookImage = new Image();
+        javaBookImage.setImageFilename("javaBook.png");
+        javaBookImage.setPost(javaBookPost);
+        imageRepository.save(javaBookImage);
 
         Image our_memory_image1 = new Image();
         our_memory_image1.setImageFilename("miss1.png");
@@ -413,14 +461,14 @@ public class DataLoader {
 //        our_memory_image1.setPost(post2);
         imageRepository.save(our_memory_image1);
 
+        // ======= 하드 코딩 데이터 이미지 설정 (랜덤 X) ======
+
         List<Image> images = new ArrayList<>();
         images.add(our_memory_image1);
 //        postService.savePost(post2);
 
-        System.out.println("ddfadf" + post2.getPostId());
-
 //        post2.setImages(images);
-//        post3.setImages(images);
+//        macBookPost.setImages(images);
 //        post4.setImages(images);
 
 //        ChatRoom chatRoom = chatService.startChatRoomService(post2, post2.getWho_posted(), memberB);
@@ -436,6 +484,27 @@ public class DataLoader {
 //        System.out.println(testing);
     }
 
+    private Post makeHardCodePost(Member whoPosted, String title, String context, String itemName,
+                                  int price, CategoryType categoryType,
+                                  DepartmentType departmentType, LocationType locationType) {
+        Post hardcodePost = new Post();
+        hardcodePost.setPost_title(title);
+        hardcodePost.setPost_text(context);
+        hardcodePost.setWho_posted(whoPosted);
+        hardcodePost.setItem_name(itemName);
+        hardcodePost.setPrice(price);
+
+        Category category = new Category();
+        category.setCategory_type(categoryType);
+        categoryJpaRepository.save(category);
+        hardcodePost.setCategory(category);
+
+        Department department = new Department(departmentType);
+        departMentJpaRepository.save(department);
+        hardcodePost.setDepartment(department);
+        hardcodePost.setLocationType(locationType);
+        return hardcodePost;
+    }
 
 
     /*

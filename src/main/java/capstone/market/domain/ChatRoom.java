@@ -38,6 +38,7 @@ public class ChatRoom {
     //latest_msg
     @OneToOne
     private ChatMessage finalMsg;
+    private String finalMsgString;
 
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY)
     private List<ChatMessage> messages = new ArrayList<>();

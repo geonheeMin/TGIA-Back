@@ -97,7 +97,7 @@ public class Post extends BaseEntity {
 
     public Post(Member who_posted, Category category, Integer price, String post_title, String post_text) {
         this.who_posted = who_posted;
-       this.category = category;
+        this.category = category;
         this.price = price;
         this.post_title = post_title;
         this.post_text = post_text;
