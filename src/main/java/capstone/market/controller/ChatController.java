@@ -8,10 +8,7 @@ import capstone.market.domain.Post;
 import capstone.market.service.ChatService;
 import capstone.market.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +66,11 @@ public class ChatController {
     public String getUsername(Long id) {
         Member member = memberService.findOne(id);
         return member.getUsername();
+    }
+
+    @GetMapping("/chat/get_ids")
+    public ChatIdsDTO getChatmembersIds(@RequestParam Long chatroom_id) {
+        return new ChatIdsDTO(chatService.findChatRoomByChatRoomId(chatroom_id));
     }
 
     // 채팅방에 저장된 채팅 메시지 내역을 가져옵니다.
@@ -137,6 +139,14 @@ public class ChatController {
         return new ChatRoomResponseDTO(chatRoom);
     }
 
+    // chat room id 주면 참여자 a, b 전송
+    @GetMapping("/chat/get_chat_members")
+    public ChatRoomMembersResponseDTO getChatMembers(Long chatroom_id) {
+        ChatRoom chatRoom = chatService.findChatRoomByChatRoomId(chatroom_id);
+        Long aId = chatRoom.getMemberA().getId();
+        Long bId = chatRoom.getMemberB().getId();
+        return new ChatRoomMembersResponseDTO(aId, bId);
+    }
 
     @GetMapping("/chat/get_chatroom_member_id_V2")
     public List<ChatRoomListResponseDTO> getChatListByMemberIdV2(Long member_id) {
@@ -190,7 +200,7 @@ public class ChatController {
                 System.out.println("3412341234");
                 chatMessage = null;
             }
-            if (chatMessage.getMember().getId() == member_id) {
+            if (chatMessage.getMember() != null && chatMessage.getMember().getId() == member_id) { // null pointer error
                 System.out.println("1341234");
                 count = 0L;
             } else {
@@ -256,7 +266,8 @@ public class ChatController {
         ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, member, message);
         // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
 
-
+        chatRoom.setFinalMsg(chatMessage);
+        chatRoom.setFinalMsgString(chatMessage.getMessage());
         List<ChatMessage> chatLists = chatService.getChatListsV2(chatroom_id, sender_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
@@ -265,8 +276,6 @@ public class ChatController {
         }
 
         return chatMessageResponseDTOS;
-
-
 //        return new ChatMessageResponseDTO(chatMessage);
     }
 }

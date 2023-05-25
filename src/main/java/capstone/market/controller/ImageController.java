@@ -50,6 +50,7 @@ public class ImageController {
         // 파일 처리 작업 수행
         List<String> filenames = new ArrayList<>();
 //        List<UploadFile> uploadFiles = fileService.storeFiles(files);
+//        fileService.storeFileForDeepLearning(images.get(0));
         System.out.println("filenames = " + images.stream().count());
         List<Image> uploadFiles = fileService.storeFiles(images);
         for (Image uploadFile : uploadFiles) {

@@ -11,6 +11,9 @@ import capstone.market.repository.PostRepository;
 import capstone.market.repository.PostRepositoryCustomImpl;
 import capstone.market.repository.SearchKeywordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,16 @@ public class PostService {
     private final PostDataJpaRepository postDataJpaRepository;
 
     private final SearchKeywordRepository searchKeywordRepository;
+
+
+
+    public List<Post> findAllPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return postDataJpaRepository.findAllByOrderByCreatedDateDesc(pageable);
+    }
+
+
+
     public Post findPostByPostId(Long post_id) {
         return postRepository.findOne(post_id);
     }
@@ -91,6 +104,20 @@ public class PostService {
         }
     }
 
+    public List<PostDetailDto> findSellList(Long userId) {
+
+        return postRepository.findSellList(userId);
+
+    }
+
+    public List<PostDetailDto> findListByCategory(CategoryType categoryType) {
+
+       return postRepository.findListByCategory(categoryType);
+
+    }
+
+
+
     // 5/8 이미지 설정 코드 수정
     public void setImage(Post post, List<Image> images) {
         post.setImages(images);
@@ -120,8 +147,8 @@ public class PostService {
         post.setLocationType(request.getLocationType());
         post.setItem_name(request.getItem_name());
         post.setTrack(request.getTrack());
-//        postRepository.savePost(post);
-
+//      postRepository.savePost(post);
+        post.setStatus(request.getStatusType());
         post.getDepartment().setDepartmentType(request.getDepartment());
 
         if(request.getDepartment() == DepartmentType.컴퓨터공학부 ||

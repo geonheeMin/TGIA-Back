@@ -1,9 +1,6 @@
 package capstone.market.post_dto;
 
-import capstone.market.domain.CollegeType;
-import capstone.market.domain.DepartmentType;
-import capstone.market.domain.LocationType;
-import capstone.market.domain.TrackType;
+import capstone.market.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -25,6 +22,7 @@ public class PostForm {
     private String item_name; // 상품명
     private CollegeType college;
     private TrackType track;
+    private StatusType statusType;
 
     public PostForm() {
     }
@@ -40,5 +38,6 @@ public class PostForm {
         this.item_name = postForm.getItem_name();
         this.college = postForm.getCollege();
         this.track = postForm.getTrack();
+        this.statusType = postForm.getStatusType();
     }
 }

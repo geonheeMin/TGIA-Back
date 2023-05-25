@@ -138,6 +138,7 @@ public class TransactionRepository {
 
     }
 
+
     public Long getTotalTransactions_필기구(){
         String jpql = "SELECT COUNT(p) FROM Post p WHERE p.category.category_type = :category and p.purchased is not null";
 
@@ -236,8 +237,61 @@ public class TransactionRepository {
     /**
      * 6. 월별 카테고리별 포스트 조회
      */
+//    public Map<String, Map<String, Long>> getMonthlyPostCountsByCategory(int year) {
+//        Map<String, Map<String, Long>> monthlyTransactionCounts = new LinkedHashMap<>();
+//
+//        for (CategoryType category : CategoryType.values()) {
+//            Map<String, Long> countsByMonth = new LinkedHashMap<>();
+//
+//            for (int month = 1; month <= 12; month++) {
+//                YearMonth yearMonth = YearMonth.of(year, month);
+//                String monthLabel = yearMonth.toString();
+//
+//                String jpql = "SELECT COUNT(p) " +
+//                        "FROM Post p " +
+//                        "WHERE p.category.category_type = :category " +
+//                        "AND YEAR(p.createdDate) = :year " +
+//                        "AND MONTH(p.createdDate) = :month";
+//
+//                Long count = em.createQuery(jpql, Long.class)
+//                        .setParameter("category", category)
+//                        .setParameter("year", year)
+//                        .setParameter("month", month)
+//                        .getSingleResult();
+//
+//                countsByMonth.put(monthLabel, count);
+//            }
+//
+//            String categoryName = category.toString();
+//            monthlyTransactionCounts.put(categoryName, countsByMonth);
+//        }
+//
+//        return monthlyTransactionCounts;
+//    }
+
+
     public Map<String, Map<String, Long>> getMonthlyPostCountsByCategory(int year) {
         Map<String, Map<String, Long>> monthlyTransactionCounts = new LinkedHashMap<>();
+        Map<String, Long> totalCountsByMonth = new LinkedHashMap<>();
+
+        for (int month = 1; month <= 12; month++) {
+            YearMonth yearMonth = YearMonth.of(year, month);
+            String monthLabel = yearMonth.toString();
+
+            String jpql = "SELECT COUNT(p) " +
+                    "FROM Post p " +
+                    "WHERE YEAR(p.createdDate) = :year " +
+                    "AND MONTH(p.createdDate) = :month";
+
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("year", year)
+                    .setParameter("month", month)
+                    .getSingleResult();
+
+            totalCountsByMonth.put(monthLabel, count);
+        }
+
+        monthlyTransactionCounts.put("전체", totalCountsByMonth);
 
         for (CategoryType category : CategoryType.values()) {
             Map<String, Long> countsByMonth = new LinkedHashMap<>();
@@ -272,8 +326,61 @@ public class TransactionRepository {
     /**
      * 6. 월별 카테고리별 거래량 조회
      */
+//    public Map<String, Map<String, Long>> getMonthlyTransactionCountsByCategory(int year) {
+//        Map<String, Map<String, Long>> monthlyTransactionCounts = new LinkedHashMap<>();
+//
+//        for (CategoryType category : CategoryType.values()) {
+//            Map<String, Long> countsByMonth = new LinkedHashMap<>();
+//
+//            for (int month = 1; month <= 12; month++) {
+//                YearMonth yearMonth = YearMonth.of(year, month);
+//                String monthLabel = yearMonth.toString();
+//
+//                String jpql = "SELECT COUNT(p) " +
+//                        "FROM Post p " +
+//                        "WHERE p.category.category_type = :category " +
+//                        "AND YEAR(p.createdDate) = :year " +
+//                        "AND p.purchased is not null " +
+//                        "AND MONTH(p.createdDate) = :month";
+//
+//                Long count = em.createQuery(jpql, Long.class)
+//                        .setParameter("category", category)
+//                        .setParameter("year", year)
+//                        .setParameter("month", month)
+//                        .getSingleResult();
+//
+//                countsByMonth.put(monthLabel, count);
+//            }
+//
+//            String categoryName = category.toString();
+//            monthlyTransactionCounts.put(categoryName, countsByMonth);
+//        }
+//
+//        return monthlyTransactionCounts;
+//    }
+
     public Map<String, Map<String, Long>> getMonthlyTransactionCountsByCategory(int year) {
         Map<String, Map<String, Long>> monthlyTransactionCounts = new LinkedHashMap<>();
+        Map<String, Long> totalCountsByMonth = new LinkedHashMap<>();
+
+        for (int month = 1; month <= 12; month++) {
+            YearMonth yearMonth = YearMonth.of(year, month);
+            String monthLabel = yearMonth.toString();
+
+            String jpql = "SELECT COUNT(p) " +
+                    "FROM Post p " +
+                    "WHERE YEAR(p.createdDate) = :year and p.purchased is not null " +
+                    "AND MONTH(p.createdDate) = :month";
+
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("year", year)
+                    .setParameter("month", month)
+                    .getSingleResult();
+
+            totalCountsByMonth.put(monthLabel, count);
+        }
+
+        monthlyTransactionCounts.put("전체", totalCountsByMonth);
 
         for (CategoryType category : CategoryType.values()) {
             Map<String, Long> countsByMonth = new LinkedHashMap<>();
@@ -284,9 +391,8 @@ public class TransactionRepository {
 
                 String jpql = "SELECT COUNT(p) " +
                         "FROM Post p " +
-                        "WHERE p.category.category_type = :category " +
+                        "WHERE p.category.category_type = :category and p.purchased is not null " +
                         "AND YEAR(p.createdDate) = :year " +
-                        "AND p.purchased is not null " +
                         "AND MONTH(p.createdDate) = :month";
 
                 Long count = em.createQuery(jpql, Long.class)
@@ -304,7 +410,6 @@ public class TransactionRepository {
 
         return monthlyTransactionCounts;
     }
-
 
     /**
      * 7. 거래 총 금액

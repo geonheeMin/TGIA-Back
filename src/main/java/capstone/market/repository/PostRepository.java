@@ -4,12 +4,15 @@ import capstone.market.domain.*;
 import capstone.market.domain.ChatRoom;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
+import capstone.market.profile_dto.PostDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -77,10 +80,8 @@ public class PostRepository {
 
     // 구매 목록
     public List<Post> findBoughtListByUserId(Long user_id) {
-        System.out.println("user_id&&&&&&&&&& = " + user_id);
-//        String jpql = "select p from Post p join p.buyer m where m.user_id = :user_id";
-        String jpql = "select p from Purchased p join p.member m where m.id = :user_id";
-        String jpql2 = "select p from Post p where p.purchased.member.id = :user_id";
+
+        String jpql2 = "select p from Post p where p.purchased.member.id = :user_id and p.purchased is not null ";
 
 
         List<Post> list = em.createQuery(jpql2, Post.class)
@@ -90,9 +91,29 @@ public class PostRepository {
         return list;
     }
 
+    public List<PostDetailDto> findSellList(Long userId) {
+        String jpql = "SELECT p FROM Post p WHERE p.who_posted.id =:userId AND p.purchased IS NULL ORDER BY p.createdDate DESC";
+        TypedQuery<Post> query = em.createQuery(jpql, Post.class);
+        query.setParameter("userId", userId);
+        query.setMaxResults(4); // 최대 4개의 결과만 반환하도록 설정
+        List<Post> resultList = query.getResultList();
 
+        List<PostDetailDto> SearchPosts = resultList.stream().map(p -> new PostDetailDto(p))
+                .collect(Collectors.toList());
+        return SearchPosts;
 
+    }
 
+    public List<PostDetailDto> findListByCategory(CategoryType categoryType) {
+        String jpql = "SELECT p FROM Post p WHERE p.category.category_type =: categoryType AND p.purchased IS NULL ORDER BY p.createdDate DESC";
+        TypedQuery<Post> query = em.createQuery(jpql, Post.class);
+        query.setParameter("categoryType", categoryType);
+        query.setMaxResults(8); // 최대 4개의 결과만 반환하도록 설정
+        List<Post> resultList = query.getResultList();
 
+        List<PostDetailDto> SearchPosts = resultList.stream().map(p -> new PostDetailDto(p))
+                .collect(Collectors.toList());
+        return SearchPosts;
 
+    }
 }

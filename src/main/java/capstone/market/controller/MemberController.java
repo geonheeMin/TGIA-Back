@@ -61,6 +61,8 @@ public class MemberController {
         memberResponseDTO.setUser_id(member.getUser_id());
         memberResponseDTO.setMember_id(member.getId());
         memberResponseDTO.setImageFilename(member.getImage().getImageFilename());
+
+
         return memberResponseDTO;
     }
 
@@ -98,7 +100,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/get_username")
-    public String getUsername(@RequestParam Long id) {
+    public String getUsername(Long id) {
         Member member = memberService.findOne(id);
         return member.getUsername();
     }
@@ -136,6 +138,8 @@ public class MemberController {
         private TrackType firsttrack;
         private TrackType secondtrack;
         private String imageFilename;
+
+
 
         public MemberResponseDTO() {
         }

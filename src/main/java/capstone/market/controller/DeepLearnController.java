@@ -34,8 +34,8 @@ public class DeepLearnController {
         if (objectName == null) {
             return "생활가전";
         }
-        System.out.println("deepLearn: " + objectName);
-        if (objectName.equals("laptop")) {
+//        System.out.println("deepLearn: " + objectName);
+        if (objectName.equals("laptop") || objectName.equals("cell phone")) {
             return "전자기기";
         } else if (objectName.equals("bicycle")) {
             return "생활가전";
@@ -47,6 +47,8 @@ public class DeepLearnController {
             return "뷰티미용";
         } else if (objectName.equals("clothes")) {
             return "의류";
+        } else if (objectName.equals("bugi")) {
+            return "부기굿즈";
         } else {
             return "뷰티미용";
         }

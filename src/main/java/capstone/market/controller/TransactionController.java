@@ -5,6 +5,7 @@ import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.service.TransactionService;
 import capstone.market.transaction_dto.AdminStatisticsDTO;
 import capstone.market.transaction_dto.PurchasedDTO;
+import capstone.market.transaction_dto.PurchasedWithPostTitleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +40,10 @@ public class TransactionController {
         return transactionService.getPurchasedList();
     }
 
-
-
+    @GetMapping("/purchasedlistV2")
+    public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
+        return transactionService.getPurchasedListV2();
+    }
 }
 
 

@@ -39,6 +39,8 @@ public class ProfileListDto {
 
 
 
+
+
     public ProfileListDto(Member member) {
         this.member_id = member.getId();
         this.username = member.getUsername();
