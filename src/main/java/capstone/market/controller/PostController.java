@@ -7,6 +7,7 @@ import capstone.market.post_dto.*;
 
 import capstone.market.profile_dto.PostDetailDto;
 import capstone.market.profile_dto.PostSellDetailDto;
+import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.profile_dto.SearchFilterDto;
 import capstone.market.service.*;
 import capstone.market.session.SessionConst;
@@ -15,6 +16,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class PostController {
     private final PostService postService;
     // post 를 작성한 Member 의 PK 를 알아내기 위해 memberService 사용
@@ -36,7 +39,7 @@ public class PostController {
     private final CategoryService categoryService;
     private final ImageService imageService;
     private final DepartmentService departmentService;
-//    private final TogetherViewedService togetherViewedService;
+
     private final SessionManager sessionManager;
     private final FileService fileService;
 
@@ -47,6 +50,19 @@ public class PostController {
         List<PostDetailDto> postDetailDtos = postService.SearchFilter(searchFilterDto);
         return postDetailDtos;
     }
+
+    @PostMapping("/reservation_posts")
+    public void reservatePosts(@RequestBody PostDetailDto postDetailDto){
+        postService.findPostByPostId(postDetailDto.getPost_id()).setStatus(StatusType.거래예약);
+
+    }
+
+    @GetMapping("/get_status_type")
+    public StatusType getStatusType(@RequestParam Long post_id){
+       return postService.findPostByPostId(post_id).getStatus();
+    }
+
+
 
     //@@@@@@@@@@@@@@@@@찐 필터링 구현@@@@@@@@@@@@@@@@@@@ 3월 23일
     //@@@@@@@@@@@@@@@@@카테고리로 포스트 필터링@@@@@@@@@@@@@@@@@@@ 3월 17일
@@ -101,34 +117,33 @@ public class PostController {
         return new PostForm(request);
     }
 
-    @DeleteMapping("")
-
-    //@GetMapping("/post/list")
-    public List<Post> postListV3(HttpServletRequest request) {
-        log.info("@GetMapping(\"/post/list\")");
-        // 세션 관리자에 저장된 회원 정보 조회
-        while (!SessionConst.POST_ENDED) {
-            log.info("WHILE");
-        }
-
-        log.info("BREAK");
-
-        HttpSession session = request.getSession(false);
-
-        if (session == null) {
-            log.info("session error");
-        }
-
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        if (member == null) {
-            log.info("login error");
-        }
-
-        log.info("hello world" + member.getUser_id());
-        List<Post> posts = postService.findPostByUserId(member.getUser_id());
-        return posts;
-    }
+//    @DeleteMapping("")
+//    //@GetMapping("/post/list")
+//    public List<Post> postListV3(HttpServletRequest request) {
+//        log.info("@GetMapping(\"/post/list\")");
+//        // 세션 관리자에 저장된 회원 정보 조회
+//        while (!SessionConst.POST_ENDED) {
+//            log.info("WHILE");
+//        }
+//
+//        log.info("BREAK");
+//
+//        HttpSession session = request.getSession(false);
+//
+//        if (session == null) {
+//            log.info("session error");
+//        }
+//
+//        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+//
+//        if (member == null) {
+//            log.info("login error");
+//        }
+//
+//        log.info("hello world" + member.getUser_id());
+//        List<Post> posts = postService.findPostByUserId(member.getUser_id());
+//        return posts;
+//    }
 
     // @GetMapping("/post/list") // 2.17
     // + 이미지 정보 추가 3월 17일
@@ -252,6 +267,7 @@ public class PostController {
         System.out.println("requestadsfadfaf = " + request.getLocationType());
         post.setLocation_text(request.getLocation_text());
         post.setLocationType(request.getLocationType());
+        post.setStatus(StatusType.판매중);
 
         post.setTrack(request.getTrack());
         post.getDepartment().setDepartmentType(request.getDepartment());
@@ -361,6 +377,23 @@ public class PostController {
 
         return new PostDetailResponse(post);
     }
+
+    @GetMapping("/post/details3")
+    public PostAndSellerPostsDTO postDetailsUpgrade(@RequestParam Long postId, @RequestParam Long userId) {
+        Post post = postService.findPostByPostId(postId);
+        postService.increaseViewCount(postId,userId);
+
+        Member Seller = post.getWho_posted();
+        PostDetailDto postDetailDto = new PostDetailDto(post);
+        List<PostDetailDto> sellList = postService.findSellList(userId);
+        List<PostDetailDto> PostsByCategory = postService.findListByCategory(post.getCategory().getCategory_type());
+
+        return new PostAndSellerPostsDTO(postDetailDto,sellList,PostsByCategory);
+
+
+    }
+
+
     // hhhhhh
     @GetMapping("/post/get_info")
     public PostDetailResponse postInfo(Long post_id) {
@@ -392,6 +425,19 @@ public class PostController {
 
         return result;
 
+    }
+
+
+    @GetMapping("/post/all3")
+    public List<PostDetailDto> getPostAllByPaging (@RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "50") int size) {
+        List<Post> all = postService.findAllPaged(page, size);
+
+        List<PostDetailDto> result = all.stream()
+                .map(p -> new PostDetailDto(p))
+                .collect(Collectors.toList());
+
+        return result;
     }
     //테스트용@@@@@@2
 

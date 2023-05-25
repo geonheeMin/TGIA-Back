@@ -8,10 +8,7 @@ import capstone.market.domain.Post;
 import capstone.market.service.ChatService;
 import capstone.market.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +66,11 @@ public class ChatController {
     public String getUsername(Long id) {
         Member member = memberService.findOne(id);
         return member.getUsername();
+    }
+
+    @GetMapping("/chat/get_ids")
+    public ChatIdsDTO getChatmembersIds(@RequestParam Long chatroom_id) {
+        return new ChatIdsDTO(chatService.findChatRoomByChatRoomId(chatroom_id));
     }
 
     // 채팅방에 저장된 채팅 메시지 내역을 가져옵니다.

@@ -64,10 +64,10 @@ public class ProfileController {
     //@@@테스트
 
     @GetMapping("/profile")
-    public ProfileListDto findMyProfileList(@RequestBody ProfileListDto profileListDto){
+    public ProfileListDto findMyProfileList(@RequestParam Long userId){
 
 
-        return memberService.findMyProfileList(profileListDto.getMember_id());
+        return memberService.findMyProfileList(userId);
 
 
     }
@@ -110,11 +110,15 @@ public class ProfileController {
         FirstTrack firstTrack = trackService.findFirstTrackByid(trackUpdateDto.getTrackId());
         trackService.saveFirstTrack(firstTrack,TrackType.valueOf(trackUpdateDto.getTrackname()));
         user.setFirstTrack(firstTrack);
+        user.setFirst_department(trackUpdateDto.getDepartmentType());
+        memberService.join(user);
     }
         if(trackUpdateDto.getTrackNumber() == 2){
             SecondTrack secondTrack = trackService.findSecondTrackByid(trackUpdateDto.getTrackId());
             trackService.saveSecondTrack(secondTrack,TrackType.valueOf(trackUpdateDto.getTrackname()));
             user.setSecondTrack(secondTrack);
+            user.setSecond_department(trackUpdateDto.getDepartmentType());
+            memberService.join(user);
         }
 
         return new ProfileListDto(user);

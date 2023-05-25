@@ -1,5 +1,6 @@
 package capstone.market.profile_dto;
 
+import capstone.market.domain.DepartmentType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,5 +15,7 @@ public class TrackUpdateDto {
     //트랙 아이디
     private Long trackId;
     private String trackname;
+
+    private DepartmentType departmentType;
 }
 

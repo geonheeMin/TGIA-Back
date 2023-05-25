@@ -35,6 +35,8 @@ public class PostDetailDto{
 
     private TrackType track;
 
+    private StatusType statusType;
+
     public PostDetailDto(Post post) {
         this.post_id = post.getPostId();
         this.title = post.getPost_title();
@@ -52,6 +54,7 @@ public class PostDetailDto{
         this.item_name = post.getItem_name();
         this.track = post.getTrack();
         this.college = post.getCollege();
+        this.statusType = post.getStatus();
         if (post.getImages().isEmpty()) {
             images.add("hello world");
         } else {

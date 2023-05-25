@@ -1,5 +1,6 @@
 package capstone.market.domain;
 
+import capstone.market.repository.CategoryJpaRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +49,10 @@ public class Member {
     private CollegeType first_college;
 
     private CollegeType second_college;
+
+
+
+
 
     public Member() {
     }

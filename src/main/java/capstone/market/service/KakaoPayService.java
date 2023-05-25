@@ -3,6 +3,7 @@ package capstone.market.service;
 import capstone.market.domain.Member;
 import capstone.market.domain.Post;
 import capstone.market.domain.Purchased;
+import capstone.market.domain.StatusType;
 import capstone.market.kakao_dto.KakaoApproveResponse;
 import capstone.market.kakao_dto.KakaoCancelResponse;
 import capstone.market.kakao_dto.KakaoPayDto;
@@ -60,35 +61,38 @@ public class KakaoPayService {
         /**
          * 아이템 이름 넣고, 구매자아이디 넣어주고 , 가격 넣어주자 , 디벨로퍼에 나온 기준 엄격히 지키자 가격
          */
-        item_name = kakaoPayDto.getItem_name(); //상품 이름
-        item_price = kakaoPayDto.getPrice();    //상품 가격
-        seller_id = kakaoPayDto.getUser_id();  //판매자
-        buyer_id = kakaoPayDto.getBuyer_id(); //구매자
-        post_id = kakaoPayDto.getPost_id(); //게시글 기본 키
+        String item_name2 = kakaoPayDto.getItem_name(); //상품 이름
+        Integer item_price2 = kakaoPayDto.getPrice();    //상품 가격
+        Long seller_id2 = kakaoPayDto.getUser_id();  //판매자
+        Long buyer_id2 = kakaoPayDto.getBuyer_id(); //구매자
+        Long post_id2 = kakaoPayDto.getPost_id(); //게시글 기본 키
 
 
-//        Long buyerId = kakaoPayDto.getBuyer_id();
-//        String itemName = kakaoPayDto.getItem_name();
+
+
+
+
+
 
 
         // 카카오페이 요청 양식
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
         parameters.add("partner_order_id", String.valueOf(partner_order_id));
-        parameters.add("partner_user_id", String.valueOf(seller_id));
-        parameters.add("item_name", item_name);
+        parameters.add("partner_user_id", String.valueOf(seller_id2));
+        parameters.add("item_name", item_name2);
         parameters.add("quantity", String.valueOf(1)); // 상품수량
-        parameters.add("total_amount", String.valueOf(item_price)); //상품 총액
+        parameters.add("total_amount", String.valueOf(item_price2)); //상품 총액
         //parameters.add("vat_amount", String.valueOf(item_price*0.1)); //상품총액 - 상품 비과세 금액 에 10퍼센트 => 값 안보내면 자동저장
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
-    
-        parameters.add("approval_url", "http://223.194.133.126:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://223.194.133.126:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://223.194.133.126:8080/payment/fail"); // 실패 시 redirect url
+
+        parameters.add("approval_url", "http://43.200.182.96:8080/payment/success"); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://43.200.182.96:8080/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://43.200.182.96:8080//payment/fail"); // 실패 시 redirect url
 
 
-        //http://43.201.77.124:8080 => ec2주소
+
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -100,6 +104,13 @@ public class KakaoPayService {
                 requestEntity,
                 KakaoReadyResponse.class);
 
+
+        kakaoReady.setItem_name(kakaoPayDto.getItem_name()); // 상품이름
+        kakaoReady.setItem_price(kakaoPayDto.getPrice()); // 상품가격
+        kakaoReady.setSeller_id(kakaoPayDto.getUser_id()); // 판매자 기본키
+        kakaoReady.setBuyer_id(kakaoPayDto.getBuyer_id()); // 구매자 기본키
+        kakaoReady.setPost_id(kakaoPayDto.getPost_id()); // 게시글 기본키
+
         return kakaoReady;
     }
 
@@ -107,16 +118,6 @@ public class KakaoPayService {
      * 결제 완료 승인
      */
     public KakaoApproveResponse ApproveResponse(String pgToken) {
-
-
-        /**
-         * 구매내역 만들어주자(buyer도 설정해주자.)
-         */
-
-
-
-
-
 
         /**
          * 이부분 값 설정 잘해줘야한다 오류나면 디벨로퍼 보고 제한사항 다 깔끔하게 적자.
@@ -126,7 +127,7 @@ public class KakaoPayService {
         parameters.add("cid", cid);
         parameters.add("tid", kakaoReady.getTid());
         parameters.add("partner_order_id", String.valueOf(partner_order_id));
-        parameters.add("partner_user_id", String.valueOf(seller_id));
+        parameters.add("partner_user_id", String.valueOf(kakaoReady.getSeller_id()));
         parameters.add("pg_token", pgToken);
 
 
@@ -142,16 +143,21 @@ public class KakaoPayService {
                 KakaoApproveResponse.class);
 
         Purchased purchased = new Purchased();
-        purchased.setMember(memberRepository.findOne(buyer_id));
-        purchased.setPrice(item_price);
-        purchased.setProductName(item_name);
+        purchased.setMember(memberRepository.findOne(kakaoReady.getBuyer_id()));
+        purchased.setPrice(kakaoReady.getItem_price());
+        purchased.setProductName(kakaoReady.getItem_name());
+        purchased.setItem_name(kakaoReady.getItem_name());
         purchased.setTid(approveResponse.getTid()); // 결제 고유 번호
         purchased.setPayment_method_type(approveResponse.getPayment_method_type()); // 결제 수단
         purchased.setQuantity(approveResponse.getQuantity());
         purchased.setApproved_at(approveResponse.getApproved_at());
+        purchased.setBuyer_username(memberRepository.findOne(kakaoReady.getBuyer_id()).getUsername());
+        purchased.setSeller_username(memberRepository.findOne(kakaoReady.getSeller_id()).getUsername());
+        Post post = postRepository.findOne(kakaoReady.getPost_id());
+        purchased.setPostTitle(post.getPost_title());
         purchasedRepository.save(purchased);
-        Post post = postRepository.findOne(post_id);
         post.setPurchased(purchased);
+        post.setStatus(StatusType.거래완료);
         postRepository.savePost(post);
 
 
@@ -200,22 +206,6 @@ public class KakaoPayService {
         return httpHeaders;
     }
 
-//    private PurchasedDTO getPurchasedList(){
-//        PurchasedDTO purchasedDTO = new PurchasedDTO();
-//        purchasedDTO.setPrice(item_price);
-//        purchasedDTO.setItem_name(item_name);
-//        purchasedDTO.setTid(tid);
-//        purchasedDTO.setQuantity(quantity);
-//        purchasedDTO.setApproved_at(approved_at);
-//        Member buyer3 = memberRepository.findOne(buyer_id);
-//        purchasedDTO.setBuyer_username(buyer3.getUsername());
-//        Member seller3 = memberRepository.findOne(seller_id);
-//        purchasedDTO.setSeller_username(seller3.getUsername());
-//        purchasedDTO.setPayment_method_type(payment_method_type);
-//
-//        return purchasedDTO;
-//
-//    }
 
 
 
