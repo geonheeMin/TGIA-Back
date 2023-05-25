@@ -3,6 +3,11 @@
 #file.dir: /Users/son/Desktop/upload/
 #file.dir: /home/ubuntu/uploads/
 file.dir: /home/jys/uploads/
+deepLearnFile.dir: /Users/son/Downloads/yolov5-master/spring_sended/
+#file.dir: /home/ubuntu/upload/
+#deepLearnFile.dir: /home/ubuntu/deeplearn/
+#file.dir: /home/jys/uploads/
+
 
 
 spring:
@@ -12,7 +17,7 @@ spring:
     # market_v0: 스키마 이름
     username: root
     password: 6091
-    #password: capstone
+    password: capstone
 
   jpa:
     hibernate:

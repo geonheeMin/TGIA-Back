@@ -142,10 +142,6 @@ public class KakaoPayService {
                 requestEntity,
                 KakaoApproveResponse.class);
 
-        /**
-         * 구매내역 만들어주자(buyer도 설정해주자.)
-         */
-
         Purchased purchased = new Purchased();
         purchased.setMember(memberRepository.findOne(kakaoReady.getBuyer_id()));
         purchased.setPrice(kakaoReady.getItem_price());
@@ -155,12 +151,8 @@ public class KakaoPayService {
         purchased.setPayment_method_type(approveResponse.getPayment_method_type()); // 결제 수단
         purchased.setQuantity(approveResponse.getQuantity());
         purchased.setApproved_at(approveResponse.getApproved_at());
-
         purchased.setBuyer_username(memberRepository.findOne(kakaoReady.getBuyer_id()).getUsername());
         purchased.setSeller_username(memberRepository.findOne(kakaoReady.getSeller_id()).getUsername());
-
-
-
         Post post = postRepository.findOne(kakaoReady.getPost_id());
         purchased.setPostTitle(post.getPost_title());
         purchasedRepository.save(purchased);

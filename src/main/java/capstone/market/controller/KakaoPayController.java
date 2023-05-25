@@ -34,7 +34,6 @@ public class KakaoPayController {
 
 
         KakaoApproveResponse kakaoApprove = kakaoPayService.ApproveResponse(pgToken);
-
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
     }
 
