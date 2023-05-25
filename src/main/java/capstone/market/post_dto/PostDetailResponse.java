@@ -29,10 +29,13 @@ public class PostDetailResponse {
     private CollegeType college;
     private TrackType track;
 
+    private String ReviewType;
+
 //    private List<PostForm> postForms;
 
 
     public PostDetailResponse(Post post) {
+        this.ReviewType = post.getReviewType();
         this.post_id = post.getPostId();
         this.title = post.getPost_title();
         this.member_id = post.getWho_posted().getId();

@@ -13,6 +13,9 @@ public class Seller_ProfileDTO {
 
     private Long PurchaseReview_전체개수;
 
+    private Long CountSellPostbyUser;
+
+
 
     public Seller_ProfileDTO(ProfileListDto profileListDto, List<PurchaseReviewDTO> latestPurchaseReviews) {
         this.profileListDto = profileListDto;

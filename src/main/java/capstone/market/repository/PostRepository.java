@@ -91,18 +91,18 @@ public class PostRepository {
         return list;
     }
 
-    public List<PostDetailDto> findSellList(Long userId) {
-        String jpql = "SELECT p FROM Post p WHERE p.who_posted.id =:userId AND p.purchased IS NULL ORDER BY p.createdDate DESC";
-        TypedQuery<Post> query = em.createQuery(jpql, Post.class);
-        query.setParameter("userId", userId);
-        query.setMaxResults(4); // 최대 4개의 결과만 반환하도록 설정
-        List<Post> resultList = query.getResultList();
+    public Long findSellListCount(Long userId){
+        String jpql = "SELECT COUNT(p) FROM Post p WHERE p.who_posted.id =: userId and p.purchased is NULL";
 
-        List<PostDetailDto> SearchPosts = resultList.stream().map(p -> new PostDetailDto(p))
-                .collect(Collectors.toList());
-        return SearchPosts;
+        Long count = em.createQuery(jpql, Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+        return count;
 
     }
+
+
+
 
     public List<PostDetailDto> findListByCategory(CategoryType categoryType) {
         String jpql = "SELECT p FROM Post p WHERE p.category.category_type =: categoryType AND p.purchased IS NULL ORDER BY p.createdDate DESC";
