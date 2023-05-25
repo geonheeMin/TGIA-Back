@@ -72,13 +72,18 @@ public class DataLoader {
     @PostConstruct
     public void init() {
         Member memberA = new Member("memberA");
-        memberA.setUsername("건희");
+        memberA.setUsername("민규");
+
         Member memberB = new Member("memberB");
-        Member memberD = new Member("memberD");
-        memberD.setUsername("아톰");
-        memberB.setUsername("민규");
+        memberB.setUsername("건희");
+
         Member memberC = new Member("memberC");
-        memberC.setUsername("건희");
+        memberC.setUsername("영식");
+
+        Member memberD = new Member("memberD");
+        memberD.setUsername("용기");
+
+
 
         Image image = new Image();
         image.setImageFilename("basicprofile.png");
@@ -197,7 +202,7 @@ public class DataLoader {
 
         post1.setPrice(10000);
         javaBookPost.setPrice(8000);
-        macBookPost.setPrice(1200000);
+        macBookPost.setPrice(900000);
         bugiPost.setPrice(2000);
 
         // Set the created date for macBookPost with the random month, day, and current year (2023)

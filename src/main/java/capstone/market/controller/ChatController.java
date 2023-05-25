@@ -137,6 +137,14 @@ public class ChatController {
         return new ChatRoomResponseDTO(chatRoom);
     }
 
+    // chat room id 주면 참여자 a, b 전송
+    @GetMapping("/chat/get_chat_members")
+    public ChatRoomMembersResponseDTO getChatMembers(Long chatroom_id) {
+        ChatRoom chatRoom = chatService.findChatRoomByChatRoomId(chatroom_id);
+        Long aId = chatRoom.getMemberA().getId();
+        Long bId = chatRoom.getMemberB().getId();
+        return new ChatRoomMembersResponseDTO(aId, bId);
+    }
 
     @GetMapping("/chat/get_chatroom_member_id_V2")
     public List<ChatRoomListResponseDTO> getChatListByMemberIdV2(Long member_id) {
@@ -190,7 +198,7 @@ public class ChatController {
                 System.out.println("3412341234");
                 chatMessage = null;
             }
-            if (chatMessage.getMember().getId() == member_id) {
+            if (chatMessage.getMember() != null && chatMessage.getMember().getId() == member_id) { // null pointer error
                 System.out.println("1341234");
                 count = 0L;
             } else {

@@ -24,7 +24,18 @@ public class ChatMessageResponseDTO {
     }
 
     private String createHourMinuteString(ChatMessage chatMessage) {
+        String myTime;
         LocalDateTime dateTime = chatMessage.getTime();
-        return dateTime.getHour() + "시 " + dateTime.getMinute() + "분";
+        int hour = dateTime.getHour();
+        int minute = dateTime.getMinute();
+        if (minute < 10) {
+            minute = 0 + minute;
+        }
+        if (hour > 12) {
+            myTime = "오후" + (hour - 12) + ":" + minute;
+        } else {
+            myTime = "오전" + hour + minute;
+        }
+        return myTime;
     }
 }
