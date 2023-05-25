@@ -18,7 +18,7 @@ public class Member {
     private Long id;
     @OneToOne
     private Manner manner;
-    private Integer mannerscore = 80;
+    private Integer mannerscore = 455;
     private String user_id;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "track_id")

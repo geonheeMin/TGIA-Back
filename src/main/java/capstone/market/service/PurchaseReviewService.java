@@ -2,12 +2,10 @@ package capstone.market.service;
 
 import capstone.market.domain.Image;
 import capstone.market.domain.Member;
+import capstone.market.domain.Post;
 import capstone.market.domain.PurchaseReview;
 import capstone.market.profile_dto.ProfileListDto;
-import capstone.market.repository.MemberRepository;
-import capstone.market.repository.PurchaseReviewJpaRepository;
-import capstone.market.repository.PurchaseReviewRepository;
-import capstone.market.repository.PurchasedRepository;
+import capstone.market.repository.*;
 import capstone.market.transaction_dto.PurchaseReviewDTO;
 import capstone.market.transaction_dto.Seller_ProfileDTO;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +24,8 @@ public class PurchaseReviewService {
 
     private final PurchaseReviewRepository purchaseReviewRepository;
 
+    private final PostRepository postRepository;
+
 
 
     public void savePurchaseReview(PurchaseReviewDTO purchaseReviewDTO){
@@ -37,6 +37,8 @@ public class PurchaseReviewService {
         String imageFilename = seller.getImage().getImageFilename();
         String review = purchaseReviewDTO.getReview();
 
+        Post one = postRepository.findOne(purchaseReviewDTO.getPost_id());
+        one.setReviewType("후기완료");
         purchaseReview.setSeller_id(sellerId);
         purchaseReview.setBuyer_id(buyerId);
         purchaseReview.setBuyer_username(seller.getUsername());
@@ -44,6 +46,7 @@ public class PurchaseReviewService {
         purchaseReview.setReview(review);
         purchaseReview.setImageFilename(imageFilename);
 
+        postRepository.savePost(one);
         purchaseReviewJpaRepository.save(purchaseReview);
 
     }
@@ -56,7 +59,11 @@ public class PurchaseReviewService {
 
         Seller_ProfileDTO sellerProfileDTO = new Seller_ProfileDTO(profileListDto, latestPurchaseReviews);
         sellerProfileDTO.setPurchaseReview_전체개수(purchaseReviewRepository.getPurchaseReviewCount(userId));
+
         sellerProfileDTO.setCreatedDate(one.getCreatedDate());
+
+        sellerProfileDTO.setCountSellPostbyUser(postRepository.findSellListCount(userId));
+
         
         return sellerProfileDTO;
 
