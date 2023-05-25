@@ -7,10 +7,13 @@ import capstone.market.service.ImageService;
 import capstone.market.service.PostService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.type.LocalDateTimeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -71,19 +74,25 @@ public class DataLoader {
 
     @PostConstruct
     public void init() {
-        Member memberA = new Member("memberA");
-        memberA.setUsername("민규");
+        Member minkyu = new Member("minkyu");
+        minkyu.setUsername("민규");
 
-        Member memberB = new Member("memberB");
-        memberB.setUsername("건희");
+        Member gunhee = new Member("gunhee");
+        gunhee.setUsername("건희");
 
-        Member memberC = new Member("memberC");
-        memberC.setUsername("영식");
+        Member jys = new Member("jys");
+        jys.setUsername("영식");
 
-        Member memberD = new Member("memberD");
-        memberD.setUsername("용기");
+        Member brave = new Member("brave");
+        brave.setUsername("용기");
 
-
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+        String formattedDate = now.format(formatter);
+        minkyu.setCreatedDate(formattedDate);
+        brave.setCreatedDate(formattedDate);
+        gunhee.setCreatedDate(formattedDate);
+        jys.setCreatedDate(formattedDate);
 
         Image image = new Image();
         image.setImageFilename("basicprofile.png");
@@ -91,11 +100,6 @@ public class DataLoader {
         CategoryType[] categories = CategoryType.values();
         DepartmentType[] departmentTypes = DepartmentType.values();
         Random random = new Random();
-//        int r = random.nextInt(10); //0~9
-//
-//        if ( r < 3 )
-
-
 
         Department department = new Department(DepartmentType.컴퓨터공학부);
         departMentJpaRepository.save(department);
@@ -112,47 +116,60 @@ public class DataLoader {
         SecondTrack secondTrack1 = new SecondTrack(TrackType.빅데이터트랙, department);
         secondTrackJpaRepository.save(secondTrack1);
 
-        memberA.setFirstTrack(firstTrack);
-        memberA.setSecondTrack(secondTrack);
-        // memberA.setImage(image1);
+        minkyu.setFirstTrack(firstTrack);
+        minkyu.setSecondTrack(secondTrack);
+        // minkyu.setImage(image1);
 
-        memberB.setFirstTrack(firstTrack1);
-        memberB.setSecondTrack(secondTrack1);
+        gunhee.setFirstTrack(firstTrack1);
+        gunhee.setSecondTrack(secondTrack1);
 
-        memberC.setFirstTrack(firstTrack1);
-        memberC.setSecondTrack(secondTrack1);
+        jys.setFirstTrack(firstTrack1);
+        jys.setSecondTrack(secondTrack1);
 
-        memberD.setFirstTrack(firstTrack1);
-        memberD.setSecondTrack(secondTrack1);
+        brave.setFirstTrack(firstTrack1);
+        brave.setSecondTrack(secondTrack1);
 
         Image image1 = new Image();
         image1.setImageFilename("aaa.png");
         imageRepository.save(image1);
-        memberC.setImage(image1);
-        memberB.setImage(image1);
-        memberA.setImage(image1);
-        memberD.setImage(image1);
+
+        Image gunheeProfile = new Image();
+        gunheeProfile.setImageFilename("gunheeProfile.png");
+        imageRepository.save(gunheeProfile);
+
+        Image braveProfile = new Image();
+        braveProfile.setImageFilename("braveProfile.png");
+        imageRepository.save(braveProfile);
+
+        Image jysProfile = new Image();
+        jysProfile.setImageFilename("jysProfile.png");
+        imageRepository.save(jysProfile);
+
+        jys.setImage(jysProfile);
+        gunhee.setImage(gunheeProfile);
+        minkyu.setImage(image1);
+        brave.setImage(braveProfile);
 
         Manner mannerA = new Manner();
         mannerRepository.save(mannerA);
-        memberA.setManner(mannerA);
+        minkyu.setManner(mannerA);
 
         Manner mannerB = new Manner();
         mannerRepository.save(mannerB);
-        memberB.setManner(mannerB);
+        gunhee.setManner(mannerB);
 
         Manner mannerC = new Manner();
         mannerRepository.save(mannerC);
-        memberC.setManner(mannerC);
+        jys.setManner(mannerC);
 
         Manner mannerD = new Manner();
         mannerRepository.save(mannerD);
-        memberD.setManner(mannerD);
+        brave.setManner(mannerD);
 
-        memberRepository.save(memberA);
-        memberRepository.save(memberB);
-        memberRepository.save(memberC);
-        memberRepository.save(memberD);
+        memberRepository.save(minkyu);
+        memberRepository.save(gunhee);
+        memberRepository.save(jys);
+        memberRepository.save(brave);
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
@@ -193,10 +210,10 @@ public class DataLoader {
         Post macBookPost = new Post("오머~ 맥북 프로 싸게 팔아요~","진짜 찐으로 싸게 파는 거라서 가격협상은 힙들어요..");
         Post bugiPost = new Post("부기 굿즈 팔아요!","부기 팔아요 싸게 파는거에용");
 
-        post1.setWho_posted(memberA);
-        javaBookPost.setWho_posted(memberA);
-        macBookPost.setWho_posted(memberB);
-        bugiPost.setWho_posted(memberD);
+        post1.setWho_posted(minkyu);
+        javaBookPost.setWho_posted(minkyu);
+        macBookPost.setWho_posted(gunhee);
+        bugiPost.setWho_posted(brave);
 
 //        macBookPost.generateRandomCreatedDate();
 
@@ -213,7 +230,7 @@ public class DataLoader {
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
         Purchased purchased = new Purchased();
-        purchased.setMember(memberB);
+        purchased.setMember(gunhee);
         purchasedRepository.save(purchased);
         post1.setPurchased(purchased);
 
@@ -257,7 +274,7 @@ public class DataLoader {
                 dummyPost.setPost_title("더미 전자기기 팔아요" + i);
                 dummyPost.setPost_text("내용");
             }
-            dummyPost.setWho_posted(memberA);
+            dummyPost.setWho_posted(minkyu);
             dummyPost.setPrice(10000);
 
             Department dummyDepartment = new Department();
@@ -277,12 +294,12 @@ public class DataLoader {
 
             if (i %2 == 0) {
                 Purchased dummyPurchased = new Purchased();
-                dummyPurchased.setMember(memberB);
+                dummyPurchased.setMember(gunhee);
                 dummyPurchased.setPrice(dummyPost.getPrice());
                 dummyPurchased.setPostTitle(dummyPost.getPost_title());
                 dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
                 dummyPurchased.setQuantity(1);
-                dummyPurchased.setBuyer_username(memberB.getUsername());
+                dummyPurchased.setBuyer_username(gunhee.getUsername());
                 purchasedRepository.save(dummyPurchased);
                 dummyPost.setPurchased(dummyPurchased);
             }
@@ -412,9 +429,9 @@ public class DataLoader {
         departMentJpaRepository.save(department3);
         departMentJpaRepository.save(department4);
 
-        Post airPodPost = makeHardCodePost(memberA, "에어팟 팔아요~", "테스트", "에어팟", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
-        Post osBookPost = makeHardCodePost(memberA, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
-        Post webBookPost = makeHardCodePost(memberA, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
+        Post airPodPost = makeHardCodePost(minkyu, "에어팟 팔아요~", "테스트", "에어팟", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
+        Post osBookPost = makeHardCodePost(minkyu, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
+        Post webBookPost = makeHardCodePost(minkyu, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
 
         postRepository.savePost(post1);
         postRepository.savePost(osBookPost);

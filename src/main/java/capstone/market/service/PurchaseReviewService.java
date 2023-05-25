@@ -59,7 +59,11 @@ public class PurchaseReviewService {
 
         Seller_ProfileDTO sellerProfileDTO = new Seller_ProfileDTO(profileListDto, latestPurchaseReviews);
         sellerProfileDTO.setPurchaseReview_전체개수(purchaseReviewRepository.getPurchaseReviewCount(userId));
+
+        sellerProfileDTO.setCreatedDate(one.getCreatedDate());
+
         sellerProfileDTO.setCountSellPostbyUser(postRepository.findSellListCount(userId));
+
         
         return sellerProfileDTO;
 

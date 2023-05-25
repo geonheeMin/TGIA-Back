@@ -28,7 +28,6 @@ public class Purchased extends BaseEntity {
     private String postTitle;
 
 
-
     /**
      * 유저 한명당 구매 수 있는게 여러가지
      */
