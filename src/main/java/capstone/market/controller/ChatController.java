@@ -256,7 +256,8 @@ public class ChatController {
         ChatMessage chatMessage = chatService.startChatMessageService(chatRoom, member, message);
         // 방금 전송한 메시지를 반환합니다 -> 본인이 전송한 것을 화면에 뿌려주기 위해서 그런데 프론트 안에서도 해결 가능?
 
-
+        chatRoom.setFinalMsg(chatMessage);
+        chatRoom.setFinalMsgString(chatMessage.getMessage());
         List<ChatMessage> chatLists = chatService.getChatListsV2(chatroom_id, sender_id);
         List<ChatMessageResponseDTO> chatMessageResponseDTOS = new ArrayList<>();
 
@@ -265,8 +266,6 @@ public class ChatController {
         }
 
         return chatMessageResponseDTOS;
-
-
 //        return new ChatMessageResponseDTO(chatMessage);
     }
 }

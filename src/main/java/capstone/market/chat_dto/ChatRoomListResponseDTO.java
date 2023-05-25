@@ -13,7 +13,7 @@ public class ChatRoomListResponseDTO {
     Long member_a;
     Long member_b;
     Long last_chatMessage;
-
+    String last_chatMessage_String;
 
     public ChatRoomListResponseDTO(ChatRoom chatRoom, ChatMessage message, Long count) {
         this.post_id = chatRoom.getPost().getPostId();
@@ -23,6 +23,7 @@ public class ChatRoomListResponseDTO {
 //        this.final_message = message;
         this.member_a = chatRoom.getMemberA().getId();
         this.member_b = chatRoom.getMemberB().getId();
+        this.last_chatMessage_String = chatRoom.getFinalMsgString();
 //        this.member_b = chatRoom.getPost().getWho_posted().getId();
     }
 }
