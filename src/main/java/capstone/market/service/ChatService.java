@@ -151,8 +151,5 @@ public class ChatService {
         return chatMessages;
     }
 
-    public String createHourMinuteString(ChatMessage chatMessage) {
-        LocalDateTime dateTime = chatMessage.getTime();
-        return dateTime.getHour() + "시 " + dateTime.getMinute() + "분";
-    }
+
 }

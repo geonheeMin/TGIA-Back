@@ -17,6 +17,8 @@ public class PurchaseReviewDTO {
     private String user_type;
     private String imageFilename;
 
+    private Long post_id;
+
     public PurchaseReviewDTO(PurchaseReview purchaseReview) {
         this.seller_id = purchaseReview.getSeller_id();
         this.buyer_id = purchaseReview.getBuyer_id();

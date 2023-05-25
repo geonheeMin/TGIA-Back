@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Member {
     private Long id;
     @OneToOne
     private Manner manner;
-    private Integer mannerscore = 80;
+    private Integer mannerscore = 455;
     private String user_id;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "track_id")
@@ -49,9 +50,7 @@ public class Member {
     private CollegeType first_college;
 
     private CollegeType second_college;
-
-
-
+    private String createdDate;
 
 
     public Member() {

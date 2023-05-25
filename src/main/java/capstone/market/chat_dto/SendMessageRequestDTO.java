@@ -9,6 +9,7 @@ public class SendMessageRequestDTO {
     private String message;
 
     public SendMessageRequestDTO() {
+
     }
 
     public SendMessageRequestDTO(Long chatroom_id, Long sender_id, String message) {

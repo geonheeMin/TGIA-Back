@@ -34,7 +34,7 @@ public class ChatController {
             } else {
                 chatMessage = null;
             }
-            if (chatMessage.getMember().getId() == member_id) {
+            if (chatMessage.getMember() != null && chatMessage.getMember().getId() == member_id) {
                 count = 0L;
             } else {
                 count = chatService.getUnreadMessageCount(chatRoom.getId());

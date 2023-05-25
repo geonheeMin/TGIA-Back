@@ -12,6 +12,10 @@ public class Seller_ProfileDTO {
     private List<PurchaseReviewDTO> latestPurchaseReviews;
 
     private Long PurchaseReview_전체개수;
+    private String createdDate;
+
+    private Long CountSellPostbyUser;
+
 
 
     public Seller_ProfileDTO(ProfileListDto profileListDto, List<PurchaseReviewDTO> latestPurchaseReviews) {
