@@ -229,10 +229,10 @@ public class DataLoader {
 
         //구매목록 하나 만들기
         // 멤버 a가올린 포스트를 멤버 b가 사면서 포스트에 구매 목록에 멤버가 멤버b로 바뀜
-        Purchased purchased = new Purchased();
+/*        Purchased purchased = new Purchased();
         purchased.setMember(gunhee);
         purchasedRepository.save(purchased);
-        post1.setPurchased(purchased);
+        post1.setPurchased(purchased);*/
 
 //        Purchased purchased2 = new Purchased();
 //        purchased2.setMember(memberC);
@@ -240,7 +240,7 @@ public class DataLoader {
 //        macBookPost.setPurchased(purchased2);
 
         CollegeType[] collegeTypes = CollegeType.values();
-        for (int i =0;i<30;i++) {
+        for (int i =0;i<50;i++) {
             Post dummyPost = new Post();
             int randomIndex = random.nextInt(collegeTypes.length);
 
