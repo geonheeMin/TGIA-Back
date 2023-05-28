@@ -129,6 +129,9 @@ public class DataLoader {
         brave.setFirstTrack(firstTrack1);
         brave.setSecondTrack(secondTrack1);
 
+        jys.setFirst_college(CollegeType.상상력교양대학);
+        brave.setFirst_college(CollegeType.디자인대학);
+
         Image image1 = new Image();
         image1.setImageFilename("aaa.png");
         imageRepository.save(image1);
@@ -429,59 +432,77 @@ public class DataLoader {
         departMentJpaRepository.save(department3);
         departMentJpaRepository.save(department4);
 
-        Post airPodPost = makeHardCodePost(minkyu, "에어팟 팔아요~", "테스트", "에어팟", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
-        Post osBookPost = makeHardCodePost(minkyu, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
-        Post webBookPost = makeHardCodePost(minkyu, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
+//        makeHardCodePost(minkyu, "에어팟 팔아요~", "테스트", "에어팟", "webBook.png", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("에어팟 팔아요")
+                .setContext("test")
+                .setItemName("에어팟")
+                .setImageFilename("webBook.png")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.전자기기)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
 
-        postRepository.savePost(post1);
-        postRepository.savePost(osBookPost);
-        postRepository.savePost(javaBookPost);
-        postRepository.savePost(macBookPost);
-        postRepository.savePost(webBookPost);
-        postRepository.savePost(bugiPost);
-        postRepository.savePost(airPodPost);
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("에어팟 팔아요")
+                .setContext("test")
+                .setItemName("에어팟")
+                .setImageFilename("webBook.png")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.전자기기)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+//        makeHardCodePost(minkyu, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
+//
+//        makeHardCodePost(minkyu, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
+//        setPostImageHard("webBook.png");
+
+//        postRepository.savePost(post1);
+//        postRepository.savePost(osBookPost);
+//        postRepository.savePost(javaBookPost);
+//        postRepository.savePost(macBookPost);
+//        postRepository.savePost(webBookPost);
+//        postRepository.savePost(bugiPost);
+//        postRepository.savePost(airPodPost);
 
         // ======= 하드 코딩 데이터 이미지 설정 (랜덤 X) =======
-        Image webBookImage = new Image();
-        webBookImage.setImageFilename("webBook.png");
-        webBookImage.setPost(webBookPost);
-        imageRepository.save(webBookImage);
+//        Image osBookImage = new Image();
+//        osBookImage.setImageFilename("osBook.png");
+//        osBookImage.setPost(osBookPost);
+//        imageRepository.save(osBookImage);
+//
+//        Image airPodImage = new Image();
+//        airPodImage.setImageFilename("airpod.jpeg");
+//        airPodImage.setPost(airPodPost);
+//        imageRepository.save(airPodImage);
 
-        Image osBookImage = new Image();
-        osBookImage.setImageFilename("osBook.png");
-        osBookImage.setPost(osBookPost);
-        imageRepository.save(osBookImage);
-
-        Image airPodImage = new Image();
-        airPodImage.setImageFilename("airpod.jpeg");
-        airPodImage.setPost(airPodPost);
-        imageRepository.save(airPodImage);
-
-        Image macBookImage = new Image();
-        macBookImage.setImageFilename("macbook.jpeg");
-        macBookImage.setPost(macBookPost);
-        imageRepository.save(macBookImage);
-
-        Image bugiImage = new Image();
-        bugiImage.setImageFilename("bugi.png");
-        bugiImage.setPost(bugiPost);
-        imageRepository.save(bugiImage);
-
-        Image javaBookImage = new Image();
-        javaBookImage.setImageFilename("javaBook.png");
-        javaBookImage.setPost(javaBookPost);
-        imageRepository.save(javaBookImage);
-
-        Image our_memory_image1 = new Image();
-        our_memory_image1.setImageFilename("miss1.png");
-        our_memory_image1.setPost(post1);
-//        our_memory_image1.setPost(post2);
-        imageRepository.save(our_memory_image1);
+//        Image macBookImage = new Image();
+//        macBookImage.setImageFilename("macbook.jpeg");
+//        macBookImage.setPost(macBookPost);
+//        imageRepository.save(macBookImage);
+//
+//        Image bugiImage = new Image();
+//        bugiImage.setImageFilename("bugi.png");
+//        bugiImage.setPost(bugiPost);
+//        imageRepository.save(bugiImage);
+//
+//        Image javaBookImage = new Image();
+//        javaBookImage.setImageFilename("javaBook.png");
+//        javaBookImage.setPost(javaBookPost);
+//        imageRepository.save(javaBookImage);
+//
+//        Image our_memory_image1 = new Image();
+//        our_memory_image1.setImageFilename("miss1.png");
+//        our_memory_image1.setPost(post1);
+////        our_memory_image1.setPost(post2);
+//        imageRepository.save(our_memory_image1);
 
         // ======= 하드 코딩 데이터 이미지 설정 (랜덤 X) ======
 
-        List<Image> images = new ArrayList<>();
-        images.add(our_memory_image1);
+//        List<Image> images = new ArrayList<>();
+//        images.add(our_memory_image1);
 //        postService.savePost(post2);
 
 //        post2.setImages(images);
@@ -501,7 +522,14 @@ public class DataLoader {
 //        System.out.println(testing);
     }
 
-    private Post makeHardCodePost(Member whoPosted, String title, String context, String itemName,
+    private void setPostImageHard(String imageFilename, Post post) {
+        Image imageHard = new Image();
+        imageHard.setImageFilename(imageFilename);
+        imageHard.setPost(post);
+        imageRepository.save(imageHard);
+    }
+
+    private void makeHardCodePost(Member whoPosted, String title, String context, String itemName, String imageFilename,
                                   int price, CategoryType categoryType,
                                   DepartmentType departmentType, LocationType locationType) {
         Post hardcodePost = new Post();
@@ -520,7 +548,13 @@ public class DataLoader {
         departMentJpaRepository.save(department);
         hardcodePost.setDepartment(department);
         hardcodePost.setLocationType(locationType);
-        return hardcodePost;
+
+        postRepository.savePost(hardcodePost);
+
+        Image imageHard = new Image();
+        imageHard.setImageFilename(imageFilename);
+        imageHard.setPost(hardcodePost);
+        imageRepository.save(imageHard);
     }
 
 
@@ -624,4 +658,88 @@ public class DataLoader {
             this.message = chatMessage.getMessage();
         }
     }
+    public class PostBuilder {
+        private Member whoPosted;
+        private String title;
+        private String context;
+        private String itemName;
+        private String imageFilename;
+        private int price;
+        private CategoryType categoryType;
+        private DepartmentType departmentType;
+        private LocationType locationType;
+
+        public PostBuilder setWhoPosted(Member whoPosted) {
+            this.whoPosted = whoPosted;
+            return this;
+        }
+
+        public PostBuilder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public PostBuilder setContext(String context) {
+            this.context = context;
+            return this;
+        }
+
+        public PostBuilder setItemName(String itemName) {
+            this.itemName = itemName;
+            return this;
+        }
+
+        public PostBuilder setImageFilename(String imageFilename) {
+            this.imageFilename = imageFilename;
+            return this;
+        }
+
+        public PostBuilder setPrice(int price) {
+            this.price = price;
+            return this;
+        }
+
+        public PostBuilder setCategoryType(CategoryType categoryType) {
+            this.categoryType = categoryType;
+            return this;
+        }
+
+        public PostBuilder setDepartmentType(DepartmentType departmentType) {
+            this.departmentType = departmentType;
+            return this;
+        }
+
+        public PostBuilder setLocationType(LocationType locationType) {
+            this.locationType = locationType;
+            return this;
+        }
+
+        public void build() {
+            Post hardcodePost = new Post();
+            hardcodePost.setPost_title(title);
+            hardcodePost.setPost_text(context);
+            hardcodePost.setWho_posted(whoPosted);
+            hardcodePost.setItem_name(itemName);
+            hardcodePost.setPrice(price);
+
+            Category category = new Category();
+            category.setCategory_type(categoryType);
+            categoryJpaRepository.save(category);
+            hardcodePost.setCategory(category);
+
+            Department department = new Department(departmentType);
+            departMentJpaRepository.save(department);
+            hardcodePost.setDepartment(department);
+            hardcodePost.setLocationType(locationType);
+
+            postRepository.savePost(hardcodePost);
+
+            Image imageHard = new Image();
+            imageHard.setImageFilename(imageFilename);
+            imageHard.setPost(hardcodePost);
+            imageRepository.save(imageHard);
+        }
+    }
+
 }
+

@@ -35,7 +35,7 @@ public class DeepLearnController {
             return "생활가전";
         }
 //        System.out.println("deepLearn: " + objectName);
-        if (objectName.equals("laptop") || objectName.equals("cell phone")) {
+        if (objectName.equals("laptop") || objectName.equals("cell phone") || objectName.equals("airpod")) {
             return "전자기기";
         } else if (objectName.equals("bicycle")) {
             return "생활가전";
