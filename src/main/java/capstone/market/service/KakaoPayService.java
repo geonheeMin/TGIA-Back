@@ -87,9 +87,9 @@ public class KakaoPayService {
         parameters.add("tax_free_amount", String.valueOf(0));//상품 비과세 금액
         //ameters.add("greenDeposit", String.valueOf(1000)); 필수 요건 아님
 
-        parameters.add("approval_url", "http://43.200.182.96:8080/payment/success"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://43.200.182.96:8080/payment/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://43.200.182.96:8080//payment/fail"); // 실패 시 redirect url
+        parameters.add("approval_url", "http://223.194.133.240:8080/payment/success"); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://223.194.133.240:8080/payment/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://223.194.133.240:8080//payment/fail"); // 실패 시 redirect url
 
 
 
