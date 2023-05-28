@@ -433,6 +433,11 @@ public class DataLoader {
         Post osBookPost = makeHardCodePost(minkyu, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
         Post webBookPost = makeHardCodePost(minkyu, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
 
+        
+
+
+
+
         postRepository.savePost(post1);
         postRepository.savePost(osBookPost);
         postRepository.savePost(javaBookPost);

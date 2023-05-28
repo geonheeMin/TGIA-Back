@@ -32,7 +32,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
 
 
 
-        //@@@ 문제의  코드들
+
         if (searchFilterDto.getTrack() != null && !searchFilterDto.getTrack().toString().isEmpty()) {
             whereBuilder.and(post.track.eq(searchFilterDto.getTrack()));
         }
@@ -41,7 +41,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
             whereBuilder.and(post.college.eq(searchFilterDto.getCollegeType()));
         }
 
-        //@@@ 문제의  코드들
+
         if (searchFilterDto.getCategories() != null && !searchFilterDto.getCategories().isEmpty()) {
             BooleanExpression[] categoryExpressions = searchFilterDto.getCategories().stream()
                     .map(post.category.category_type::eq)
