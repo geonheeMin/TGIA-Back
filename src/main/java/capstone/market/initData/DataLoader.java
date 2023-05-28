@@ -454,6 +454,20 @@ public class DataLoader {
                 .setDepartmentType(DepartmentType.AI응용학과)
                 .setLocationType(LocationType.공학관)
                 .build();
+
+
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("토비의 스프링 팔아요")
+                .setContext("급처요")
+                .setItemName("토비의스프링")
+                .setImageFilename("son.jpg")
+                .setPrice(20000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.공학관)
+                .build();
+
+
 //        makeHardCodePost(minkyu, "운영체제 교재 팔아요!", "테스팅", "운영체제", 8000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.낙산관);
 //
 //        makeHardCodePost(minkyu, "웹프 교재 팝니다.", "파라요", "웹프로그래밍", 9000, CategoryType.도서, DepartmentType.컴퓨터공학부, LocationType.미래관);
