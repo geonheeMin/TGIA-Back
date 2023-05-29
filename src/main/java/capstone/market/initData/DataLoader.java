@@ -7,7 +7,6 @@ import capstone.market.service.ImageService;
 import capstone.market.service.PostService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.type.LocalDateTimeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +14,6 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Component
@@ -243,7 +241,7 @@ public class DataLoader {
 //        macBookPost.setPurchased(purchased2);
 
         CollegeType[] collegeTypes = CollegeType.values();
-        for (int i =0;i<50;i++) {
+        for (int i =0;i<1;i++) {
             Post dummyPost = new Post();
             int randomIndex = random.nextInt(collegeTypes.length);
 
@@ -437,7 +435,7 @@ public class DataLoader {
                 .setTitle("에어팟 팔아요")
                 .setContext("test")
                 .setItemName("에어팟")
-                .setImageFilename("webBook.png")
+                .addImageFilename("webBook.png")
                 .setPrice(10000)
                 .setCategoryType(CategoryType.전자기기)
                 .setDepartmentType(DepartmentType.AI응용학과)
@@ -448,7 +446,7 @@ public class DataLoader {
                 .setTitle("에어팟 팔아요")
                 .setContext("test")
                 .setItemName("에어팟")
-                .setImageFilename("webBook.png")
+                .addImageFilename("webBook.png")
                 .setPrice(10000)
                 .setCategoryType(CategoryType.전자기기)
                 .setDepartmentType(DepartmentType.AI응용학과)
@@ -460,7 +458,8 @@ public class DataLoader {
                 .setTitle("토비의 스프링 팔아요")
                 .setContext("급처요")
                 .setItemName("토비의스프링")
-                .setImageFilename("son.jpg")
+                .addImageFilename("dg.jpeg")
+                .addImageFilename("son.jpg")
                 .setPrice(20000)
                 .setCategoryType(CategoryType.도서)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
@@ -678,7 +677,7 @@ public class DataLoader {
         private String title;
         private String context;
         private String itemName;
-        private String imageFilename;
+        private ArrayList<String> imageFilenames = new ArrayList<>();
         private int price;
         private CategoryType categoryType;
         private DepartmentType departmentType;
@@ -704,8 +703,8 @@ public class DataLoader {
             return this;
         }
 
-        public PostBuilder setImageFilename(String imageFilename) {
-            this.imageFilename = imageFilename;
+        public PostBuilder addImageFilename(String imageFilename) {
+            this.imageFilenames.add(imageFilename);
             return this;
         }
 
@@ -749,12 +748,13 @@ public class DataLoader {
 
             postRepository.savePost(hardcodePost);
 
-            Image imageHard = new Image();
-            imageHard.setImageFilename(imageFilename);
-            imageHard.setPost(hardcodePost);
-            imageRepository.save(imageHard);
+            for(String imageFilename : imageFilenames) {
+                Image imageHard = new Image();
+                imageHard.setImageFilename(imageFilename);
+                imageHard.setPost(hardcodePost);
+                imageRepository.save(imageHard);
+            }
         }
     }
-
 }
 
