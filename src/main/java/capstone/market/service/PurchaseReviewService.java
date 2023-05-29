@@ -34,6 +34,7 @@ public class PurchaseReviewService {
         Long buyerId = purchaseReviewDTO.getBuyer_id();
         Long sellerId = purchaseReviewDTO.getSeller_id();
         Member seller = memberRepository.findOne(sellerId);
+        Member buyer = memberRepository.findOne(buyerId);
         String imageFilename = seller.getImage().getImageFilename();
         String review = purchaseReviewDTO.getReview();
 
@@ -41,7 +42,7 @@ public class PurchaseReviewService {
         one.setReviewType("후기완료");
         purchaseReview.setSeller_id(sellerId);
         purchaseReview.setBuyer_id(buyerId);
-        purchaseReview.setBuyer_username(seller.getUsername());
+        purchaseReview.setBuyer_username(buyer.getUsername());
         purchaseReview.setUser_type("구매자");
         purchaseReview.setReview(review);
         purchaseReview.setImageFilename(imageFilename);
