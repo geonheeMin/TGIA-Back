@@ -29,7 +29,7 @@ public class PurchaseReviewController {
     }
 
 
-    @GetMapping("/get_all_pruchase_review")
+    @GetMapping("/get_all_purchase_review")
         public List<PurchaseReviewDTO> getAllPurchaseReview(@RequestParam Long userId){
 
             return purchaseReviewService.getAllPurchaseReview(userId);
