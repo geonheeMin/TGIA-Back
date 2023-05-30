@@ -952,7 +952,7 @@ public class DataLoader {
                 .addImageFilename("10_j.jpeg")
                 .setPrice(130000)
                 .setCategoryType(CategoryType.도서)
-                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setDepartmentType(DepartmentType.컴퓨터공학부).build();
           
 //        makeHardCodePost(minkyu, "에어팟 팔아요~", "테스트", "에어팟", "webBook.png", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
         // 민규 전자기기 하드 코딩 7개
@@ -995,6 +995,7 @@ public class DataLoader {
                 .setLocationType(LocationType.공학관)
                 .build();
 
+        
         new PostBuilder().setWhoPosted(minkyu)
                 .setTitle("에어팟 맥스(Airpods Max) 스그")
                 .setContext("22년 초쯤에 선물 받았는데\n" +
