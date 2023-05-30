@@ -45,7 +45,7 @@ public class DeepLearnController {
             return "도서";
         } else if (objectName.equals("cosmetic")) {
             return "뷰티미용";
-        } else if (objectName.equals("clothes")) {
+        } else if (objectName.equals("clothes") || objectName.equals("Wallet")) {
             return "의류";
         } else if (objectName.equals("bugi")) {
             return "부기굿즈";

@@ -496,7 +496,7 @@ public class DataLoader {
                 .setItemName("셔츠")
                 .addImageFilename("geonhee_clothes1_1.jpeg")
                 .setPrice(55000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.크리에이티브인문학부)
                 .setLocationType(LocationType.상상관)
                 .build();
@@ -508,7 +508,7 @@ public class DataLoader {
                 .addImageFilename("geonhee_clothes2_1.jpeg")
                 .addImageFilename("geonhee_clothes2_2.jpeg")
                 .setPrice(2000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.공학관)
                 .build();
@@ -520,7 +520,7 @@ public class DataLoader {
                 .addImageFilename("geonhee_clothes3_1.jpeg")
                 .addImageFilename("geonhee_clothes3_2.jpeg")
                 .setPrice(47000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.크리에이티브인문학부)
                 .setLocationType(LocationType.상상빌리지)
                 .build();
@@ -532,7 +532,7 @@ public class DataLoader {
                 .addImageFilename("geonhee_clothes4_1.jpeg")
                 .addImageFilename("geonhee_clothes4_2.jpeg")
                 .setPrice(13000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.예술학부)
                 .setLocationType(LocationType.상상관)
                 .build();
@@ -543,7 +543,7 @@ public class DataLoader {
                 .setItemName("점프슈트")
                 .addImageFilename("geonhee_clothes5_1.jpeg")
                 .setPrice(89000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.글로벌패션산업학부)
                 .setLocationType(LocationType.미래관)
                 .build();
@@ -681,7 +681,7 @@ public class DataLoader {
             categoryJpaRepository.save(randomCategory);
             dummyPost.setCategory(randomCategory);
 
-            if (dummyPost.getCategory().getCategory_type() == CategoryType.의류) {
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
                 dummyPost.setPost_title("더미 옷 팔아요"+i);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
@@ -735,7 +735,7 @@ public class DataLoader {
 
             postRepository.savePost(dummyPost);
 
-            if (dummyPost.getCategory().getCategory_type() == CategoryType.의류) {
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
                 Image dummyImage0 = new Image();
                 Image dummyImage1 = new Image();
                 Image dummyImage2 = new Image();
@@ -952,9 +952,11 @@ public class DataLoader {
                 .addImageFilename("10_j.jpeg")
                 .setPrice(130000)
                 .setCategoryType(CategoryType.도서)
+
                 .setDepartmentType(DepartmentType.컴퓨터공학부).build();
+
           
-//        makeHardCodePost(minkyu, "에어팟 팔아요~", "테스트", "에어팟", "webBook.png", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
+
         // 민규 전자기기 하드 코딩 7개
         new PostBuilder().setWhoPosted(minkyu)
                 .setTitle("에어팟 프로 1세대, air pods pro")
@@ -995,7 +997,6 @@ public class DataLoader {
                 .setLocationType(LocationType.공학관)
                 .build();
 
-        
         new PostBuilder().setWhoPosted(minkyu)
                 .setTitle("에어팟 맥스(Airpods Max) 스그")
                 .setContext("22년 초쯤에 선물 받았는데\n" +
@@ -1184,8 +1185,100 @@ public class DataLoader {
                 .setDepartmentType(DepartmentType.AI응용학과)
                 .setLocationType(LocationType.공학관)
                 .build();
-
+      
         // 생활가전 7개
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("갖다드림) 레트로 강철 선풍기 가전제품 냉방용품 생활가전 ")
+                .setContext("레트로 스타일의 강철 선풍기 판매합니다\n" +
+                        "단단하고 잘 돌아갑니다\n" +
+                        "데코용으로 좋습니다\n" +
+                        "\n" +
+                        "노원 도봉 의정부\n" +
+                        "무료로 갖다드립니다")
+                .setItemName("선풍기")
+                .addImageFilename("minkyu44.jpeg")
+                .addImageFilename("minkyu45.jpeg")
+                .setPrice(40000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("생활가전")
+                .setContext("가습기대용량1대소형한대커피머신분쇄기일괄판매문의주세요")
+                .setItemName("가습기")
+                .addImageFilename("minkyu46.jpeg")
+                .setPrice(50000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("스웨덴명품가전 일렉트로룩스 전기주전자 무선포트 새상품")
+                .setContext("스웨덴명품가전 일렉트로룩스 전기주전자 무선포트\n" +
+                        "새상품")
+                .setItemName("전기 주전자")
+                .addImageFilename("minkyu47.jpeg")
+                .setPrice(50000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("생활가전) 공기청정기")
+                .setContext("공기 청정기. 잇어서. 하나는. 필요하신분. 가져가세요\n" +
+                        "요즘 미세먼지로 인환 호흡기. 불편하신분. 좋을거 같아요.\n" +
+                        "찔러보기 잠수 타시는분. 예민하신분 피해주시고 당근 특정 중고. 거래상 교환 환불 안됩니다")
+                .setItemName("공기청정기")
+                .addImageFilename("minkyu48.jpeg")
+                .addImageFilename("minkyu49.jpeg")
+                .addImageFilename("minkyu50.jpeg")
+                .setPrice(25000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("생활가전) 귀뚜라기 족욕기")
+                .setContext("구입해서 한번써고 방치했드니 중고 됐네요.귀뚜라미 족욕기에요")
+                .setItemName("귀뚜라미 족욕기")
+                .addImageFilename("minkyu51.jpeg")
+                .addImageFilename("minkyu52.jpeg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("무료배달) 락앤락 진공쌀통 10kg 쌀벌래방지 생활용품 생활가전제품")
+                .setContext("락앤락 진공쌀통 10kg\n" +
+                        "작동 잘 됩니다\n" +
+                        "외부 기스 조금 있으나\n" +
+                        "실사용에는 전혀 문제 없습니다\n" +
+                        "사진 참고해주세요\n" +
+                        "예민하신 분들은 사양합니다\n" +
+                        "\n" +
+                        "노원 도봉 의정부 무료배달")
+                .setItemName("락앤락 진공쌀통")
+                .addImageFilename("minkyu53.jpeg")
+                .addImageFilename("minkyu54.jpeg")
+                .addImageFilename("minkyu55.jpeg")
+                .setPrice(35000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("공기청정기제습기")
+                .setContext("하이마트에서 55 만원주고샀어요\n" +
+                        "안쓸것같아 싸겐가져가세요")
+                .setItemName("공기청정기제습기")
+                .addImageFilename("minkyu56.jpeg")
+                .setPrice(50000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
 
         // 부기 굿즈 7개
 
@@ -1524,7 +1617,7 @@ public class DataLoader {
                 .addImageFilename("31_j.jpg")
                 .addImageFilename("32_j.jpg")
                 .setPrice(50000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.인성관)
                 .build();
@@ -1542,7 +1635,7 @@ public class DataLoader {
                 .addImageFilename("34_j.jpg")
                 .addImageFilename("35_j.jpg")
                 .setPrice(20000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.인성관)
                 .build();
@@ -1562,7 +1655,7 @@ public class DataLoader {
                 .addImageFilename("37_j.jpg")
                 .addImageFilename("38_j.jpg")
                 .setPrice(30000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.인성관)
                 .build();
@@ -1585,7 +1678,7 @@ public class DataLoader {
                 .addImageFilename("40_j.jpg")
                 .addImageFilename("41_j.jpg")
                 .setPrice(25000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.인성관)
                 .build();
@@ -1605,7 +1698,7 @@ public class DataLoader {
                 .addImageFilename("43_j.jpg")
                 .addImageFilename("44_j.jpg")
                 .setPrice(268000)
-                .setCategoryType(CategoryType.의류)
+                .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.인성관)
                 .build();
@@ -1861,6 +1954,201 @@ public class DataLoader {
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.공학관)
                 .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("스테들러 필기구 4종 멀티세트")
+                .setContext("스테들러 4종 멀티세트 입니다.\n" +
+                        "살 때 인터넷 최저가로 개당 5천원에 주고 샀어요~\n" +
+                        "구성품 확인해보시라고 인터넷상의 제품설명 사진에 첨부했어요~\n" +
+                        "6개 중 2개 파로 4개 남았습니다\n" +
+                        "개당 2500원에 팔고 4개 모두 한꺼번에 구매하시면 9000원에 드릴게요~\n" +
+                        "\n" +
+                        "부명초 앞 직거래 가능합니다\n" +
+                        "(사정상 평일 오후 8시 이후, 주말 아무 때나 가능)")
+                .setItemName("필기구")
+                .addImageFilename("minkyu20.jpeg")
+                .setPrice(2500)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("필기구 팝니당")
+                .setContext("이제 공부할일이 없어서 다 팝니다")
+                .setItemName("필기구")
+                .addImageFilename("minkyu21.jpeg")
+                .setPrice(5000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("필기구 일괄 판매합니다")
+                .setContext("궁금하신점은 문자주세요")
+                .setItemName("필기구")
+                .addImageFilename("minkyu22.jpeg")
+                .addImageFilename("minkyu23.jpeg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("몽블랑 필기구와 장식품")
+                .setContext("몽블랑에서 나온 소소한 학용품들입니다.\n" +
+                        "\n" +
+                        "지우개 + 자 + 연필 3 자루 + 인형 입니다.\n" +
+                        "인형은 등에 클래식 만년필을 지고 있는데 디테일도 있고 참 예쁩니다.\n" +
+                        "\n" +
+                        "수원시청역 직거래 가능합니다.")
+                .setItemName("필기구")
+                .addImageFilename("minkyu24.jpeg")
+                .setPrice(23000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("고시용 필기구의 최강자! 에너겔 메탈팁 45개 판매")
+                .setContext("고시용 필기구에 최강자 펜텔 에너겔 메탈팁\n" +
+                        "검정 39, 빨강 3, 파랑 3\n" +
+                        "총 45자루입니다\n" +
+                        "\n" +
+                        "펜 팁 그대로 붙어 있는 새것 입니다\n" +
+                        "\n" +
+                        "자루당 1,000원 입니다\n" +
+                        "\n" +
+                        "연락주세요^^")
+                .setItemName("필기구")
+                .addImageFilename("minkyu25.jpeg")
+                .addImageFilename("minkyu26.jpeg")
+                .setPrice(45000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("크로스 볼펜 필기구 마블시리즈 헐크 cross rolling ball pen marvel hulk")
+                .setContext("cross rolling ball pen\n" +
+                        "\n" +
+                        "크로스 볼펜입니다.\n" +
+                        "마블 헐크 모델입니다.\n" +
+                        "새것과 같은 상태입니다.\n" +
+                        "\n" +
+                        "궁금하신 점은 전화주세요.")
+                .setItemName("필기구")
+                .addImageFilename("minkyu27.jpeg")
+                .addImageFilename("minkyu28.jpeg")
+                .addImageFilename("minkyu29.jpeg")
+                .setPrice(80000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+
+        // 생활가전 7개
+
+        // 부기 굿즈 7개
+
+        // 뷰티 미용 7개
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("메이크업자격증, 미용자격증, 미용재료")
+                .setContext("연습용으로 사용하기 좋아요\n" +
+                        "메이크업 자격증 할 때 사용했어요~")
+                .setItemName("미용 용품")
+                .addImageFilename("minkyu30.jpeg")
+                .setPrice(25000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("미용대 미용의자 미용실샴푸의자 팔아요")
+                .setContext("작년에 중고로 40만원에 구매했어요 ~\n" +
+                        "\n" +
+                        "어머님 다리가 안 좋으셔서 몇 번 사용했다가 회복하셔서 판매합니다^^\n" +
+                        "\n" +
+                        "수도꼭지는 빼버려서 철물점에서 냉온수 가능한 걸로 따로구매하셔야 할 것 같아 싸게 올려둡니다^^\n" +
+                        "\n" +
+                        "직접 가져가셔야 하고요 SUV 차량엔 실릴 것 같네요 ~\n" +
+                        "\n" +
+                        "곤지암 오향리 입니다")
+                .setItemName("미용 용품")
+                .addImageFilename("minkyu31.jpeg")
+                .addImageFilename("minkyu32.jpeg")
+                .addImageFilename("minkyu33.jpeg")
+                .setPrice(70000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("강아지미용가위 바리깡 미용 해먹거치대 나들이띠 합")
+                .setContext("강아지입양받아 미용시키려고발등 구매하여 2회사용하고 다른데로 분양보내면서 필요없어져 새제품이나 다름없어요 필요하신분 직거래로 연락바람니다 사진참고하시면됩니다")
+                .setItemName("미용 용품")
+                .addImageFilename("minkyu34.jpeg")
+                .addImageFilename("minkyu35.jpeg")
+                .addImageFilename("minkyu36.jpeg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("향수 일괄로 싸게 처분합니다 포맨트 코튼허그 비레디 보이블랙")
+                .setContext("포맨트 코튼허그 50ml\n" +
+                        "비레디 보이블랙 50ml\n" +
+                        "일괄 사용감 10회미만이고 상태최상 입니다\n" +
+                        "동생이 향수를 쓰지않아 싸게 처분합니다\n" +
+                        "일괄로만 판매합니다")
+                .setItemName("뷰티미용")
+                .addImageFilename("minkyu37.jpeg")
+                .setPrice(45000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("빅토르앤롤프 플라워밤 향수+봉봉 오드 향수")
+                .setContext("구매해서 10번도 안뿌린 것 같아요!\n" +
+                        "향 좋습니다!!!! 근데 향수정리하면서 향수가 많아서 이 친구도 보내주려 합니다...\n" +
+                        "플러워밤(본품) + 봉봉(미니) 다 드립니다! 박스도 있어요!\n" +
+                        "\n" +
+                        "신대방삼거리역 거래가능\n" +
+                        "문고리 거래가능\n" +
+                        "네고가능")
+                .setItemName("필기구")
+                .addImageFilename("minkyu38.jpeg")
+                .addImageFilename("minkyu39.jpeg")
+                .setPrice(30000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("크리드 향수공병 톰포드 향수공병")
+                .setContext("크리드 어벤투스 100ml 20,000\n" +
+                        "톰포드 네롤리 50ml 20,000\n" +
+                        "크리드 실버마운틴 75ml 20,000")
+                .setItemName("향수")
+                .addImageFilename("minkyu40.jpeg")
+                .setPrice(20000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("입생로랑 몽파리 오 드 뚜왈렛 루미에르 향수 30 미리 입생향수")
+                .setContext("선물받구 안써서 내놔요")
+                .setItemName("향수")
+                .addImageFilename("minkyu41.jpeg")
+                .addImageFilename("minkyu42.jpeg")
+                .addImageFilename("minkyu43.jpeg")
+                .setPrice(65000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setLocationType(LocationType.창의관)
+                .build();
+
 
         //  부기굿즈 5
         new PostBuilder().setWhoPosted(jys)
