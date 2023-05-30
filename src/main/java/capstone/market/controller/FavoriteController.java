@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -71,7 +72,7 @@ public class FavoriteController {
         Member findmember = memberService.findOne(userId);
         List<Favorite> favorites = findmember.getFavorites();
         for(Favorite favorite : favorites){
-            if(favorite.getPost().getPostId() == postId){
+            if(Objects.equals(favorite.getPost().getPostId(), postId)){
                 Favorite findFavorite = favorite;
                 findFavorite.getPost().setLikes(findFavorite.getPost().getLikes()-1);
                 postService.savePost(findFavorite.getPost());

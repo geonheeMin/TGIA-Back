@@ -7,7 +7,6 @@ import capstone.market.profile_dto.ProfileListDto;
 import capstone.market.repository.MemberRepository;
 import capstone.market.repository.PurchasedRepository;
 import capstone.market.repository.TransactionRepository;
-import capstone.market.searchKeyword_dto.SearchKeywordDTO;
 import capstone.market.transaction_dto.AdminStatisticsDTO;
 import capstone.market.transaction_dto.PurchasedDTO;
 import capstone.market.transaction_dto.PurchasedWithPostTitleDTO;
@@ -101,7 +100,7 @@ public class TransactionService {
         adminStatisticsDTO.setTotalTransactionsPrice_도서(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.도서));
         adminStatisticsDTO.setTotalTransactionsPrice_필기구(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.필기구));
         adminStatisticsDTO.setTotalTransactionsPrice_생활가전(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.생활가전));
-        adminStatisticsDTO.setTotalTransactionsPrice_의류(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.의류));
+        adminStatisticsDTO.setTotalTransactionsPrice_의류(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.패션의류));
         adminStatisticsDTO.setTotalTransactionsPrice_전자기기(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.전자기기));
         adminStatisticsDTO.setTotalTransactionsPrice_부기굿즈(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.부기굿즈));
         adminStatisticsDTO.setTotalTransactionsPrice_뷰티미용(transactionRepository.getTotalTransactionsPriceByCategory(CategoryType.뷰티미용));

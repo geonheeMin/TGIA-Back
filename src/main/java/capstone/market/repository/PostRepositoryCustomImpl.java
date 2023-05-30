@@ -71,6 +71,8 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom{
                     .toArray(BooleanExpression[]::new);
             whereBuilder.andAnyOf(categoryExpressions2);
         }
+
+
         if (searchFilterDto.getDepartments() != null && !searchFilterDto.getDepartments().isEmpty()) {
             BooleanExpression[] categoryExpressions3 = searchFilterDto.getDepartments().stream()
                     .map(post.department.departmentType::eq)
