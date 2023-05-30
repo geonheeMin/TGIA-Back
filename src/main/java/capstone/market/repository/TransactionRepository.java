@@ -2,7 +2,6 @@ package capstone.market.repository;
 
 
 import capstone.market.domain.CategoryType;
-import capstone.market.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.*;
 import java.time.temporal.TemporalAdjusters;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -89,7 +86,7 @@ public class TransactionRepository {
         String jpql = "SELECT COUNT(p) FROM Post p WHERE p.category.category_type = :category";
 
         Long count = em.createQuery(jpql, Long.class)
-                .setParameter("category", CategoryType.의류)
+                .setParameter("category", CategoryType.패션의류)
                 .getSingleResult();
         return count;
 
@@ -161,7 +158,7 @@ public class TransactionRepository {
         String jpql = "SELECT COUNT(p) FROM Post p WHERE p.category.category_type = :category and p.purchased is not null";
 
         Long count = em.createQuery(jpql, Long.class)
-                .setParameter("category", CategoryType.의류)
+                .setParameter("category", CategoryType.패션의류)
                 .getSingleResult();
         return count;
 
