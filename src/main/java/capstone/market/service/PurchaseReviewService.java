@@ -35,7 +35,7 @@ public class PurchaseReviewService {
         Long sellerId = purchaseReviewDTO.getSeller_id();
         Member seller = memberRepository.findOne(sellerId);
         Member buyer = memberRepository.findOne(buyerId);
-        String imageFilename = seller.getImage().getImageFilename();
+        String imageFilename = buyer.getImage().getImageFilename();
         String review = purchaseReviewDTO.getReview();
 
         Post one = postRepository.findOne(purchaseReviewDTO.getPost_id());
