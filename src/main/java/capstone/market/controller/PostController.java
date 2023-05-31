@@ -433,7 +433,16 @@ public class PostController {
                                             @RequestParam(defaultValue = "50") int size) {
         List<Post> all = postService.findAllPaged(page, size);
 
-        List<PostDetailDto> result = all.stream()
+        List<Post> myListPosts = new ArrayList<>();
+
+        for (Post post : all) {
+
+            if (post.getPurchased() == null) {
+                myListPosts.add(postService.findPostByPostId(post.getPostId()));
+            }
+        }
+
+        List<PostDetailDto> result = myListPosts.stream()
                 .map(p -> new PostDetailDto(p))
                 .collect(Collectors.toList());
 
