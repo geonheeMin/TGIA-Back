@@ -28,5 +28,7 @@ public class SearchFilterDto {
     TrackType track;
     CollegeType collegeType;
 
+    Integer page;
+    Integer size;
 
 }

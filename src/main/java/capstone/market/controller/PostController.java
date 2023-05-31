@@ -51,6 +51,14 @@ public class PostController {
         return postDetailDtos;
     }
 
+    // QueryDsl + paging 미친 필터링 구현 완성!
+    @PostMapping("/detailSearchWithPaging")
+    public List<PostDetailDto> SearchWithPaging(@RequestBody SearchFilterDto searchFilterDto) {
+
+        List<PostDetailDto> postDetailDtos = postService.searchFilterWithPaging(searchFilterDto);
+        return postDetailDtos;
+    }
+
     @PostMapping("/reservation_posts")
     public void reservatePosts(@RequestBody PostDetailDto postDetailDto){
         postService.findPostByPostId(postDetailDto.getPost_id()).setStatus(StatusType.거래예약);
