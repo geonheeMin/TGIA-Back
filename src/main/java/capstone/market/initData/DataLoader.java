@@ -972,10 +972,11 @@ public class DataLoader {
                 .addImageFilename("10_j.jpeg")
                 .setPrice(130000)
                 .setCategoryType(CategoryType.도서)
-                .setDepartmentType(DepartmentType.컴퓨터공학부)
-                .build();
+
+                .setDepartmentType(DepartmentType.컴퓨터공학부).build();
+
           
-//        makeHardCodePost(minkyu, "에어팟 팔아요~", "테스트", "에어팟", "webBook.png", 100000, CategoryType.전자기기, DepartmentType.AI응용학과, LocationType.공학관);
+
         // 민규 전자기기 하드 코딩 7개
         new PostBuilder().setWhoPosted(minkyu)
                 .setTitle("에어팟 프로 1세대, air pods pro")
@@ -1015,7 +1016,7 @@ public class DataLoader {
                 .setDepartmentType(DepartmentType.AI응용학과)
                 .setLocationType(LocationType.공학관)
                 .build();
-      
+
         new PostBuilder().setWhoPosted(minkyu)
                 .setTitle("에어팟 맥스(Airpods Max) 스그")
                 .setContext("22년 초쯤에 선물 받았는데\n" +
@@ -1623,13 +1624,13 @@ public class DataLoader {
                 .setTitle("커스텀멜로우 반팔 셔츠 판매합니다")
                 .setContext("깔끔한 색상에 스티치 라인으로 포인트를 준 셔츠 입니다 \n" +
                         "코튼 나일론 혼방소재로 매우 가볍고 여름에 시원하게 입으실 수 있습니다\n" +
-                        "구매 후 실착용 3회 미만으로 상태 매우 좋습니다\n" +
-                        "뒷면 아주 작은 한땀?정도 살짝 뜯김 있지만 아주 미세하고\n" +
-                        "작은 부위라 신경 쓰이는 정도는 아닙니다! \n" +
-                        "표기상 사이즈 95 입니다\n" +
-                        "(마른 100분들까지 입으실 수 있습니다)\n" +
-                        "색상은 어두운 네이비 입니다\n" +
-                        "직거래 인성관 1층에서 합니다! ")
+                                "구매 후 실착용 3회 미만으로 상태 매우 좋습니다\n" +
+                                "뒷면 아주 작은 한땀?정도 살짝 뜯김 있지만 아주 미세하고\n" +
+                                "작은 부위라 신경 쓰이는 정도는 아닙니다! \n" +
+                                "표기상 사이즈 95 입니다\n" +
+                                "(마른 100분들까지 입으실 수 있습니다)\n" +
+                                "색상은 어두운 네이비 입니다\n" +
+                                "직거래 인성관 1층에서 합니다!" )
                 .setItemName("커스텀멜로우 반팔 셔츠")
                 .addImageFilename("29_j.jpg")
                 .addImageFilename("30_j.jpg")
