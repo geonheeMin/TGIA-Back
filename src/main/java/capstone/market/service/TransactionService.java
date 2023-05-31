@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -152,7 +153,7 @@ public class TransactionService {
 
     }
 
-    public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
+/*    public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
 
         List<Purchased> all = purchasedRepository.findAll();
 
@@ -160,5 +161,19 @@ public class TransactionService {
                 .collect(Collectors.toList());
 
         return getPurchasedList3;
+    }*/
+
+    public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
+
+        List<Purchased> all = purchasedRepository.findAll();
+
+        List<PurchasedWithPostTitleDTO> getPurchasedList3 = all.stream()
+                .sorted(Comparator.comparing(Purchased::getCreatedDate).reversed()) // 최신순으로 정렬
+                .map(u -> new PurchasedWithPostTitleDTO(u))
+                .collect(Collectors.toList());
+
+        return getPurchasedList3;
     }
+
+
 }
