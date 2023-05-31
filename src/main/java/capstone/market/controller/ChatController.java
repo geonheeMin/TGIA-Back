@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -200,7 +201,7 @@ public class ChatController {
                 System.out.println("3412341234");
                 chatMessage = null;
             }
-            if (chatMessage.getMember() != null && chatMessage.getMember().getId() == member_id) { // null pointer error
+            if (chatMessage.getMember() != null && Objects.equals(chatMessage.getMember().getId(), member_id)) { // null pointer error
                 System.out.println("1341234");
                 count = 0L;
             } else {

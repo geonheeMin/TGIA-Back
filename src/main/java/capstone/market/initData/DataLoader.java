@@ -101,7 +101,9 @@ public class DataLoader {
         Random random = new Random();
 
         Department department = new Department(DepartmentType.컴퓨터공학부);
+        Department iotCombined = new Department(DepartmentType.IT융합공학부);
         departMentJpaRepository.save(department);
+        departMentJpaRepository.save(iotCombined);
 
         FirstTrack firstTrack = new FirstTrack(TrackType.웹공학트랙, department);
         firstTrackJpaRepository.save(firstTrack);
@@ -174,6 +176,24 @@ public class DataLoader {
         memberRepository.save(brave);
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
+
+        for (int i = 0;i<10;i++) {
+            Member dummyMember = new Member("dummy" + i);
+            dummyMember.setUsername("상상부기"+i);
+            Manner dummyManner = new Manner();
+            mannerRepository.save(dummyManner);
+            dummyMember.setManner(dummyManner);
+            dummyMember.setImage(image1);
+            dummyMember.setFirst_college(CollegeType.IT공과대학);
+            FirstTrack dummyFirstTrack = new FirstTrack(TrackType.사물인터넷트랙, iotCombined);
+            SecondTrack dummySecondTrack = new SecondTrack(TrackType.지능시스템트랙, iotCombined);
+            firstTrackJpaRepository.save(dummyFirstTrack);
+            secondTrackJpaRepository.save(dummySecondTrack);
+            dummyMember.setFirstTrack(dummyFirstTrack);
+            dummyMember.setSecondTrack(dummySecondTrack);
+            dummyMember.setCreatedDate(formattedDate);
+            memberRepository.save(dummyMember);
+        }
 
         Category post1category = new Category();
         Category post2category = new Category();
