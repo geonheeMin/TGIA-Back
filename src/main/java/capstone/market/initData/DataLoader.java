@@ -364,7 +364,7 @@ public class DataLoader {
                 .setTitle("버즈 플러스 팔게요")
                 .setContext("버즈 플러스 화이트 본체만 팔아요.")
                 .setItemName("버즈 플러스")
-                .addImageFilename("geonhee_digital4_1.jepg")
+                .addImageFilename("geonhee_digital4_1.jpeg")
                 .addImageFilename("geonhee_digital4_2.jpeg")
                 .addImageFilename("geonhee_digital4_3.jpeg")
                 .setPrice(50000)
