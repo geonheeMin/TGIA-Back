@@ -24,7 +24,7 @@ public abstract class BaseEntity {
 
     public void generateRandomCreatedDate() {
         // Generate random month within the range of 1 (January) to 12 (December)
-        int randomMonth = ThreadLocalRandom.current().nextInt(1, 5);
+        int randomMonth = ThreadLocalRandom.current().nextInt(1, 13);
 
         // Generate random day within the range of 1 to 28 (assumes a non-leap year)
         int randomDay = ThreadLocalRandom.current().nextInt(1, 29);

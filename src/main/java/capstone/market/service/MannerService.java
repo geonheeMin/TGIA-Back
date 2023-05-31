@@ -22,7 +22,7 @@ public class MannerService {
         Integer checkedCnt = 0;
         Manner manner = member.getManner();
         Long cnt = 0L;
-//        manner.setTotalFeed(manner.getTotalFeed() + 1);
+        manner.setTotalFeed(manner.getTotalFeed() + 1);
         if (mannerData.getReDealing()) {
             manner.setReDealing(manner.getReDealing() + 1);
         }
@@ -56,8 +56,8 @@ public class MannerService {
             manner.setBadQuality(cnt);
         }
         System.out.println("fadfasfds " + checkedCnt);
-        Integer totalMannerScore = checkedCnt * 15;
-        member.setMannerscore(mannerData.getMannerScore() + totalMannerScore + member.getMannerscore());
+        Integer totalMannerScore = checkedCnt * 5;
+        member.setMannerscore(member.getMannerscore() + mannerData.getMannerScore() + totalMannerScore);
         mannerRepository.save(manner);
         member.setManner(manner);
     }
@@ -81,10 +81,10 @@ public class MannerService {
         List<Map.Entry<String, Long>> sortedCoefficients = new ArrayList<>(coefficientMap.entrySet());
         Collections.sort(sortedCoefficients, (e1, e2) -> Long.compare(e2.getValue(), e1.getValue()));
 
-// Get the top 3 coefficients with labels
+        // Get the top 3 coefficients with labels
         List<Map.Entry<String, Long>> top3Coefficients = sortedCoefficients.subList(0, 3);
 
-// Output the top 3 coefficients with labels
+        // Output the top 3 coefficients with labels
         for (Map.Entry<String, Long> entry : top3Coefficients) {
             String label = entry.getKey();
             Long coefficient = entry.getValue();

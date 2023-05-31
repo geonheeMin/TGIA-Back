@@ -20,5 +20,5 @@ public class Manner {
     private Long badQuality = 0L;
     private Long noResponse = 0L;
     private Long reDealing = 0L;
-    private Long totalFeed = 10L;
+    private Long totalFeed = 0L;
 }
