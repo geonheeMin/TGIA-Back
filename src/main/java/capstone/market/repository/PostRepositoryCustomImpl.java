@@ -177,43 +177,40 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         }
 
 
-        Predicate where = whereBuilder.getValue();
-        //BooleanExpression where = (BooleanExpression)whereBuilder.getValue();
+            Predicate where = whereBuilder.getValue();
+            // Predicate finalWhere = where.and(post.purchased.isNull());
+            //BooleanExpression where = (BooleanExpression)whereBuilder.getValue();
+            BooleanBuilder finalWhere = whereBuilder.and(post.purchased.isNull());
 
-        OrderSpecifier<?> order;
-        if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("views")) {
-            order = post.views.desc();
-        } else if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("likes")) {
-            order = post.likes.desc();
-        } else {
-            order = post.createdDate.desc();
+            OrderSpecifier<?> order;
+            if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("views")) {
+                order = post.views.desc();
+            } else if (searchFilterDto.getSort() != null && searchFilterDto.getSort().equalsIgnoreCase("likes")) {
+                order = post.likes.desc();
+            } else {
+                order = post.createdDate.desc();
+            }
+
+
+            // 페이징 처리
+            long offset = pageable.getOffset();
+            int size = pageable.getPageSize();
+
+            List<Post> filteredPosts = queryFactory
+                    .selectFrom(post)
+                    .where(finalWhere)  // 판매되지 않은 게시글 필터링
+                    .orderBy(order)
+                    .offset(offset)
+                    .limit(size)  // size 만큼의 데이터를 가져옴
+                    .fetch();
+
+            List<PostDetailDto> SearchPosts = filteredPosts.stream()
+                    .map(p -> new PostDetailDto(p))
+                    .collect(Collectors.toList());
+
+            return SearchPosts;
+
         }
-
-
-        // 페이징 처리
-        long offset = pageable.getOffset();
-        int size = pageable.getPageSize();
-
-        List<Post> posts = queryFactory
-                .selectFrom(post)
-                .where(where)
-                .orderBy(order)
-                .limit(offset + size)  // offset + size 만큼의 데이터를 가져옴
-                .offset(offset)
-                .fetch();
-
-        List<Post> SellPosts = posts.stream()
-                .filter(p -> p.getPurchased() == null)  // 판매되지 않은 게시글만 필터링
-                .limit(size)  // size 만큼의 데이터를 유지
-                .collect(Collectors.toList());
-
-        List<PostDetailDto> SearchPosts = SellPosts.stream()
-                .map(p -> new PostDetailDto(p))
-                .collect(Collectors.toList());
-
-        return SearchPosts;
-
-    }
 
 
 }
