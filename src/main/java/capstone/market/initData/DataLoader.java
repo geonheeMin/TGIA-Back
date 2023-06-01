@@ -1924,7 +1924,7 @@ public class DataLoader {
                 .build();
 
 
-        //뷰티미용 2 
+        //뷰티미용 2
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("루이비통향수 아트라프레브 200미리 정품")
                 .setContext("미사용새상품!매장정품 200미리입니다~\n" +
