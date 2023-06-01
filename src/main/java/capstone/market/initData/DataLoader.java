@@ -104,7 +104,14 @@ public class DataLoader {
         postRepository.savePost(post);
     }
     */
+    public LocalDateTime generateRandomCreatedDate() {
+        // Generate random month within the range of 1 (January) to 12 (December)
+        int randomMonth = ThreadLocalRandom.current().nextInt(1, 5);
 
+        // Generate random day within the range of 1 to 28 (assumes a non-leap year)
+        int randomDay = ThreadLocalRandom.current().nextInt(1, 29);
+        return LocalDateTime.of(2023, randomMonth, randomDay, 0, 0);
+    }
 
     @PostConstruct
     public void init() {
@@ -122,6 +129,7 @@ public class DataLoader {
         brave.setUsername("용기");
 
         LocalDateTime now = LocalDateTime.now();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
         String formattedDate = now.format(formatter);
         minkyu.setCreatedDate(formattedDate);
@@ -232,6 +240,10 @@ public class DataLoader {
         for (int i = 0;i<1000;i++) {
             Member dummyMember = new Member("dummy" + i);
             dummyMember.setUsername(generateRandomKoreanName());
+            LocalDateTime randomCreatedDate = generateRandomCreatedDate();
+
+            DateTimeFormatter randomMemberDateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+            String formatted = randomCreatedDate.format(randomMemberDateFormatter);
             Manner dummyManner = new Manner();
             mannerRepository.save(dummyManner);
             dummyMember.setManner(dummyManner);
@@ -243,7 +255,7 @@ public class DataLoader {
             secondTrackJpaRepository.save(dummySecondTrack);
             dummyMember.setFirstTrack(dummyFirstTrack);
             dummyMember.setSecondTrack(dummySecondTrack);
-            dummyMember.setCreatedDate(formattedDate);
+            dummyMember.setCreatedDate(formatted);
             memberRepository.save(dummyMember);
         }
 
@@ -2619,10 +2631,6 @@ public class DataLoader {
             dummyPost.generateRandomCreatedDate();
 
             dummyPost.setItem_name("MacBook Pro 13");
-//            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
-//            macBookPost.setItem_name("아이패드 에어 4세대 블루");
-//            post4.setItem_name("토비의 스프링 1편");
-
 
             if (i %2 == 0) {
                 Purchased dummyPurchased = new Purchased();
