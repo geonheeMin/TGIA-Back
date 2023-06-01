@@ -96,15 +96,19 @@ public class PostService {
     // QueryDSL + Paging
     public List<PostDetailDto> searchFilterWithPaging(SearchFilterDto searchFilterDto){
 
-        SearchKeyword searchKeyword = searchKeywordRepository.findByKeyword(searchFilterDto.getKeyword());
-        if (searchKeyword == null) {
-            searchKeyword = new SearchKeyword();
-            searchKeyword.setKeyword(searchFilterDto.getKeyword());
-            searchKeyword.setSearchCount(1L);
-        } else {
-            searchKeyword.setSearchCount(searchKeyword.getSearchCount() + 1);
+
+        if(searchFilterDto.getYs() !=1) {
+            SearchKeyword searchKeyword = searchKeywordRepository.findByKeyword(searchFilterDto.getKeyword());
+            if (searchKeyword == null) {
+                searchKeyword = new SearchKeyword();
+                searchKeyword.setKeyword(searchFilterDto.getKeyword());
+                searchKeyword.setSearchCount(1L);
+            } else {
+                searchKeyword.setSearchCount(searchKeyword.getSearchCount() + 1);
+            }
+            searchKeywordRepository.save(searchKeyword);
+
         }
-        searchKeywordRepository.save(searchKeyword);
 
         return postDataJpaRepository.searchFilterWithPaging(searchFilterDto);
 

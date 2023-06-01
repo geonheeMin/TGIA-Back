@@ -79,7 +79,7 @@ public class MemberService {
 
         if(profileListDto.getFirst_department() == DepartmentType.상상력인재학부 ||
                 profileListDto.getFirst_department() == DepartmentType.문학문화콘텐츠학과 ||
-                profileListDto.getFirst_department() == DepartmentType.AI응용학과 ||
+                profileListDto.getFirst_department() == DepartmentType.IT융합공학부 ||
                 profileListDto.getFirst_department() == DepartmentType.융합보안학과
         ){
 
@@ -147,7 +147,7 @@ public class MemberService {
 
         if(profileListDto.getSecond_department() == DepartmentType.상상력인재학부 ||
                 profileListDto.getSecond_department() == DepartmentType.문학문화콘텐츠학과 ||
-                profileListDto.getSecond_department() == DepartmentType.AI응용학과 ||
+                profileListDto.getSecond_department() == DepartmentType.IT융합공학부 ||
                 profileListDto.getSecond_department() == DepartmentType.융합보안학과
         ){
 
