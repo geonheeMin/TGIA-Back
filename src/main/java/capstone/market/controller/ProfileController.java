@@ -94,6 +94,7 @@ public class ProfileController {
         member.setUsername(profileChangeDTO.getUsername());
         log.info("hello world 324234234= {}", profileChangeDTO.getImage_filename());
         member.setImage(imageService.findImageByName(profileChangeDTO.getImage_filename()));
+        memberService.join(member);
         ProfileListDto profileListDto = new ProfileListDto(member);
         return profileListDto;
     }

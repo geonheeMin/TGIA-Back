@@ -32,4 +32,6 @@ public class SearchFilterDto {
     Integer page = 0;
     Integer size = 25;
 
+    Integer ys;
+
 }
