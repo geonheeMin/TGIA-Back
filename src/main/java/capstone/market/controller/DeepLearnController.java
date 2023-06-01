@@ -39,14 +39,14 @@ public class DeepLearnController {
             return "전자기기";
         } else if (objectName.equals("bicycle")) {
             return "생활가전";
-        } else if (objectName.equals("clock")) {
-            return "의류";
+        } else if (objectName.equals("clock") || objectName.equals("backpack")) {
+            return "패션의류";
         } else if (objectName.equals("book")) {
             return "도서";
         } else if (objectName.equals("cosmetic")) {
             return "뷰티미용";
         } else if (objectName.equals("clothes") || objectName.equals("Wallet")) {
-            return "의류";
+            return "패션의류";
         } else if (objectName.equals("bugi")) {
             return "부기굿즈";
         } else {

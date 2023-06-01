@@ -14,7 +14,9 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -52,7 +54,41 @@ public class DataLoader {
     private CategoryJpaRepository categoryJpaRepository;
     @Autowired
     private FavoriteJpaRepository favoriteJpaRepository;
+    List<Post> posts = new ArrayList<>();
 
+    private static final String[] lastNames = {
+            "김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "오", "한", "신", "서", "권",
+            "황", "안", "송", "류", "홍", "전", "고", "문", "양", "손", "배", "조", "백", "허", "유"
+    };
+
+    private static final String[] firstNames = {
+            "민준", "서준", "예준", "도윤", "시우", "주원", "하준", "지호", "지후", "준서", "준우", "현우",
+            "예준", "건우", "민재", "유준", "민성", "유찬", "현준", "민규", "우진", "재훈", "태민", "은우",
+            "영민", "성민", "주현", "민호", "동현", "태현", "승우", "성준", "예성", "동준", "동혁", "민우",
+            "예성", "재원", "은호", "준혁", "서진", "민찬", "윤우", "현서", "현성", "준영", "승민", "동우"
+    };
+
+    private static final String[] salePhrases = {
+            "팔아요", "팔께요", "팔아 버립니다", "사주세요", "진짜 싸게 파는 건데", "팝니다!", "팔아요!",
+            "싸게 드려요", "합리적인 가격에 팝니다", "빠른 판매 부탁드려요", "저렴한 가격으로 팔아요", "꼭 사세요!",
+            "최신 상품이에요", "많이 사용하지 않았어요", "마음에 드셔요", "인기 상품입니다", "마감 임박 상품입니다",
+            "한정 수량입니다", "놓치지 마세요!", "가성비 최고에요", "무료 배송합니다", "양도합니다",
+            "상태 최상입니다", "미개봉 제품입니다", "고급 소재로 만들었어요", "종류 다양해요", "무료 증정품 있어요",
+            "빠른 거래 가능합니다", "추가 할인해드려요", "언제든지 문의주세요", "많은 관심 부탁드려요", "한 번 사용한 적 없어요",
+            "사용감 거의 없어요", "착용감이 좋아요", "대박 세일 중입니다", "포장 상태 좋아요", "조금만 더 기다려주세요",
+            "유명 브랜드 제품입니다", "빠르게 팔고 싶어요", "즉시 구매 가능합니다", "놓치지 않으셨나요?", "필요 없어져서 팝니다",
+            "바로 가져가세요", "추가 사진 보내드려요", "확실한 구매를 약속드려요", "퀄리티 좋아요", "가격 흥정 가능합니다",
+            "신상품입니다", "첫 손님에게 특별 혜택", "할인 이벤트 진행 중", "관심이 많아요", "언제든지 가격 조정 가능해요",
+            "성능 좋아요", "한 번 사용해보세요", "사용법 간단합니다", "마감 임박 상품이에요", "매우 저렴한 가격에 팝니다"
+    };
+
+
+    public static String generateRandomKoreanName() {
+        Random random = new Random();
+        String lastName = lastNames[random.nextInt(lastNames.length)];
+        String firstName = firstNames[random.nextInt(firstNames.length)];
+        return lastName + firstName;
+    }
 
     /*
     @PostConstruct
@@ -69,10 +105,18 @@ public class DataLoader {
         postRepository.savePost(post);
     }
     */
+    public LocalDateTime generateRandomCreatedDate() {
+        // Generate random month within the range of 1 (January) to 12 (December)
+        int randomMonth = ThreadLocalRandom.current().nextInt(1, 5);
 
+        // Generate random day within the range of 1 to 28 (assumes a non-leap year)
+        int randomDay = ThreadLocalRandom.current().nextInt(1, 29);
+        return LocalDateTime.of(2023, randomMonth, randomDay, 0, 0);
+    }
 
     @PostConstruct
     public void init() {
+
         Member minkyu = new Member("minkyu");
         minkyu.setUsername("민규");
 
@@ -86,6 +130,7 @@ public class DataLoader {
         brave.setUsername("용기");
 
         LocalDateTime now = LocalDateTime.now();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
         String formattedDate = now.format(formatter);
         minkyu.setCreatedDate(formattedDate);
@@ -177,9 +222,29 @@ public class DataLoader {
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
-        for (int i = 0;i<10;i++) {
+        Member dummyMemberForSale = new Member("dummyForSale");
+        dummyMemberForSale.setUsername(generateRandomKoreanName());
+        Manner dummyMannerForSale = new Manner();
+        mannerRepository.save(dummyMannerForSale);
+        dummyMemberForSale.setManner(dummyMannerForSale);
+        dummyMemberForSale.setImage(image1);
+        dummyMemberForSale.setFirst_college(CollegeType.IT공과대학);
+        FirstTrack dummyFirstTrackForSale = new FirstTrack(TrackType.사물인터넷트랙, iotCombined);
+        SecondTrack dummySecondTrackForSale = new SecondTrack(TrackType.지능시스템트랙, iotCombined);
+        firstTrackJpaRepository.save(dummyFirstTrackForSale);
+        secondTrackJpaRepository.save(dummySecondTrackForSale);
+        dummyMemberForSale.setFirstTrack(dummyFirstTrackForSale);
+        dummyMemberForSale.setSecondTrack(dummySecondTrackForSale);
+        dummyMemberForSale.setCreatedDate(formattedDate);
+        memberRepository.save(dummyMemberForSale);
+
+        for (int i = 0;i<1000;i++) {
             Member dummyMember = new Member("dummy" + i);
-            dummyMember.setUsername("상상부기"+i);
+            dummyMember.setUsername(generateRandomKoreanName());
+            LocalDateTime randomCreatedDate = generateRandomCreatedDate();
+
+            DateTimeFormatter randomMemberDateFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+            String formatted = randomCreatedDate.format(randomMemberDateFormatter);
             Manner dummyManner = new Manner();
             mannerRepository.save(dummyManner);
             dummyMember.setManner(dummyManner);
@@ -191,7 +256,7 @@ public class DataLoader {
             secondTrackJpaRepository.save(dummySecondTrack);
             dummyMember.setFirstTrack(dummyFirstTrack);
             dummyMember.setSecondTrack(dummySecondTrack);
-            dummyMember.setCreatedDate(formattedDate);
+            dummyMember.setCreatedDate(formatted);
             memberRepository.save(dummyMember);
         }
 
@@ -689,145 +754,6 @@ public class DataLoader {
 
 
         CollegeType[] collegeTypes = CollegeType.values();
-        for (int i =0;i<500;i++) {
-            Post dummyPost = new Post();
-            int randomIndex = random.nextInt(collegeTypes.length);
-
-            // 랜덤 CollegeType 설정
-            dummyPost.setCollege(collegeTypes[randomIndex]);
-
-            Category randomCategory = new Category();
-            randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
-            categoryJpaRepository.save(randomCategory);
-            dummyPost.setCategory(randomCategory);
-
-            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
-                dummyPost.setPost_title("더미 옷 팔아요"+i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
-                dummyPost.setPost_title("더미 부기굿즈 팔아요"+i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
-                dummyPost.setPost_title("더미 도서 팔아요"+i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
-                dummyPost.setPost_title("더미 생활가전 팔아요"+i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
-                dummyPost.setPost_title("더미 뷰티미용 팔아요"+i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
-                dummyPost.setPost_title("더미 필기구 팔아요" + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
-                dummyPost.setPost_title("더미 전자기기 팔아요" + i);
-                dummyPost.setPost_text("내용");
-            }
-            dummyPost.setWho_posted(minkyu);
-            dummyPost.setPrice(10000);
-
-            Department dummyDepartment = new Department();
-            dummyDepartment.setDepartmentType(departmentTypes[random.nextInt(departmentTypes.length)]);
-            departMentJpaRepository.save(dummyDepartment);
-            dummyPost.setDepartment(dummyDepartment);
-
-            dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
-            dummyPost.setLocation_text("101호");
-            dummyPost.generateRandomCreatedDate();
-
-            dummyPost.setItem_name("MacBook Pro 13");
-//            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
-//            macBookPost.setItem_name("아이패드 에어 4세대 블루");
-//            post4.setItem_name("토비의 스프링 1편");
-
-
-            if (i %2 == 0) {
-                Purchased dummyPurchased = new Purchased();
-                dummyPurchased.setMember(gunhee);
-                dummyPurchased.setPrice(dummyPost.getPrice());
-                dummyPurchased.setPostTitle(dummyPost.getPost_title());
-                dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
-                dummyPurchased.setQuantity(1);
-                dummyPurchased.setBuyer_username(gunhee.getUsername());
-                purchasedRepository.save(dummyPurchased);
-                dummyPost.setPurchased(dummyPurchased);
-            }
-
-            postRepository.savePost(dummyPost);
-
-            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
-                Image dummyImage0 = new Image();
-                Image dummyImage1 = new Image();
-                Image dummyImage2 = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-                dummyImage0.setImageFilename("clothes" + randomNumber + "_0.jpg");
-                dummyImage1.setImageFilename("clothes" + randomNumber + "_1.jpg");
-                dummyImage2.setImageFilename("clothes" + randomNumber + "_2.jpg");
-                dummyImage0.setPost(dummyPost);
-                dummyImage1.setPost(dummyPost);
-                dummyImage2.setPost(dummyPost);
-                imageRepository.save(dummyImage0);
-                imageRepository.save(dummyImage1);
-                imageRepository.save(dummyImage2);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
-                Image dummyImage = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-
-                dummyImage.setImageFilename("boggie" + randomNumber + ".png");
-
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
-                Image dummyImage0 = new Image();
-                Image dummyImage1 = new Image();
-                Image dummyImage2 = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-                dummyImage0.setImageFilename("elec" + randomNumber + "_0.jpeg");
-                dummyImage1.setImageFilename("elec" + randomNumber + "_1.jpeg");
-                dummyImage2.setImageFilename("elec" + randomNumber + "_2.jpeg");
-                dummyImage0.setPost(dummyPost);
-                dummyImage1.setPost(dummyPost);
-                dummyImage2.setPost(dummyPost);
-                imageRepository.save(dummyImage0);
-                imageRepository.save(dummyImage1);
-                imageRepository.save(dummyImage2);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
-
-                Image dummyImage0 = new Image();
-                Image dummyImage1 = new Image();
-                Image dummyImage2 = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-                dummyImage0.setImageFilename("beauty" + randomNumber + "_0.webp");
-                dummyImage1.setImageFilename("beauty" + randomNumber + "_1.webp");
-                dummyImage2.setImageFilename("beauty" + randomNumber + "_2.webp");
-                dummyImage0.setPost(dummyPost);
-                dummyImage1.setPost(dummyPost);
-                dummyImage2.setPost(dummyPost);
-                imageRepository.save(dummyImage0);
-                imageRepository.save(dummyImage1);
-                imageRepository.save(dummyImage2);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
-                Image dummyImage = new Image();
-                int randomNumber = random.nextInt(5) + 1;
-                dummyImage.setImageFilename("book" + randomNumber + ".jpeg");
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
-                Image dummyImage = new Image();
-                dummyImage.setImageFilename("writing_implement1.png");
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
-                Image dummyImage = new Image();
-                int randomNumber = random.nextInt(5) + 1;
-                dummyImage.setImageFilename("appliances" + randomNumber + ".jpeg");
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            }
-        }
-
-
-
         post1.setCategory(post1category);
         javaBookPost.setCategory(post2category);
         macBookPost.setCategory(post3category);
@@ -1101,6 +1027,89 @@ public class DataLoader {
                 .build();
 
         // 도서 7개
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("쏙쏙 들어오는 인공지능 알고리즘")
+                .setContext("정말 깨끗합니다!")
+                .setItemName("쏙쏙 들어오는 인공지능 알고리즘")
+                .addImageFilename("minkyu57.jpeg")
+                .setPrice(20000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("Understanding of Database(데이터베이스의 이해)")
+                .setContext("BOSS 휴고보스 볼펜 노트 세트 새상품\n" +
+                        "박스에 세트로 담겨 있습니다")
+                .setItemName("Understanding of Database(데이터베이스의 이해)")
+                .addImageFilename("minkyu58.jpeg")
+                .setPrice(17000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("Advanced Engineering Mathematics")
+                .setContext("BOSS 휴고보스 볼펜 노트 세트 새상품\n" +
+                        "박스에 세트로 담겨 있습니다")
+                .setItemName("Advanced Engineering Mathematics")
+                .addImageFilename("minkyu59.jpeg")
+                .addImageFilename("minkyu60.jpeg")
+                .setPrice(20000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("신간도서 자기계발서 주식책 경제책 포토샵책 마케팅책 과학도서")
+                .setContext("상세 도서정보는 검색해보세요~!\n" +
+                        "모두 살짝 펼쳐보기만 한 정도의 새책이에요~~\n" +
+                        "권당 7.000원 ~ 10.000원")
+                .setItemName("신간도서 ")
+                .addImageFilename("minkyu61.jpeg")
+                .addImageFilename("minkyu62.jpeg")
+                .setPrice(7000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("수질환경기사책, 산업기사책")
+                .setContext("신권, 준비하다가 제 길이 아닌 것 같아 책 판매하고 떠납니다~")
+                .setItemName("필기구 세트")
+                .addImageFilename("minkyu63.jpeg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("나의 히어로 아카데미아 만화책 판매합니당! 나히아만화책!!!")
+                .setContext("나히아 만화책 입니당~\n" +
+                        "1권부터 32권까지 있어용~\n" +
+                        "몇번 읽다가 다른책 사려고 팔아용~~\n" +
+                        "32권은 개봉하지도 않았습니당~\n" +
+                        "많은 관심부탁드려용!")
+                .setItemName("필기구 세트")
+                .addImageFilename("minkyu64.jpeg")
+                .addImageFilename("minkyu65.jpeg")
+                .setPrice(80000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("원피스 만화책 1-39권, 레드, 블루")
+                .setContext("일괄 판매해요~ 요즘 제일 hot한 애니로는 정주행 절대 못해요\n책으로 읽으세요~")
+                .setItemName("필기구 세트")
+                .addImageFilename("minkyu66.jpeg")
+                .addImageFilename("minkyu67.jpeg")
+                .addImageFilename("minkyu68.jpeg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.AI응용학과)
+                .setLocationType(LocationType.공학관)
+                .build();
 
         // 필기구 7개
         new PostBuilder().setWhoPosted(minkyu)
@@ -1619,7 +1628,7 @@ public class DataLoader {
                 .build();
 
 
-        //의류 1
+        //패션의류 1
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("커스텀멜로우 반팔 셔츠 판매합니다")
                 .setContext("깔끔한 색상에 스티치 라인으로 포인트를 준 셔츠 입니다 \n" +
@@ -1642,7 +1651,7 @@ public class DataLoader {
                 .setLocationType(LocationType.인성관)
                 .build();
 
-        //의류 2
+        //패션의류 2
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("하와이안 셔츠 반팔 판매합니다")
                 .setContext("NII 하와이안 셔츠 판매합니다\n" +
@@ -1660,7 +1669,7 @@ public class DataLoader {
                 .setLocationType(LocationType.인성관)
                 .build();
 
-        //의류 3나이키 쪼리 슬리퍼 판매합니다
+        //패션의류 3나이키 쪼리 슬리퍼 판매합니다
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("나이키 쪼리 슬리퍼 판매합니다")
                 .setContext("미국 여행할 때 사왔던건데 안 신고 보관만 하고 있었던거라\n" +
@@ -1681,7 +1690,7 @@ public class DataLoader {
                 .build();
 
 
-        //의류 4나이키 쪼리 슬리퍼 판매합니다
+        //패션의류 4나이키 쪼리 슬리퍼 판매합니다
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("새상품) 밀로 홀리데이 시그니처 볼캡")
                 .setContext("밀로 홀리데이 시그니처 볼캡 판매합니다\n" +
@@ -1703,7 +1712,7 @@ public class DataLoader {
                 .setLocationType(LocationType.인성관)
                 .build();
 
-        //의류 5 나이키 쪼리 슬리퍼 판매합니다
+        //패션의류 5 나이키 쪼리 슬리퍼 판매합니다
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("20FW 이스트로그 셔츠 (XL) 판매")
                 .setContext("268000원에 구매하여 실착용 5회 미만으로 전체적으로 좋은 상태 유지중입니다.\n" +
@@ -2186,29 +2195,528 @@ public class DataLoader {
                 .setLocationType(LocationType.공학관)
                 .build();
 
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("크록스 스타일의 슈즈")
+                .setContext("여름철 필수품. 사이즈265~270 정도입니다")
+                .setItemName("크록스슈즈")
+                .addImageFilename("brave_clothes_1_1.jpg")
+                .setPrice(9500)
+                .setCategoryType(CategoryType.패션의류)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상빌리지)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("자라 흰색 오프숄더 s")
+                .setContext("1회 착용, 하자X 크롭기장이고 원가 49000입니다")
+                .setItemName("자라 흰색 오프숄더")
+                .addImageFilename("brave_clothes_2_1.jpg")
+                .addImageFilename("brave_clothes_2_2.jpg")
+                .setPrice(17000)
+                .setCategoryType(CategoryType.패션의류)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.미래관)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("보부상백, 크로스백")
+                .setContext("한번도 안맸어요! 바닥이 판판하게 돼있습니당")
+                .setItemName("크로스백")
+                .addImageFilename("brave_clothes_3_1.jpg")
+                .addImageFilename("brave_clothes_3_2.jpg")
+                .addImageFilename("brave_clothes_3_3.jpg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.패션의류)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("머메이드 롱 스커트 아이보리")
+                .setContext("사이즈가 안 맞아서 보관만 했어요")
+                .setItemName("머메이드 롱스커트")
+                .addImageFilename("brave_clothes_4_1.jpg")
+                .addImageFilename("brave_clothes_4_2.jpg")
+                .addImageFilename("brave_clothes_4_3.jpg")
+                .setPrice(19000)
+                .setCategoryType(CategoryType.패션의류)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("(새제품) 나이키 레거시91")
+                .setContext("선물 받았는데 저한테 좀 크네요..")
+                .setItemName("나이키 레거시91")
+                .addImageFilename("brave_clothes_5_1.jpg")
+                .addImageFilename("brave_clothes_5_2.jpg")
+                .setPrice(20000)
+                .setCategoryType(CategoryType.패션의류)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("이솝 카르스트")
+                .setContext("Aesop Karst 향수입니다. 시원한 물향이고 주말에만 거래 가능합니다.")
+                .setItemName("이솝카르스트")
+                .addImageFilename("brave_beauty_1_1.jpg")
+                .addImageFilename("brave_beauty_1_2.jpg")
+                .addImageFilename("brave_beauty_1_3.jpg")
+                .setPrice(120000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("스와로브스키 팔찌 팔아요")
+                .setContext("선물 받고 한 번 쓴건데 예쁘게 하실 분이 가져가세요~")
+                .setItemName("스와로브스키 팔찌")
+                .addImageFilename("brave_beauty_2_1.jpg")
+                .addImageFilename("brave_beauty_2_2.jpg")
+                .addImageFilename("brave_beauty_2_3.jpg")
+                .setPrice(45000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상관없음)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("시계 파슬 자동시계 정품 팔아요")
+                .setContext("FOSSIL 정품. 시간 정확하고 상태 좋습니다.")
+                .setItemName("FOSSIL 자동시계")
+                .addImageFilename("brave_beauty_3_1.jpg")
+                .addImageFilename("brave_beauty_3_2.jpg")
+                .addImageFilename("brave_beauty_3_3.jpg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("바이레도 블랑쉬 향수 50ml")
+                .setContext("정품이고 선물 받았는데 취향 아니라 팔아요!!")
+                .setItemName("바이레도 블랑쉬")
+                .addImageFilename("brave_beauty_4_1.jpg")
+                .addImageFilename("brave_beauty_4_2.jpg")
+                .setPrice(110000)
+                .setCategoryType(CategoryType.뷰티미용)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("딥디크 도손 EDT 100ml")
+                        .setContext("2022 3월 한정판 에디션입니다. 거의 사용 안했어요")
+                        .setItemName("딥디크 도손")
+                        .addImageFilename("brave_beauty_5_1.jpg")
+                        .setPrice(100000)
+                        .setCategoryType(CategoryType.뷰티미용)
+                        .setDepartmentType(DepartmentType.컴퓨터공학부)
+                        .setLocationType(LocationType.미래관)
+                        .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("아이폰 6S 32기가(32GB)")
+                .setContext("액정 깔끔하고, 외관도 위쪽 생활기스 말고는 없어요")
+                .setItemName("아이폰6S 32GB")
+                .addImageFilename("brave_digital_1_1.jpg")
+                .addImageFilename("brave_digital_1_2.jpg")
+                .addImageFilename("brave_digital_1_3.jpg")
+                .setPrice(130000)
+                .setCategoryType(CategoryType.전자기기)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("에어팟 3세대 팔아요")
+                .setContext("4개월 정도 사용했고, 충전기 그대로 있어요")
+                .setItemName("에어팟 3세대")
+                .addImageFilename("brave_digital_2_1.jpg")
+                .setPrice(150000)
+                .setCategoryType(CategoryType.전자기기)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("Z플립4 크림 256G 자급제폰")
+                .setContext("핑크 골드, 유심 꽂고 바로 쓰시면 돼요 상태 S급")
+                .setItemName("Z플립4 256G")
+                .addImageFilename("brave_digital_3_1.jpg")
+                .addImageFilename("brave_digital_3_2.jpg")
+                .addImageFilename("brave_digital_3_3.jpg")
+                .addImageFilename("brave_digital_3_4.jpg")
+                .setPrice(770000)
+                .setCategoryType(CategoryType.전자기기)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("브리츠 bt4000 무선 헤드셋")
+                .setContext("실사용기간 일주일도 안 돼요")
+                .setItemName("브리츠 bt4000")
+                .addImageFilename("brave_digital_4_1.jpg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.전자기기)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("컴퓨터 전체 팔아요")
+                .setContext("삼성 커브모니터 32인치 + 인텔i5 + 키보드 + 마우스 + 스피커")
+                .setItemName("컴퓨터 전체")
+                .addImageFilename("brave_digital_5_1.jpg")
+                .addImageFilename("brave_digital_5_2.jpg")
+                .addImageFilename("brave_digital_5_3.jpg")
+                .setPrice(416000)
+                .setCategoryType(CategoryType.생활가전)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.낙산관)
+                .build();
 
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("두피 마사지기 팔아요")
+                .setContext("미용실에서 보고 구매했어요. 1회 사용.")
+                .setItemName("두피 마사지기")
+                .addImageFilename("brave_life_1_1.jpg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.생활가전)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("제스파 아이피스 눈 마사지기")
+                .setContext("단순 개봉 미사용입니다.")
+                .setItemName("눈 마사지기")
+                .addImageFilename("brave_life_2_1.jpg")
+                .addImageFilename("brave_life_2_2.jpg")
+                .addImageFilename("brave_life_2_3.jpg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.생활가전)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.미래관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("레삐 마이오 옐로우 고데기")
+                .setContext("단발 통령으로 유명해요!! 구매 당시 10만원")
+                .setItemName("레삐 마이오 고데기")
+                .addImageFilename("brave_life_3_1.jpg")
+                .addImageFilename("brave_life_3_2.jpg")
+                .addImageFilename("brave_life_3_3.jpg")
+                .setPrice(60000)
+                .setCategoryType(CategoryType.생활가전)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.낙산관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("블링어스 넥밴드 선풍기")
+                .setContext("블링어스 에어 클론 BLI-F1. 사용X 개봉만 해봤어요")
+                .setItemName("블링어스 넥밴드 선풍기")
+                .addImageFilename("brave_life_4_1.jpg")
+                .addImageFilename("brave_life_4_2.jpg")
+                .addImageFilename("brave_life_4_3.jpg")
+                .setPrice(19000)
+                .setCategoryType(CategoryType.생활가전)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.풋살장)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("코끼리 미니 핸디형 선풍기")
+                .setContext("컴팩트한 사이즈라 편하고 새상품 입니다!")
+                .setItemName("블링어스 넥밴드 선풍기")
+                .addImageFilename("brave_life_5_1.jpg")
+                .addImageFilename("brave_life_5_2.jpg")
+                .setPrice(19000)
+                .setCategoryType(CategoryType.생활가전)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.풋살장)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("세계사톡 1~5권 (새책)")
+                .setContext("비닐 포장 없지만 새책이에요~")
+                .setItemName("세계사톡 1~5권")
+                .addImageFilename("brave_book_1_1.jpg")
+                .addImageFilename("brave_book_1_2.jpg")
+                .addImageFilename("brave_book_1_3.jpg")
+                .setPrice(35000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.미래관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("캠벨 생명과학 12판 새 책")
+                .setContext("샀는데 안 읽어서 팝니다. 정가 6만")
+                .setItemName("캠벨 생명과학")
+                .addImageFilename("brave_book_2_1.jpg")
+                .setPrice(50000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("실내건축기사 필기 2023")
+                .setContext("5페이지 외에는 아예 새책입니다")
+                .setItemName("실내건축기사2023")
+                .addImageFilename("brave_book_3_1.jpg")
+                .setPrice(25000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.창의관)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("석고 연필데생 책 팔아용")
+                .setContext("상태 최상급입니다")
+                .setItemName("석고 연필데생 책")
+                .addImageFilename("brave_book_4_1.jpg")
+                .addImageFilename("brave_book_4_2.jpg")
+                .addImageFilename("brave_book_4_3.jpg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상빌리지)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("HTML5+CSS3+Javascript")
+                .setContext("사용감 있어서 싸게 팔아요")
+                .setItemName("HTML+CSS3")
+                .addImageFilename("brave_book_5_1.jpg")
+                .addImageFilename("brave_book_5_2.jpg")
+                .setPrice(11000)
+                .setCategoryType(CategoryType.도서)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("펜텔 그래프기어 1000 실버")
+                .setContext("거의 안 썼어요 샤프심도 드려요!")
+                .setItemName("펜텔 그래프기어")
+                .addImageFilename("brave_writing_1_1.jpg")
+                .setPrice(11000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.공학관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("에버하드파버 헤라클릿 연필")
+                .setContext("2차 세계대전 시절 연필입니다. 분양해요")
+                .setItemName("에버하드파버 연필")
+                .addImageFilename("brave_writing_2_1.jpg")
+                .addImageFilename("brave_writing_2_2.jpg")
+                .addImageFilename("brave_writing_2_3.jpg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.미래관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("목공예 통나무 연필통(난초)")
+                .setContext("새상품인데 포장지는 없어요")
+                .setItemName("목공예 통나무 연필통")
+                .addImageFilename("brave_writing_3_1.jpg")
+                .setPrice(10000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.인성관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("루이까또즈 가죽 팬케이스")
+                .setContext("사용감 있어서 저렴하게 팔아요")
+                .setItemName("루이까또즈 팬케이스")
+                .addImageFilename("brave_writing_4_1.jpg")
+                .addImageFilename("brave_writing_4_2.jpg")
+                .setPrice(11000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.미래관)
+                .build();
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("사라사 제브라 필기구 세트")
+                .setContext("전부 새거입니다!")
+                .setItemName("필기구 세트")
+                .addImageFilename("brave_writing_5_1.jpg")
+                .setPrice(9000)
+                .setCategoryType(CategoryType.필기구)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.공학관)
+                .build();
 
+        new PostBuilder().setWhoPosted(jys)
+                .setTitle("상상부기 그립톡 팔아요")
+                .setContext("미사용 입니다!")
+                .setItemName("상상부기 그립톡")
+                .addImageFilename("brave_bugi_1_1.jpg")
+                .setPrice(3000)
+                .setCategoryType(CategoryType.부기굿즈)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.미래관)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("상상부기 슬리퍼 팝니다")
+                .setContext("1번 신어봤어요 사이즈 270")
+                .setItemName("상상부기 슬리퍼")
+                .addImageFilename("brave_bugi_2_1.png")
+                .setPrice(7000)
+                .setCategoryType(CategoryType.부기굿즈)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상빌리지)
+                .build();
+        new PostBuilder().setWhoPosted(minkyu)
+                .setTitle("상상부기 에코백")
+                .setContext("2번 써서 사용감 없어요!")
+                .setItemName("상상부기 에코백")
+                .addImageFilename("brave_bugi_3_1.jpg")
+                .setPrice(6000)
+                .setCategoryType(CategoryType.부기굿즈)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상빌리지)
+                .build();
+        new PostBuilder().setWhoPosted(brave)
+                .setTitle("상상부기 L홀더")
+                .setContext("하늘색4개 흰색4개 한 번에 팔아요!")
+                .setItemName("상상부기 L홀더")
+                .addImageFilename("brave_bugi_4_1.jpg")
+                .addImageFilename("brave_bugi_4_2.jpg")
+                .setPrice(4000)
+                .setCategoryType(CategoryType.부기굿즈)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
+        new PostBuilder().setWhoPosted(gunhee)
+                .setTitle("상상부기 노트")
+                .setContext("50매이고 A, B 버전 각각 1개입니다!")
+                .setItemName("상상부기 노트")
+                .addImageFilename("brave_bugi_5_1.jpg")
+                .setPrice(4500)
+                .setCategoryType(CategoryType.부기굿즈)
+                .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setLocationType(LocationType.상상관)
+                .build();
 
+        for (int i =0;i<1000;i++) {
+            Post dummyPost = new Post();
+            int randomIndex = random.nextInt(collegeTypes.length);
 
+            // 랜덤 CollegeType 설정
+            dummyPost.setCollege(collegeTypes[randomIndex]);
+            String salePhrase = salePhrases[new Random().nextInt(salePhrases.length)];
+            Category randomCategory = new Category();
+            randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
+            categoryJpaRepository.save(randomCategory);
+            dummyPost.setCategory(randomCategory);
 
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
+                dummyPost.setPost_title("더미 옷 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
+                dummyPost.setPost_title("더미 부기굿즈 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
+                dummyPost.setPost_title("더미 도서 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
+                dummyPost.setPost_title("더미 생활가전 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
+                dummyPost.setPost_title("더미 뷰티미용 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
+                dummyPost.setPost_title("더미 필기구 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
+                dummyPost.setPost_title("더미 전자기기 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            }
+            dummyPost.setWho_posted(dummyMemberForSale);
+            dummyPost.setPrice(10000);
 
+            Department dummyDepartment = new Department();
+            dummyDepartment.setDepartmentType(departmentTypes[random.nextInt(departmentTypes.length)]);
+            departMentJpaRepository.save(dummyDepartment);
+            dummyPost.setDepartment(dummyDepartment);
 
+            dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
+            dummyPost.setLocation_text("101호");
+            dummyPost.generateRandomCreatedDate();
 
+            dummyPost.setItem_name("MacBook Pro 13");
 
+            if (i %2 == 0) {
+                Purchased dummyPurchased = new Purchased();
+                dummyPurchased.setMember(gunhee);
+                dummyPurchased.setPrice(dummyPost.getPrice());
+                dummyPurchased.setPostTitle(dummyPost.getPost_title());
+                dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
+                dummyPurchased.setQuantity(1);
+                dummyPurchased.setTid(UUID.randomUUID().toString());
+                dummyPurchased.setBuyer_username(gunhee.getUsername());
+                purchasedRepository.save(dummyPurchased);
+                dummyPost.setPurchased(dummyPurchased);
+            }
 
+            postRepository.savePost(dummyPost);
 
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("clothes" + randomNumber + "_0.jpg");
+                dummyImage1.setImageFilename("clothes" + randomNumber + "_1.jpg");
+                dummyImage2.setImageFilename("clothes" + randomNumber + "_2.jpg");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(3) + 1;
 
+                dummyImage.setImageFilename("boggie" + randomNumber + ".png");
 
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("elec" + randomNumber + "_0.jpeg");
+                dummyImage1.setImageFilename("elec" + randomNumber + "_1.jpeg");
+                dummyImage2.setImageFilename("elec" + randomNumber + "_2.jpeg");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
 
-
-
-
-
-
-
-
-
-
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("beauty" + randomNumber + "_0.webp");
+                dummyImage1.setImageFilename("beauty" + randomNumber + "_1.webp");
+                dummyImage2.setImageFilename("beauty" + randomNumber + "_2.webp");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(5) + 1;
+                dummyImage.setImageFilename("book" + randomNumber + ".jpeg");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
+                Image dummyImage = new Image();
+                dummyImage.setImageFilename("writing_implement1.png");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(5) + 1;
+                dummyImage.setImageFilename("appliances" + randomNumber + ".jpeg");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            }
+        }
     }
 
     private void setPostImageHard(String imageFilename, Post post) {

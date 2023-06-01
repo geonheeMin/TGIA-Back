@@ -22,7 +22,7 @@ public class AdminStatisticsDTO {
     private Long totalTransactions_도서;
     private Long totalTransactions_필기구;
     private Long totalTransactions_생활가전;
-    private  Long totalTransactions_의류;
+    private  Long totalTransactions_패션의류;
     private Long totalTransactions_전자기기;
     private Long totalTransactions_부기굿즈;
     private  Long totalTransactions_뷰티미용;
@@ -33,7 +33,7 @@ public class AdminStatisticsDTO {
     private Long totalPost_도서;
     private Long totalPost_필기구;
     private Long totalPost_생활가전;
-    private Long totalPost_의류;
+    private Long totalPost_패션의류;
     private Long totalPost_전자기기;
     private Long totalPost_부기굿즈;
     private Long totalPost_뷰티미용;
@@ -66,7 +66,7 @@ public class AdminStatisticsDTO {
     private Long totalTransactionsPrice_도서;
     private Long totalTransactionsPrice_필기구;
     private Long totalTransactionsPrice_생활가전;
-    private  Long totalTransactionsPrice_의류;
+    private  Long totalTransactionsPrice_패션의류;
     private Long totalTransactionsPrice_전자기기;
     private Long totalTransactionsPrice_부기굿즈;
     private  Long totalTransactionsPrice_뷰티미용;
