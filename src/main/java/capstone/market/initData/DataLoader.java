@@ -213,6 +213,22 @@ public class DataLoader {
         // user_id 가 memberA인 멤버의 트랙1: 웹공학트랙, 2트랙을 빅데이터트랙
         // 프론트에서 pk id가 4인 멤버의 트랙1, 2를 물어본다면?
 
+        Member dummyMemberForSale = new Member("dummyForSale");
+        dummyMemberForSale.setUsername(generateRandomKoreanName());
+        Manner dummyMannerForSale = new Manner();
+        mannerRepository.save(dummyMannerForSale);
+        dummyMemberForSale.setManner(dummyMannerForSale);
+        dummyMemberForSale.setImage(image1);
+        dummyMemberForSale.setFirst_college(CollegeType.IT공과대학);
+        FirstTrack dummyFirstTrackForSale = new FirstTrack(TrackType.사물인터넷트랙, iotCombined);
+        SecondTrack dummySecondTrackForSale = new SecondTrack(TrackType.지능시스템트랙, iotCombined);
+        firstTrackJpaRepository.save(dummyFirstTrackForSale);
+        secondTrackJpaRepository.save(dummySecondTrackForSale);
+        dummyMemberForSale.setFirstTrack(dummyFirstTrackForSale);
+        dummyMemberForSale.setSecondTrack(dummySecondTrackForSale);
+        dummyMemberForSale.setCreatedDate(formattedDate);
+        memberRepository.save(dummyMemberForSale);
+
         for (int i = 0;i<1000;i++) {
             Member dummyMember = new Member("dummy" + i);
             dummyMember.setUsername(generateRandomKoreanName());
@@ -725,144 +741,6 @@ public class DataLoader {
 
 
         CollegeType[] collegeTypes = CollegeType.values();
-        for (int i =0;i<1000;i++) {
-            Post dummyPost = new Post();
-            int randomIndex = random.nextInt(collegeTypes.length);
-
-            // 랜덤 CollegeType 설정
-            dummyPost.setCollege(collegeTypes[randomIndex]);
-            String salePhrase = salePhrases[new Random().nextInt(salePhrases.length)];
-            Category randomCategory = new Category();
-            randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
-            categoryJpaRepository.save(randomCategory);
-            dummyPost.setCategory(randomCategory);
-
-            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
-                dummyPost.setPost_title("더미 옷 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
-                dummyPost.setPost_title("더미 부기굿즈 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
-                dummyPost.setPost_title("더미 도서 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
-                dummyPost.setPost_title("더미 생활가전 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
-                dummyPost.setPost_title("더미 뷰티미용 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
-                dummyPost.setPost_title("더미 필기구 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
-                dummyPost.setPost_title("더미 전자기기 " + salePhrase + i);
-                dummyPost.setPost_text("내용");
-            }
-            dummyPost.setWho_posted(minkyu);
-            dummyPost.setPrice(10000);
-
-            Department dummyDepartment = new Department();
-            dummyDepartment.setDepartmentType(departmentTypes[random.nextInt(departmentTypes.length)]);
-            departMentJpaRepository.save(dummyDepartment);
-            dummyPost.setDepartment(dummyDepartment);
-
-            dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
-            dummyPost.setLocation_text("101호");
-            dummyPost.generateRandomCreatedDate();
-
-            dummyPost.setItem_name("MacBook Pro 13");
-//            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
-//            macBookPost.setItem_name("아이패드 에어 4세대 블루");
-//            post4.setItem_name("토비의 스프링 1편");
-
-
-            if (i %2 == 0) {
-                Purchased dummyPurchased = new Purchased();
-                dummyPurchased.setMember(gunhee);
-                dummyPurchased.setPrice(dummyPost.getPrice());
-                dummyPurchased.setPostTitle(dummyPost.getPost_title());
-                dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
-                dummyPurchased.setQuantity(1);
-                dummyPurchased.setBuyer_username(gunhee.getUsername());
-                purchasedRepository.save(dummyPurchased);
-                dummyPost.setPurchased(dummyPurchased);
-            }
-
-            postRepository.savePost(dummyPost);
-
-            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
-                Image dummyImage0 = new Image();
-                Image dummyImage1 = new Image();
-                Image dummyImage2 = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-                dummyImage0.setImageFilename("clothes" + randomNumber + "_0.jpg");
-                dummyImage1.setImageFilename("clothes" + randomNumber + "_1.jpg");
-                dummyImage2.setImageFilename("clothes" + randomNumber + "_2.jpg");
-                dummyImage0.setPost(dummyPost);
-                dummyImage1.setPost(dummyPost);
-                dummyImage2.setPost(dummyPost);
-                imageRepository.save(dummyImage0);
-                imageRepository.save(dummyImage1);
-                imageRepository.save(dummyImage2);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
-                Image dummyImage = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-
-                dummyImage.setImageFilename("boggie" + randomNumber + ".png");
-
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
-                Image dummyImage0 = new Image();
-                Image dummyImage1 = new Image();
-                Image dummyImage2 = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-                dummyImage0.setImageFilename("elec" + randomNumber + "_0.jpeg");
-                dummyImage1.setImageFilename("elec" + randomNumber + "_1.jpeg");
-                dummyImage2.setImageFilename("elec" + randomNumber + "_2.jpeg");
-                dummyImage0.setPost(dummyPost);
-                dummyImage1.setPost(dummyPost);
-                dummyImage2.setPost(dummyPost);
-                imageRepository.save(dummyImage0);
-                imageRepository.save(dummyImage1);
-                imageRepository.save(dummyImage2);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
-
-                Image dummyImage0 = new Image();
-                Image dummyImage1 = new Image();
-                Image dummyImage2 = new Image();
-                int randomNumber = random.nextInt(3) + 1;
-                dummyImage0.setImageFilename("beauty" + randomNumber + "_0.webp");
-                dummyImage1.setImageFilename("beauty" + randomNumber + "_1.webp");
-                dummyImage2.setImageFilename("beauty" + randomNumber + "_2.webp");
-                dummyImage0.setPost(dummyPost);
-                dummyImage1.setPost(dummyPost);
-                dummyImage2.setPost(dummyPost);
-                imageRepository.save(dummyImage0);
-                imageRepository.save(dummyImage1);
-                imageRepository.save(dummyImage2);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
-                Image dummyImage = new Image();
-                int randomNumber = random.nextInt(5) + 1;
-                dummyImage.setImageFilename("book" + randomNumber + ".jpeg");
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
-                Image dummyImage = new Image();
-                dummyImage.setImageFilename("writing_implement1.png");
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
-                Image dummyImage = new Image();
-                int randomNumber = random.nextInt(5) + 1;
-                dummyImage.setImageFilename("appliances" + randomNumber + ".jpeg");
-                dummyImage.setPost(dummyPost);
-                imageRepository.save(dummyImage);
-            }
-        }
-
-
 
         post1.setCategory(post1category);
         javaBookPost.setCategory(post2category);
@@ -2694,7 +2572,142 @@ public class DataLoader {
                 .setLocationType(LocationType.상상관)
                 .build();
 
+        for (int i =0;i<1000;i++) {
+            Post dummyPost = new Post();
+            int randomIndex = random.nextInt(collegeTypes.length);
 
+            // 랜덤 CollegeType 설정
+            dummyPost.setCollege(collegeTypes[randomIndex]);
+            String salePhrase = salePhrases[new Random().nextInt(salePhrases.length)];
+            Category randomCategory = new Category();
+            randomCategory.setCategory_type(categories[random.nextInt(categories.length)]);
+            categoryJpaRepository.save(randomCategory);
+            dummyPost.setCategory(randomCategory);
+
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
+                dummyPost.setPost_title("더미 옷 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
+                dummyPost.setPost_title("더미 부기굿즈 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
+                dummyPost.setPost_title("더미 도서 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
+                dummyPost.setPost_title("더미 생활가전 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
+                dummyPost.setPost_title("더미 뷰티미용 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
+                dummyPost.setPost_title("더미 필기구 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
+                dummyPost.setPost_title("더미 전자기기 " + salePhrase + i);
+                dummyPost.setPost_text("내용");
+            }
+            dummyPost.setWho_posted(dummyMemberForSale);
+            dummyPost.setPrice(10000);
+
+            Department dummyDepartment = new Department();
+            dummyDepartment.setDepartmentType(departmentTypes[random.nextInt(departmentTypes.length)]);
+            departMentJpaRepository.save(dummyDepartment);
+            dummyPost.setDepartment(dummyDepartment);
+
+            dummyPost.setLocationType(locations[random.nextInt(locations.length)]);
+            dummyPost.setLocation_text("101호");
+            dummyPost.generateRandomCreatedDate();
+
+            dummyPost.setItem_name("MacBook Pro 13");
+//            post2.setItem_name("아이폰 14 프로 맥스 실버 256GB");
+//            macBookPost.setItem_name("아이패드 에어 4세대 블루");
+//            post4.setItem_name("토비의 스프링 1편");
+
+
+            if (i %2 == 0) {
+                Purchased dummyPurchased = new Purchased();
+                dummyPurchased.setMember(gunhee);
+                dummyPurchased.setPrice(dummyPost.getPrice());
+                dummyPurchased.setPostTitle(dummyPost.getPost_title());
+                dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
+                dummyPurchased.setQuantity(1);
+                dummyPurchased.setBuyer_username(gunhee.getUsername());
+                purchasedRepository.save(dummyPurchased);
+                dummyPost.setPurchased(dummyPurchased);
+            }
+
+            postRepository.savePost(dummyPost);
+
+            if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("clothes" + randomNumber + "_0.jpg");
+                dummyImage1.setImageFilename("clothes" + randomNumber + "_1.jpg");
+                dummyImage2.setImageFilename("clothes" + randomNumber + "_2.jpg");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+
+                dummyImage.setImageFilename("boggie" + randomNumber + ".png");
+
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("elec" + randomNumber + "_0.jpeg");
+                dummyImage1.setImageFilename("elec" + randomNumber + "_1.jpeg");
+                dummyImage2.setImageFilename("elec" + randomNumber + "_2.jpeg");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
+
+                Image dummyImage0 = new Image();
+                Image dummyImage1 = new Image();
+                Image dummyImage2 = new Image();
+                int randomNumber = random.nextInt(3) + 1;
+                dummyImage0.setImageFilename("beauty" + randomNumber + "_0.webp");
+                dummyImage1.setImageFilename("beauty" + randomNumber + "_1.webp");
+                dummyImage2.setImageFilename("beauty" + randomNumber + "_2.webp");
+                dummyImage0.setPost(dummyPost);
+                dummyImage1.setPost(dummyPost);
+                dummyImage2.setPost(dummyPost);
+                imageRepository.save(dummyImage0);
+                imageRepository.save(dummyImage1);
+                imageRepository.save(dummyImage2);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(5) + 1;
+                dummyImage.setImageFilename("book" + randomNumber + ".jpeg");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
+                Image dummyImage = new Image();
+                dummyImage.setImageFilename("writing_implement1.png");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
+                Image dummyImage = new Image();
+                int randomNumber = random.nextInt(5) + 1;
+                dummyImage.setImageFilename("appliances" + randomNumber + ".jpeg");
+                dummyImage.setPost(dummyPost);
+                imageRepository.save(dummyImage);
+            }
+        }
     }
 
     private void setPostImageHard(String imageFilename, Post post) {
