@@ -29,4 +29,7 @@ public class SearchFilterDto {
     CollegeType collegeType;
 
 
+    Integer page = 0;
+    Integer size = 25;
+
 }

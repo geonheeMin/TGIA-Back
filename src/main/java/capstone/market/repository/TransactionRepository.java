@@ -53,7 +53,7 @@ public class TransactionRepository {
     }
 
     /**
-     * 3. 총 포스트 갯수(카테고리별)  도서, 필기구, 생활가전, 의류, 전자기기, 부기굿즈, 뷰티미용
+     * 3. 총 포스트 갯수(카테고리별)  도서, 필기구, 생활가전, 패션패션의류, 전자기기, 부기굿즈, 뷰티미용
      */
     public Long getTotalPosts_도서(){
         String jpql = "SELECT COUNT(p) FROM Post p WHERE p.category.category_type = :category";
@@ -82,7 +82,7 @@ public class TransactionRepository {
         return count;
 
     }
-    public Long getTotalPosts_의류(){
+    public Long getTotalPosts_패션의류(){
         String jpql = "SELECT COUNT(p) FROM Post p WHERE p.category.category_type = :category";
 
         Long count = em.createQuery(jpql, Long.class)
@@ -122,7 +122,7 @@ public class TransactionRepository {
 
 
     /**
-     * 4. 총 거래 갯수(카테고리별) 도서, 필기구, 생활가전, 의류, 전자기기, 부기굿즈, 뷰티미용
+     * 4. 총 거래 갯수(카테고리별) 도서, 필기구, 생활가전, 패션의류, 전자기기, 부기굿즈, 뷰티미용
      */
 
     public Long getTotalTransactions_도서(){
@@ -154,7 +154,7 @@ public class TransactionRepository {
         return count;
 
     }
-    public Long getTotalTransactions_의류(){
+    public Long getTotalTransactions_패션의류(){
         String jpql = "SELECT COUNT(p) FROM Post p WHERE p.category.category_type = :category and p.purchased is not null";
 
         Long count = em.createQuery(jpql, Long.class)
