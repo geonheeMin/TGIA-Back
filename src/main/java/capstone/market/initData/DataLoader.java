@@ -1120,8 +1120,8 @@ public class DataLoader {
                 .addImageFilename("minkyu62.jpeg")
                 .setPrice(7000)
                 .setCategoryType(CategoryType.도서)
-                .setDepartmentType(DepartmentType.컴퓨터공학부)
-                .setTrackType(TrackType.웹공학트랙)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.사물인터넷트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1193,7 +1193,8 @@ public class DataLoader {
                 .addImageFilename("minkyu20.jpeg")
                 .setPrice(2500)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.사물인터넷트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1203,7 +1204,8 @@ public class DataLoader {
                 .addImageFilename("minkyu21.jpeg")
                 .setPrice(5000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.사물인터넷트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1214,7 +1216,8 @@ public class DataLoader {
                 .addImageFilename("minkyu23.jpeg")
                 .setPrice(60000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1229,7 +1232,8 @@ public class DataLoader {
                 .addImageFilename("minkyu24.jpeg")
                 .setPrice(23000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1248,7 +1252,8 @@ public class DataLoader {
                 .addImageFilename("minkyu26.jpeg")
                 .setPrice(45000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1266,7 +1271,8 @@ public class DataLoader {
                 .addImageFilename("minkyu29.jpeg")
                 .setPrice(80000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
       
@@ -1284,7 +1290,8 @@ public class DataLoader {
                 .addImageFilename("minkyu45.jpeg")
                 .setPrice(40000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1294,7 +1301,8 @@ public class DataLoader {
                 .addImageFilename("minkyu46.jpeg")
                 .setPrice(50000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1305,7 +1313,8 @@ public class DataLoader {
                 .addImageFilename("minkyu47.jpeg")
                 .setPrice(50000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1319,7 +1328,8 @@ public class DataLoader {
                 .addImageFilename("minkyu50.jpeg")
                 .setPrice(25000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1330,7 +1340,8 @@ public class DataLoader {
                 .addImageFilename("minkyu52.jpeg")
                 .setPrice(10000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1349,7 +1360,8 @@ public class DataLoader {
                 .addImageFilename("minkyu55.jpeg")
                 .setPrice(35000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1360,7 +1372,8 @@ public class DataLoader {
                 .addImageFilename("minkyu56.jpeg")
                 .setPrice(50000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
 
@@ -1375,7 +1388,8 @@ public class DataLoader {
                 .addImageFilename("minkyu30.jpeg")
                 .setPrice(25000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1395,7 +1409,8 @@ public class DataLoader {
                 .addImageFilename("minkyu33.jpeg")
                 .setPrice(70000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1407,7 +1422,8 @@ public class DataLoader {
                 .addImageFilename("minkyu36.jpeg")
                 .setPrice(10000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1421,7 +1437,8 @@ public class DataLoader {
                 .addImageFilename("minkyu37.jpeg")
                 .setPrice(45000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1438,7 +1455,8 @@ public class DataLoader {
                 .addImageFilename("minkyu39.jpeg")
                 .setPrice(30000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1450,7 +1468,8 @@ public class DataLoader {
                 .addImageFilename("minkyu40.jpeg")
                 .setPrice(20000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -1462,7 +1481,8 @@ public class DataLoader {
                 .addImageFilename("minkyu43.jpeg")
                 .setPrice(65000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
 
@@ -2081,7 +2101,8 @@ public class DataLoader {
                 .addImageFilename("minkyu20.jpeg")
                 .setPrice(2500)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2091,7 +2112,8 @@ public class DataLoader {
                 .addImageFilename("minkyu21.jpeg")
                 .setPrice(5000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2102,7 +2124,8 @@ public class DataLoader {
                 .addImageFilename("minkyu23.jpeg")
                 .setPrice(60000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2117,7 +2140,8 @@ public class DataLoader {
                 .addImageFilename("minkyu24.jpeg")
                 .setPrice(23000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2136,7 +2160,8 @@ public class DataLoader {
                 .addImageFilename("minkyu26.jpeg")
                 .setPrice(45000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2154,7 +2179,8 @@ public class DataLoader {
                 .addImageFilename("minkyu29.jpeg")
                 .setPrice(80000)
                 .setCategoryType(CategoryType.필기구)
-                .setDepartmentType(DepartmentType.AI응용학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
 
@@ -2171,7 +2197,8 @@ public class DataLoader {
                 .addImageFilename("minkyu30.jpeg")
                 .setPrice(25000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2191,7 +2218,8 @@ public class DataLoader {
                 .addImageFilename("minkyu33.jpeg")
                 .setPrice(70000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2203,7 +2231,8 @@ public class DataLoader {
                 .addImageFilename("minkyu36.jpeg")
                 .setPrice(10000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2217,7 +2246,8 @@ public class DataLoader {
                 .addImageFilename("minkyu37.jpeg")
                 .setPrice(45000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2234,7 +2264,8 @@ public class DataLoader {
                 .addImageFilename("minkyu39.jpeg")
                 .setPrice(30000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2246,7 +2277,8 @@ public class DataLoader {
                 .addImageFilename("minkyu40.jpeg")
                 .setPrice(20000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2258,11 +2290,13 @@ public class DataLoader {
                 .addImageFilename("minkyu43.jpeg")
                 .setPrice(65000)
                 .setCategoryType(CategoryType.뷰티미용)
-                .setDepartmentType(DepartmentType.뷰티디자인매니지먼트학과)
+                .setDepartmentType(DepartmentType.IT융합공학부)
+                .setTrackType(TrackType.지능시스템트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
 
 
+        // brave
         //  부기굿즈 5
         new PostBuilder().setWhoPosted(jys)
                 .setTitle("부기 공책 팝니다")
@@ -2276,6 +2310,7 @@ public class DataLoader {
                 .setPrice(10000)
                 .setCategoryType(CategoryType.부기굿즈)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
 
@@ -2287,6 +2322,7 @@ public class DataLoader {
                 .setPrice(9500)
                 .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상빌리지)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2298,6 +2334,7 @@ public class DataLoader {
                 .setPrice(17000)
                 .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.미래관)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2310,6 +2347,7 @@ public class DataLoader {
                 .setPrice(10000)
                 .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2322,6 +2360,7 @@ public class DataLoader {
                 .setPrice(19000)
                 .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2333,6 +2372,7 @@ public class DataLoader {
                 .setPrice(20000)
                 .setCategoryType(CategoryType.패션의류)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2345,6 +2385,7 @@ public class DataLoader {
                 .setPrice(120000)
                 .setCategoryType(CategoryType.뷰티미용)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2357,6 +2398,7 @@ public class DataLoader {
                 .setPrice(45000)
                 .setCategoryType(CategoryType.뷰티미용)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상관없음)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2369,6 +2411,7 @@ public class DataLoader {
                 .setPrice(60000)
                 .setCategoryType(CategoryType.뷰티미용)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2380,6 +2423,7 @@ public class DataLoader {
                 .setPrice(110000)
                 .setCategoryType(CategoryType.뷰티미용)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2390,6 +2434,7 @@ public class DataLoader {
                         .setPrice(100000)
                         .setCategoryType(CategoryType.뷰티미용)
                         .setDepartmentType(DepartmentType.컴퓨터공학부)
+                        .setTrackType(TrackType.모바일소프트웨어트랙)
                         .setLocationType(LocationType.미래관)
                         .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2402,6 +2447,7 @@ public class DataLoader {
                 .setPrice(130000)
                 .setCategoryType(CategoryType.전자기기)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2412,6 +2458,7 @@ public class DataLoader {
                 .setPrice(150000)
                 .setCategoryType(CategoryType.전자기기)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2425,6 +2472,7 @@ public class DataLoader {
                 .setPrice(770000)
                 .setCategoryType(CategoryType.전자기기)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2435,6 +2483,7 @@ public class DataLoader {
                 .setPrice(60000)
                 .setCategoryType(CategoryType.전자기기)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2447,6 +2496,7 @@ public class DataLoader {
                 .setPrice(416000)
                 .setCategoryType(CategoryType.생활가전)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.낙산관)
                 .build();
 
@@ -2458,6 +2508,7 @@ public class DataLoader {
                 .setPrice(60000)
                 .setCategoryType(CategoryType.생활가전)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2470,6 +2521,7 @@ public class DataLoader {
                 .setPrice(60000)
                 .setCategoryType(CategoryType.생활가전)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.미래관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2482,6 +2534,7 @@ public class DataLoader {
                 .setPrice(60000)
                 .setCategoryType(CategoryType.생활가전)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.낙산관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2494,6 +2547,7 @@ public class DataLoader {
                 .setPrice(19000)
                 .setCategoryType(CategoryType.생활가전)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.풋살장)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2505,6 +2559,7 @@ public class DataLoader {
                 .setPrice(19000)
                 .setCategoryType(CategoryType.생활가전)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.풋살장)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2517,6 +2572,7 @@ public class DataLoader {
                 .setPrice(35000)
                 .setCategoryType(CategoryType.도서)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.미래관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2527,6 +2583,7 @@ public class DataLoader {
                 .setPrice(50000)
                 .setCategoryType(CategoryType.도서)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2537,6 +2594,7 @@ public class DataLoader {
                 .setPrice(25000)
                 .setCategoryType(CategoryType.도서)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.창의관)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2549,6 +2607,7 @@ public class DataLoader {
                 .setPrice(10000)
                 .setCategoryType(CategoryType.도서)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.상상빌리지)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2560,6 +2619,7 @@ public class DataLoader {
                 .setPrice(11000)
                 .setCategoryType(CategoryType.도서)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2570,6 +2630,7 @@ public class DataLoader {
                 .setPrice(11000)
                 .setCategoryType(CategoryType.필기구)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2582,6 +2643,7 @@ public class DataLoader {
                 .setPrice(10000)
                 .setCategoryType(CategoryType.필기구)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.미래관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2592,6 +2654,7 @@ public class DataLoader {
                 .setPrice(10000)
                 .setCategoryType(CategoryType.필기구)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.인성관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2603,6 +2666,7 @@ public class DataLoader {
                 .setPrice(11000)
                 .setCategoryType(CategoryType.필기구)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.미래관)
                 .build();
         new PostBuilder().setWhoPosted(jys)
@@ -2613,6 +2677,7 @@ public class DataLoader {
                 .setPrice(9000)
                 .setCategoryType(CategoryType.필기구)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.공학관)
                 .build();
 
@@ -2624,6 +2689,7 @@ public class DataLoader {
                 .setPrice(3000)
                 .setCategoryType(CategoryType.부기굿즈)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.미래관)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2634,6 +2700,7 @@ public class DataLoader {
                 .setPrice(7000)
                 .setCategoryType(CategoryType.부기굿즈)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.웹공학트랙)
                 .setLocationType(LocationType.상상빌리지)
                 .build();
         new PostBuilder().setWhoPosted(minkyu)
@@ -2644,6 +2711,7 @@ public class DataLoader {
                 .setPrice(6000)
                 .setCategoryType(CategoryType.부기굿즈)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상빌리지)
                 .build();
         new PostBuilder().setWhoPosted(brave)
@@ -2655,6 +2723,7 @@ public class DataLoader {
                 .setPrice(4000)
                 .setCategoryType(CategoryType.부기굿즈)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
         new PostBuilder().setWhoPosted(gunhee)
@@ -2665,6 +2734,7 @@ public class DataLoader {
                 .setPrice(4500)
                 .setCategoryType(CategoryType.부기굿즈)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
+                .setTrackType(TrackType.모바일소프트웨어트랙)
                 .setLocationType(LocationType.상상관)
                 .build();
 
@@ -2876,6 +2946,7 @@ public class DataLoader {
 
         private TrackType trackType;
         private LocalDateTime createdDate;
+        private TrackType trackType;
 
 
         public PostBuilder setWhoPosted(Member whoPosted) {
