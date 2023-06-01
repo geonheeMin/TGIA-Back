@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -2639,6 +2640,7 @@ public class DataLoader {
                 dummyPurchased.setPostTitle(dummyPost.getPost_title());
                 dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
                 dummyPurchased.setQuantity(1);
+                dummyPurchased.setTid(UUID.randomUUID().toString());
                 dummyPurchased.setBuyer_username(gunhee.getUsername());
                 purchasedRepository.save(dummyPurchased);
                 dummyPost.setPurchased(dummyPurchased);

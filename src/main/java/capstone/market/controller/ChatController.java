@@ -35,7 +35,9 @@ public class ChatController {
             } else {
                 chatMessage = null;
             }
-            if (chatMessage.getMember() != null && chatMessage.getMember().getId() == member_id) {
+//            6/1일 이전 코드
+//            if (chatMessage.getMember() != null && chatMessage.getMember().getId() == member_id) {
+            if (chatMessage.getMember().getId() == member_id) {
                 count = 0L;
             } else {
                 count = chatService.getUnreadMessageCount(chatRoom.getId());
@@ -201,7 +203,9 @@ public class ChatController {
                 System.out.println("3412341234");
                 chatMessage = null;
             }
-            if (chatMessage.getMember() != null && Objects.equals(chatMessage.getMember().getId(), member_id)) { // null pointer error
+            // 6/1
+//            if (chatMessage.getMember() != null && Objects.equals(chatMessage.getMember().getId(), member_id)) { // null pointer error
+            if (Objects.equals(chatMessage.getMember().getId(), member_id)) { // null pointer error
                 System.out.println("1341234");
                 count = 0L;
             } else {
