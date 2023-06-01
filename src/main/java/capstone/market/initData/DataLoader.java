@@ -2738,7 +2738,7 @@ public class DataLoader {
                 .setLocationType(LocationType.상상관)
                 .build();
 
-        for (int i =0;i<1;i++) {
+        for (int i =0;i<1000;i++) {
             Post dummyPost = new Post();
             int randomIndex = random.nextInt(collegeTypes.length);
 
@@ -2946,8 +2946,6 @@ public class DataLoader {
 
         private TrackType trackType;
         private LocalDateTime createdDate;
-        private TrackType trackType;
-
 
         public PostBuilder setWhoPosted(Member whoPosted) {
             this.whoPosted = whoPosted;
