@@ -112,6 +112,7 @@ public class PostService {
 
 
 
+
     public void increaseViewCount(Long postId, Long userId){
         Post findPost = postRepository.findOne(postId);
         if(findPost != null){
