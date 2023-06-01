@@ -153,7 +153,7 @@ public class TransactionService {
 
     }
 
-   /* public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
+/*    public List<PurchasedWithPostTitleDTO> getPurchasedListV2(){
 
         List<Purchased> all = purchasedRepository.findAll();
 
@@ -174,5 +174,4 @@ public class TransactionService {
 
         return getPurchasedList3;
     }
-
 }

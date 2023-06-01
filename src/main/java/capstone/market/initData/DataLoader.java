@@ -754,7 +754,6 @@ public class DataLoader {
 
 
         CollegeType[] collegeTypes = CollegeType.values();
-
         post1.setCategory(post1category);
         javaBookPost.setCategory(post2category);
         macBookPost.setCategory(post3category);
@@ -1849,17 +1848,17 @@ public class DataLoader {
                 .build();
 
 
-        //뷰티미용 2
+        //뷰티미용 2 
         new PostBuilder().setWhoPosted(jys)
-                .setTitle("에스까다 이스페셜리 오드퍼퓸 향수 50ml 팝니다")
-                .setContext("미개봉) 에스까다 이스페셜리 오드퍼퓸 50ml 향수 팝니다\n" +
-                        "향수 상태는 미개봉 입니다\n" +
+                .setTitle("루이비통향수 아트라프레브 200미리 정품")
+                .setContext("미사용새상품!매장정품 200미리입니다~\n" +
+                        "100미리 가격으로 200미리 득템하세요\n" +
                         "직거래는 공학관 1층에서 원합니다!")
-                .setItemName("에스까다 이스페셜리 오드퍼퓸 향수 50ml")
-                .addImageFilename("57_j.JPG")
-                .addImageFilename("58_j.JPG")
-                .addImageFilename("59_j.JPG")
-                .setPrice(50000)
+                .setItemName("아트라프레브 향수 200ml")
+                .addImageFilename("70_j.jpg")
+                .addImageFilename("71_j.jpg")
+                .addImageFilename("72_j.jpg")
+                .setPrice(420000)
                 .setCategoryType(CategoryType.뷰티미용)
                 .setDepartmentType(DepartmentType.컴퓨터공학부)
                 .setLocationType(LocationType.공학관)

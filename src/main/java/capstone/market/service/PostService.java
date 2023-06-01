@@ -93,6 +93,26 @@ public class PostService {
 
     }
 
+    // QueryDSL + Paging
+    public List<PostDetailDto> searchFilterWithPaging(SearchFilterDto searchFilterDto){
+
+        SearchKeyword searchKeyword = searchKeywordRepository.findByKeyword(searchFilterDto.getKeyword());
+        if (searchKeyword == null) {
+            searchKeyword = new SearchKeyword();
+            searchKeyword.setKeyword(searchFilterDto.getKeyword());
+            searchKeyword.setSearchCount(1L);
+        } else {
+            searchKeyword.setSearchCount(searchKeyword.getSearchCount() + 1);
+        }
+        searchKeywordRepository.save(searchKeyword);
+
+        return postDataJpaRepository.searchFilterWithPaging(searchFilterDto);
+
+    }
+
+
+
+
     public void increaseViewCount(Long postId, Long userId){
         Post findPost = postRepository.findOne(postId);
         if(findPost != null){
