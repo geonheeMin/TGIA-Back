@@ -2946,7 +2946,7 @@ public class DataLoader {
 
         private TrackType trackType;
         private LocalDateTime createdDate;
-        private TrackType trackType;
+
 
 
         public PostBuilder setWhoPosted(Member whoPosted) {
