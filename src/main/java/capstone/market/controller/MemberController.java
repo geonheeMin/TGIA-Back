@@ -61,9 +61,13 @@ public class MemberController {
         memberResponseDTO.setUser_id(member.getUser_id());
         memberResponseDTO.setMember_id(member.getId());
         memberResponseDTO.setImageFilename(member.getImage().getImageFilename());
-
-
         return memberResponseDTO;
+    }
+
+    @GetMapping("/member/getFirstTrack")
+    public String getMemberFirstTrack(@RequestParam Long member_id) {
+        Member member = memberService.findOne(member_id);
+        return member.getFirstTrack().getFirst_track().toString();
     }
 
     @PostMapping("/members/new")
