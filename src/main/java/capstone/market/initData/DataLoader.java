@@ -2738,7 +2738,7 @@ public class DataLoader {
                 .setLocationType(LocationType.상상관)
                 .build();
 
-        for (int i =0;i<1;i++) {
+        for (int i =0;i<1000;i++) {
             Post dummyPost = new Post();
             int randomIndex = random.nextInt(collegeTypes.length);
 
@@ -2751,25 +2751,25 @@ public class DataLoader {
             dummyPost.setCategory(randomCategory);
 
             if (dummyPost.getCategory().getCategory_type() == CategoryType.패션의류) {
-                dummyPost.setPost_title("더미 옷 " + salePhrase + i);
+                dummyPost.setPost_title("옷) " + salePhrase);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.부기굿즈) {
-                dummyPost.setPost_title("더미 부기굿즈 " + salePhrase + i);
+                dummyPost.setPost_title("부기굿즈) " + salePhrase);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.도서) {
-                dummyPost.setPost_title("더미 도서 " + salePhrase + i);
+                dummyPost.setPost_title("도서) " + salePhrase);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.생활가전) {
-                dummyPost.setPost_title("더미 생활가전 " + salePhrase + i);
+                dummyPost.setPost_title("생활가전) " + salePhrase);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.뷰티미용) {
-                dummyPost.setPost_title("더미 뷰티미용 " + salePhrase + i);
+                dummyPost.setPost_title("뷰티미용) " + salePhrase);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.필기구) {
-                dummyPost.setPost_title("더미 필기구 " + salePhrase + i);
+                dummyPost.setPost_title("필기구) " + salePhrase);
                 dummyPost.setPost_text("내용");
             } else if (dummyPost.getCategory().getCategory_type() == CategoryType.전자기기) {
-                dummyPost.setPost_title("더미 전자기기 " + salePhrase + i);
+                dummyPost.setPost_title("전자기기) " + salePhrase);
                 dummyPost.setPost_text("내용");
             }
             dummyPost.setWho_posted(dummyMemberForSale);
@@ -2788,7 +2788,7 @@ public class DataLoader {
 
             if (i %2 == 0) {
                 Purchased dummyPurchased = new Purchased();
-                dummyPurchased.setMember(gunhee);
+                dummyPurchased.setMember(dummyMemberForSale);
                 dummyPurchased.setPrice(dummyPost.getPrice());
                 dummyPurchased.setPostTitle(dummyPost.getPost_title());
                 dummyPurchased.setItem_name("얘들아 미안해 ㅠㅠ");
@@ -2946,7 +2946,6 @@ public class DataLoader {
 
         private TrackType trackType;
         private LocalDateTime createdDate;
-
 
 
         public PostBuilder setWhoPosted(Member whoPosted) {
