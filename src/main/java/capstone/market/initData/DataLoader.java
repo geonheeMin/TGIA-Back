@@ -1,5 +1,7 @@
 package capstone.market.initData;
 
+import capstone.market.bugigram.User;
+import capstone.market.bugigram.UserJpaRepository;
 import capstone.market.domain.*;
 import capstone.market.repository.*;
 import capstone.market.service.ChatService;
@@ -28,6 +30,8 @@ public class DataLoader {
     private MannerRepository mannerRepository;
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private UserJpaRepository userJpaRepository;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -198,10 +202,110 @@ public class DataLoader {
         jysProfile.setImageFilename("jysProfile.png");
         imageRepository.save(jysProfile);
 
+        User user1 = new User();
+        user1.setName("전영식");
+        user1.setNickname("식이");
+        user1.setEmail("sik2@naver.com");
+        user1.setPassword("@Qwerqwer");
+        user1.setImageFilename(jysProfile.getImageFilename());
+        userJpaRepository.save(user1);
+
+        User user2 = new User();
+        user2.setName("차은우");
+        user2.setNickname("은우");
+        user2.setEmail("1@naver.com");
+        user2.setPassword("@Qwerqwer");
+        user2.setImageFilename("jj1.webp");
+        userJpaRepository.save(user2);
+
+
+        User user3 = new User();
+        user3.setName("이재훈");
+        user3.setNickname("재훈");
+        user3.setEmail("2@naver.com");
+        user3.setPassword("@Qwerqwer");
+        user3.setImageFilename("jj2.jpg");
+        userJpaRepository.save(user3);
+
+        User user4 = new User();
+        user4.setName("정해인");
+        user4.setNickname("해인");
+        user4.setEmail("3@naver.com");
+        user4.setPassword("@Qwerqwer");
+        user4.setImageFilename("jj3.webp");
+        userJpaRepository.save(user4);
+
+        User user5 = new User();
+        user5.setName("이혜주");
+        user5.setNickname("혜주");
+        user5.setEmail("4@naver.com");
+        user5.setPassword("@Qwerqwer");
+        user5.setImageFilename("jj4.png");
+        userJpaRepository.save(user5);
+
+        User user6 = new User();
+        user6.setName("이주빈");
+        user6.setNickname("주빈");
+        user6.setEmail("5@naver.com");
+        user6.setPassword("@Qwerqwer");
+        user6.setImageFilename("jj5.jpg");
+        userJpaRepository.save(user6);
+
+        User user7 = new User();
+        user7.setName("마리오");
+        user7.setNickname("마리오");
+        user7.setEmail("6@naver.com");
+        user7.setPassword("@Qwerqwer");
+        user7.setImageFilename("jj6.jpg");
+        userJpaRepository.save(user7);
+
+
+        User user8 = new User();
+        user8.setName("곰돌이");
+        user8.setNickname("곰돌이");
+        user8.setEmail("7@naver.com");
+        user8.setPassword("@Qwerqwer");
+        user8.setImageFilename("jj7.jpeg");
+        userJpaRepository.save(user8);
+
+        User user9 = new User();
+        user9.setName("김현수");
+        user9.setNickname("현수");
+        user9.setEmail("8@naver.com");
+        user9.setPassword("@Qwerqwer");
+        user9.setImageFilename("jj8.jpeg");
+        userJpaRepository.save(user9);
+
+        User user10 = new User();
+        user10.setName("돌고래");
+        user10.setNickname("고래");
+        user10.setEmail("9@naver.com");
+        user10.setPassword("@Qwerqwer");
+        user10.setImageFilename("jj9.png");
+        userJpaRepository.save(user10);
+
+        User user11 = new User();
+        user11.setName("임하람");
+        user11.setNickname("하람");
+        user11.setEmail("10@naver.com");
+        user11.setPassword("@Qwerqwer");
+        user11.setImageFilename("jj10.jpg");
+        userJpaRepository.save(user11);
+
+
+
+
+
+
+
+
         jys.setImage(jysProfile);
+
         gunhee.setImage(gunheeProfile);
         minkyu.setImage(image1);
         brave.setImage(braveProfile);
+
+
 
         Manner mannerA = new Manner();
         mannerRepository.save(mannerA);

@@ -1,5 +1,6 @@
 package capstone.market.domain;
 
+import capstone.market.bugigram.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class Image {
 
     @OneToOne(mappedBy = "image", fetch = FetchType.LAZY)
     private Member member;
+
+
 
     public Image(String imageFilename) {
         this.imageFilename = imageFilename;
