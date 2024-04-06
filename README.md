@@ -36,7 +36,7 @@
         <a href="https://github.com/LapinMin"><img src="https://avatars.githubusercontent.com/u/15971355?v=4" width="150px" alt="조용기"/><br/><sub><b>조용기</b></sub></a>
      </td>
      <td align="center">
-        <a href="https://github.com/dudtlr"><img src="https://avatars.githubusercontent.com/u/1971154?v=4" width="150px" alt="전영식"/><br/><sub><b>전영식</b></sub></a>
+        <a href="https://github.com/dudtlr"><img src="https://avatars.githubusercontent.com/u/95243456?v=4" width="150px" alt="전영식"/><br/><sub><b>전영식</b></sub></a>
      </td>
      <td align="center">
         <a href="https://github.com/MKSonny"><img src="https://avatars.githubusercontent.com/u/116620246?v=4" width="150px" alt="손민규"/><br/><sub><b>손민규</b></sub></a>
