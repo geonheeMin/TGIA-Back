@@ -203,27 +203,38 @@
 
 <br>
 
-### ✔ 회원가입
+### ✔ 게시글 상세 페이지 여기서부터
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/2caa76ae-5e9a-4ab6-9dc3-997cd200e1d8)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/7d62af57-7aef-446b-ad63-e40394cd0b5e)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a9b6ada1-e900-4d98-bf58-ba0951003ba4)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/6710f154-22a6-4f12-ba2d-010384bca5f9)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/52eebfd8-667f-4738-b18f-c8427ce08e7f)
 
-![회원가입com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/6b4698fb-418d-4b45-87da-1913aba232cf)
 
 - 이메일, 닉네임, 비밀번호, 약관동의 정보 입력
 - 이메일주소와 닉네임은 중복 불가로, 중복 입력 값을 즉시 확인할 수 있도록 해당 필드 비동기로 처리.
 
 <br>
 
-### ✔ 메인화면
+### ✔ 게시글 채팅
 - 과일 카테고리 별, 검색 조건 별 페이징
-
-![ezgif com-video-to-gif](https://github.com/Hyeon0208/fruit-mall/assets/99153215/7094a903-2664-437b-8fef-c914b99f3441)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/1d4268da-824f-49d6-8738-424e92594c80)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/5bc7bc25-0586-4658-b9b2-3dbf3de8f7ca)
 
 <br>
 
-### ✔ 장바구니
+### ✔ 결제하기
 - 비회원
   - LocalStorage에 해당 상품을 저장
   - 주문하기 클릭 시 login 페이지로 redirect
   - 로그인 시 로그인 사용자의 장바구니에 LocalStorage에 담긴 상품 저장 및 LocalStorage clear.
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/4109282c-c4e3-426c-8a34-7986b0e08e56)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/3b2d7668-1bb1-4ee1-b8aa-2936e0af0959)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/f8fe8242-4f99-48b3-b783-861f469545dc)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/39a6f5d1-e4f5-4239-a52b-a1bdce746fb9)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/272e7e03-f23f-40f0-ab14-126a01ab6969)
+
+
 
 <br>
 
@@ -235,9 +246,17 @@
 
 <br>
 
-### ✔ 좋아요
+### ✔ 게시글 작성
 - 비회원
   - 좋아요 기능 비활성화
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/c6cb243b-0ed8-427c-ae77-99b31c2d4916)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a07df0a1-0bb2-4e68-bb10-22fe055da184)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/3d3b4e84-6388-49c4-a543-dadb790f1a5b)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/f08025cf-dd84-4520-a2c8-0535a6215b71)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/e6e550e1-55a0-4c31-8e11-54348da31abc)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a8a1be71-6d19-4bd0-b2c4-daf25714c524)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/d0c22087-9cd9-4705-9b3a-25fb76df4114)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/3a2d3a26-7a7f-4260-adc2-df62005e44da)
 
 <br>
 
