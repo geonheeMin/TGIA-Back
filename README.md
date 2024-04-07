@@ -173,11 +173,13 @@
 -  (검색 화면) (키워드,거래장소,학부,카테고리,정렬(최신,좋아요,조회)) 조건에 맞는 게시글을 보여준다.
 -  키워드 검색 시 게시글 제목 or 내용에 키워드가 포함되면 조건에 포함된다.
 <br>
+
 ![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/e2a4c89a-9b7c-42ec-b0fd-77bf797fca4c)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/65fd7bd7-1d48-430b-9610-ded7500d20e0)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/9b651727-1d83-46d6-be68-d2312c052aaf)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/11f94078-1503-49ea-a089-eb8d39871d33)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/99008798-6131-4e4b-9ca7-4a66e32b1629)
+
 <br>
 <br>
 
