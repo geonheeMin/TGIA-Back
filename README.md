@@ -185,24 +185,6 @@
 
 <img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/6511e5c2-82ce-471c-950a-69c8a0322e86">
 
-
-
-
-
-
-
-- 일반 로그인
-
-![ezgif com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/1525c517-c83f-4d83-b035-f65e75c4a88a)
-  
-<br>
-
-- 소셜 회원가입 이메일과 프룹샷 회원가입 이메일 중복을 방지하기 위해 "로그인방법" 컬럼으로 구별하여 회원 저장.
-
-![user테이블.png](img/user테이블.png)
-
-<br>
-
 ### ✔ 게시글 상세 페이지 여기서부터
 - 게시물 선택하면 상세 페이지로 이동하고, 스와이프로 장소 확인 가능. 이미지는 슬라이드로 볼 수 있고, 카테고리 터치 시 해당 목록으로 이동. 스크롤로 거래 정보 및 판매자 상품 확인하며, 동일 카테고리의 다른 게시물 표시. 버튼으로 동일 카테고리 목록 확인 가능.
   
@@ -294,51 +276,6 @@
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/fdc61e26-4ede-4287-9aa2-0fb73d1baaa3)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a526bf70-d5f6-4ff4-9ce2-9cd34c817de7)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/4ba7b8c7-ee7a-4092-a4ce-29f4fbc3015c)
-
-<br>
-
-### ✔ 마이페이지
-
-- 구매내역
-  - 기간별, 검색 조건 별 구매 상품 내역 확인
-  - 재구매 클릭 시 해당 상품 구매수량만큼 장바구니에 저장
-  - 리뷰보기 클릭 시 해당 상품의 리뷰 페이지로 이동
-
-![ezgif com-video-to-gif (6)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/0a3116db-61eb-4cc9-a00a-c227ffbb855d)
-
-<br>
-
-- 배송지 설정
-  - 배송지는 3개까지 저장
-  - 배송지 등록, 수정, 삭제 가능
-
-![ezgif com-video-to-gif (11)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/5cf0346b-e04d-4d10-81a4-b053e2f7b6f4)
-
-<br>
-
-- 회원정보 수정
-  - 비밀번호 입력으로 현재 계정 인증 
-  - 닉네임 및 비밀번호 변경 가능
-
-![ezgif com-video-to-gif (4)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/19f8c8d0-a493-4a59-893a-98e8be775049)
-
-<br>
-
-### ✔ 리뷰 작성
-
-- 상품 상세 페이지
-  - 구매 이력이 있을 경우 "리뷰 작성하기" 활성화
-  - 구매 이력 중 주문 일이 가장 최신인 주문으로 리뷰 저장
-  - 리뷰 수정 가능
-  - 해당 리뷰에 댓글이 달릴 시 답글 보기로 답글 표시
-
-<br>
-
-- 마이 페이지
-  - 리뷰 작성 시 리뷰보기 버튼 활성화.
-  - 리뷰 보기 클릭 시 해당 상품의 리뷰 페이지로 이동
-
-![ezgif com-video-to-gif (10)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/1257255d-74f4-4b95-9cdd-70988f9f9749)
 
 <br>
 
