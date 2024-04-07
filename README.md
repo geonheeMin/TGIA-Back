@@ -59,7 +59,7 @@
                 Language
             </td>
             <td colspan="4">
-                <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=Dart&logoColor=white"> 
+                <img src="https://img.shields.io/badge/Typescript-3178c6?style=for-the-badge&logo=typescript&logoColor=white">
                 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=openjdk&logoColor=white">
             </td>
         </tr>
@@ -68,9 +68,8 @@
                 Library & Framework
             </td>
             <td colspan="4">
-                <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=Flutter&logoColor=white">
+                <img src="https://img.shields.io/badge/React_Native-61dafb?style=for-the-badge&logo=React&logoColor=black">
                 <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-                <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
             </td>
         </tr>
         <tr>
@@ -78,9 +77,7 @@
                 API
             </td>
             <td colspan="4">
-                <img src="https://img.shields.io/badge/DATA.go.kr-00529B?style=for-the-badge&logo=D&logoColor=white"> 
-                <img src="https://img.shields.io/badge/Kakao Map Api-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> 
-                <img src="https://img.shields.io/badge/Kakao Mobility-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> 
+                <img src="https://img.shields.io/badge/Kakao Pay API-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> 
             </td>
         </tr>
         <tr>
@@ -96,8 +93,7 @@
                 Database
             </td>
             <td colspan="4">
-                <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-                <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white">
+              <img src="https://img.shields.io/badge/mysql-4479a1?style=for-the-badge&logo=mySQL&logoColor=white">
             </td>
         </tr>
         <tr>
@@ -115,12 +111,11 @@
             </td>
             <td colspan="4">
                 <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white">
-                <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+                <img src="https://img.shields.io/badge/jira-0a75dd?style=for-the-badge&logo=jira&logoColor=white">
             </td>
         </tr>
     </table>
 </div>
-
 <br>
 
 ## 2️⃣ 프로젝트 주요 기능
