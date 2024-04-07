@@ -124,18 +124,17 @@
 |:-------------:|:-----------------------------------------------------:|:---------------------------------------------------------------------:|
 | 게시글 필터링 |                 (시작 화면)(트랙,학부,단과대,전체) 조건에 맞는 게시글을 보여준다.                   | QueryDsl을 사용하여 구현                       |
 | 게시글 필터링 |              (검색 화면)(키워드,거래장소,학부,카테고리,정렬(최신,좋아요,조회)) 조건에 맞는 게시글을 보여준다.              | QueryDsl을 사용하여 구현 <br> 검색된 키워드의 횟수를 활용하여 인기검색어 기능 구현  |
-|    게시글 조회 및 장바구니    |               게시글 조회 시 조회수 증가 <br> 하트 버튼을 누르면 좋아요 수 증가 & 해당 상품이 장바구니에 담김                |  
-|     게시글 상세 페이지      |      게시글에 대한 상세 정보를 확인할 수 있다.  |  게시글 상세 페이지에서는 여러 장의 이미지를 슬라이드로 확인하고, 특정 카테고리를 선택하면 해당 카테고리의 다른 게시글들을 확인할 수 있다.   |
+|    장바구니    |               해당 상품이 장바구니에 담김                |  좋아요 수 증가|
+|     게시글 상세 페이지      |      게시글에 대한 상세 정보를 확인할 수 있다. <br> 조회 시 조회 수 증가 (중복 방지)   |  게시글 상세 페이지에서는 여러 장의 이미지를 슬라이드로 확인하고, 특정 카테고리를 선택하면 해당 카테고리의 다른 게시글들을 확인할 수 있다.   |
 |   게시글 채팅    |                  문의하기 버튼을 통해 판매자와 채팅을 할 수 있다.                |               게시글 상세 페이지에서 현재 진행 중인 채팅 목록과 읽지 않은 채팅 개수를 확인할 수 있다. 해당 채팅방을 터치하면 채팅 내역과 읽음 여부를 확인.        |
 |    결제하기     |                카카오 api를 통한 결제할 수 있다.                |                           채팅방에서 송금하기를 선택하여 거래 예약, 카카오페이 결제 프로세스 완료 후 결과 url을 인식하여 송금을 완료했다는 채팅을 자동으로 전송.                          |
 |   게시글 작성    |                 게시글을 작성할 수 있다.                  |                              게시글 이미지, 제목, 품목명, 카테고리, 가격, 내용, 장소, 트랙(학과)을 설정 할 수 있다. 이미지를 선택하면 yolov5와 roboflow로 학습시킨 데이터를 통해 카테고리가 자동으로 추천된다.                           |
 |     게시글 수정, 삭제     |     게시글을 수정 또는 삭제 할 수 있다.     |             판매 상품의 상세 정보를 확인하고<br/>상품에 대한 리뷰를 확인 및 작성 가능.             |
-|     프로필 정보      |                상대방의 프로필 정보를 확인할 수 있다.                 |                         프로필 이미지, 매너온도, 소속 트랙(학과), 판매중인 상품, 받은 매너 평가(리뷰) 확인 가능.                       |
-|     매너온도     | 판매자의 매너온도를 확인할 수 있다. |                    상품 재고 부족 시 자동 결제 취소 (동시성 문제 고려)                    |
-|     프로필     |         유저의 정보를 변경 할 수 있다.         |         프로필 화면에서 구매내역,판매내역,장바구니를 확인 할 수 있음.           |
+|     프로필 정보      |                상대방의 프로필 정보를 확인할 수 있다.                 |                         프로필 이미지, 매너온도, 소속 트랙(학과), 판매내역, 구매내역, 받은 매너 평가(리뷰) 확인 가능.                       |
+|     판매 내역     |         판매한 상품들의 내역을 보여준다.         |         판매가 완료가 되면 검색에서 해당 게시글이 보이지 않음.           |
 |     구매 내역     | 구매한 상품들의 내역을 보여준다.    |                    구매 이후 거래 리뷰를 남길 수 있음.                |
 |     리뷰작성      |                구매한 상품에 대한 리뷰 작성 가능  .                 |                         해당 상품을 구매한 수량만큼 리뷰작성                          |
-|     판매 내역     |         판매한 상품들의 내역을 보여준다.         |         판매가 완료가 되면 검색에서 해당 게시글이 보이지 않음.           |
+|     매너온도     | 판매자의 매너온도를 확인할 수 있다. |                    상품 재고 부족 시 자동 결제 취소 (동시성 문제 고려)                    |
 |     관리자 웹페이지     |         앱의 전반적인 정보를 보여준다.        |        보내줄 정보가 많아 HashMap을 통해 알기 쉬운 형태로 프론트로 전달하였음.          |
 <br>
 
@@ -163,27 +162,34 @@
 ### ✔ 게시글 필터링
 -  (시작 화면) (트랙,학부,단과대,전체)  조건에 맞는 게시글을 보여준다.
 
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/555dbd23-263d-4b8d-9008-c20e860864d7">
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/69eaec64-cb3c-482c-999e-c77f6c5953b3">
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/8fe71880-e16e-4cd0-a8be-ada8b8172260">
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/f9ce2bff-8a9e-4473-a3dd-bfa1f566d0ef">
-
 <br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/2608cb05-b2c4-4dba-96e9-9bdf1bf52b6c)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/79c698a0-2a1c-4dbf-a7ee-7f5bb55f4260)
+
+
 <br>
 
 -  (검색 화면) (키워드,거래장소,학부,카테고리,정렬(최신,좋아요,조회)) 조건에 맞는 게시글을 보여준다.
+-  키워드 검색 시 게시글 제목 or 내용에 키워드가 포함되면 조건에 포함된다.
 <br>
 
-<img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/9fa7dc09-a08d-42ed-aea7-7c615250e426">
-<img width="224" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/6c2767c9-3881-4057-98bd-c7153f2ab81f">
-<img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/3316dc0f-a6d1-49b8-97c1-a74d730e8c22">
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/e2a4c89a-9b7c-42ec-b0fd-77bf797fca4c)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/65fd7bd7-1d48-430b-9610-ded7500d20e0)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/9b651727-1d83-46d6-be68-d2312c052aaf)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/11f94078-1503-49ea-a089-eb8d39871d33)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/99008798-6131-4e4b-9ca7-4a66e32b1629)
+
+
+
 
 <br>
 <br>
 
 - 검색된 키워드의 횟수를 활용하여 인기검색어 기능 구현
 
-<img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/6511e5c2-82ce-471c-950a-69c8a0322e86">
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/d0e548f0-f16c-47c1-b241-3b473841051a)
+
 
 ### ✔ 게시글 상세 페이지 여기서부터
 - 게시물 선택하면 상세 페이지로 이동하고, 스와이프로 장소 확인 가능. 이미지는 슬라이드로 볼 수 있고, 카테고리 터치 시 해당 목록으로 이동. 스크롤로 거래 정보 및 판매자 상품 확인하며, 동일 카테고리의 다른 게시물 표시. 버튼으로 동일 카테고리 목록 확인 가능.
@@ -197,8 +203,8 @@
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/52eebfd8-667f-4738-b18f-c8427ce08e7f)
 
 
-
 <br>
+
 
 ### ✔ 게시글 채팅
 - 게시물에서 채팅 목록을 터치하면 해당 게시물의 채팅 확인. 채팅방 터치로 채팅 내용 확인 가능. 구매자로부터 채팅이 오면 대화 후 송금 요청 가능. 결제는 카카오페이 프로세스와 동일.
@@ -222,8 +228,25 @@
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/272e7e03-f23f-40f0-ab14-126a01ab6969)
 
 
+### ✔ 장바구니 
+-   해당 상품이 장바구니에 담김
+<br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/3e63a963-d594-462a-9d5a-f07e2b9574cb)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/70a4b380-428f-481f-b7cc-f34e12bf8706)
 
 <br>
+
+### ✔ 판매내역
+- 판매한 상품들의 내역을 보여준다.
+
+<br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/fce771f4-1763-43c1-bc49-b8328e19af2b)
+
+
+<br>
+
 
 ### ✔ 게시글 작성
 - 게시물 목록에서 연필 아이콘을 터치하여 게시글 정보 및 이미지, 제목, 품목명, 카테고리, 가격, 내용, 장소, 트랙 설정 가능. 카메라 아이콘을 터치하여 사진 촬영 또는 앨범에서 선택 후 이미지 추가 가능. 제목, 가격, 내용 입력 후 거래 희망 장소 및 트랙 선택 가능.
@@ -239,7 +262,7 @@
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/d0c22087-9cd9-4705-9b3a-25fb76df4114)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/3a2d3a26-7a7f-4260-adc2-df62005e44da)
 
-<br>
+
 
 ### ✔ 게시글 수정, 삭제
 - 게시글 수정, 삭제 가능
@@ -249,8 +272,27 @@
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/c5e23da8-a131-4b53-9e1f-2be95561362c)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/5416df41-140b-48e2-888e-c47ff0216a81)
 
+### ✔ 구매내역
+- 구매한 상품들의 내역을 보여준다.
 
 <br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/063a4ba3-31ed-4641-8b76-bab38663bea9)
+
+<br>
+
+### ✔ 구매 리뷰
+-  구매한 상품에 대한 리뷰 작성 가능.
+
+<br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/269ebbe8-685e-41b8-b419-43c5441f0528)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/729e1ee7-345d-449e-b7a3-cb88cf06535b)
+
+
+
+<br>
+
 
 ### ✔ 프로필 정보
 - 프로필 탭을 누르면 내 프로필 화면으로 이동하며, 전반적인 정보 확인 및 트랙 설정, 프로필 변경 기능 제공됩니다. 판매 목록, 구매 목록, 찜 목록 등으로 나의 게시글 현황 확인 가능합니다. 트랙 변경을 원할 시 해당 트랙을 선택하여 등록하고 변경 버튼을 누르면 완료됩니다. 이 정보는 게시글 필터링 및 상대방이 내 프로필을 볼 때 활용됩니다.
@@ -265,19 +307,24 @@
 
 
 
+### ✔ 관리자 웹 페이지
+- 앱의 전반적인 정보를 보여준다.
+<br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/83d3b27d-9a00-46ac-9a75-e0a56fb8fd8a)
+
 <br>
 
 ### ✔ 매너온도
 - 매너 학점을 터치하면 매너 프로필로 이동하고, 판매 상품 버튼으로 현재 유저의 상품 리스트를 확인할 수 있습니다. 판매자 정보를 누르면 매너 프로필을 확인할 수 있습니다.
 
-<br>
 
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/438e74f1-b8f4-420e-a525-3cf9db7dae55)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/fdc61e26-4ede-4287-9aa2-0fb73d1baaa3)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a526bf70-d5f6-4ff4-9ce2-9cd34c817de7)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/4ba7b8c7-ee7a-4092-a4ce-29f4fbc3015c)
 
-<br>
+
 
 
 
