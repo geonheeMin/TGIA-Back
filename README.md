@@ -267,16 +267,18 @@
 
 <br>
 
-### ✔ 최근 본 상품
+### ✔ 게시글 수정, 삭제
 - 상품 클릭 순서대로 3개까지 cookie에 상품이미지와 상품ID 저장하여 사이드바에 표시.
 - 쿠키 만료일 1일로 설정.
 - 최근 본 상품의 이미지 클릭 시 해당 상품의 상세페이지로 이동.
 
-![ezgif com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/547fa51d-74d0-4dd1-9c96-c984c39bdc9f)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/c5e23da8-a131-4b53-9e1f-2be95561362c)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/5416df41-140b-48e2-888e-c47ff0216a81)
+
 
 <br>
 
-### ✔ 상품 상세
+### ✔ 프로필 정보
 관리자가 등록한 해당 상품의 정보 표시 (상품명, 할인율, 가격, 재고, 상세정보)
 
 - 비회원
@@ -289,15 +291,25 @@
   - 구매하기 클릭 시 해당 상품 결제 페이지로 redirect
   - 해당 상품의 구매 이력이 있을 경우 리뷰 작성 가능
 
-![ezgif com-video-to-gif (2)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/28403b6e-ec20-428d-8140-9fb2f260d39b)
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/2d0ab346-329d-4a28-8d10-18e0f9926e97)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/606f2947-5dcf-4d29-8f86-536304760b2a)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/72bcbb39-05e5-46cd-8f61-2fcb098b02fc)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/d0cd2e51-76e9-4eb1-9627-25d6a5730b1f)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/15f849bd-678b-441c-88b2-86619f91e76b)
+
+
 
 <br>
 
-### ✔ 상품 주문
+### ✔ 매너온도
 - 배송지 입력 및 결제 수단, 약관동의 선택 후 iamport API를 사용한 테스트 결제
 - 상품 구매 완료시 구매한 장바구니 상품 제거
 
-![ezgif com-video-to-gif (9)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/f8785ce8-329c-468e-9a03-b3990a5ed264)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/438e74f1-b8f4-420e-a525-3cf9db7dae55)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/fdc61e26-4ede-4287-9aa2-0fb73d1baaa3)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a526bf70-d5f6-4ff4-9ce2-9cd34c817de7)
+![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/4ba7b8c7-ee7a-4092-a4ce-29f4fbc3015c)
 
 <br>
 
