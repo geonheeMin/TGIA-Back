@@ -124,8 +124,8 @@
 |:-------------:|:-----------------------------------------------------:|:---------------------------------------------------------------------:|
 | 게시글 필터링 |                 (시작 화면)(트랙,학부,단과대,전체) 조건에 맞는 게시글을 보여준다.                   | QueryDsl을 사용하여 구현                       |
 | 게시글 필터링 |              (검색 화면)(키워드,거래장소,학부,카테고리,정렬(최신,좋아요,조회)) 조건에 맞는 게시글을 보여준다.              | QueryDsl을 사용하여 구현 <br> 검색된 키워드의 횟수를 활용하여 인기검색어 기능 구현  |
-|    게시글 조회 및 장바구니    |               게시글 조회 시 조회수 증가 <br> 하트 버튼을 누르면 좋아요 수 증가 & 해당 상품이 장바구니에 담김                |  게시글 조회 수 중복 방지
-|     게시글 상세 페이지      |      게시글에 대한 상세 정보를 확인할 수 있다.  |  게시글 상세 페이지에서는 여러 장의 이미지를 슬라이드로 확인하고, 특정 카테고리를 선택하면 해당 카테고리의 다른 게시글들을 확인할 수 있다.   |
+|    장바구니    |               해당 상품이 장바구니에 담김                |  좋아요 수 증가|
+|     게시글 상세 페이지      |      게시글에 대한 상세 정보를 확인할 수 있다. <br> 조회 시 조회 수 증가 (중복 방지)   |  게시글 상세 페이지에서는 여러 장의 이미지를 슬라이드로 확인하고, 특정 카테고리를 선택하면 해당 카테고리의 다른 게시글들을 확인할 수 있다.   |
 |   게시글 채팅    |                  문의하기 버튼을 통해 판매자와 채팅을 할 수 있다.                |               게시글 상세 페이지에서 현재 진행 중인 채팅 목록과 읽지 않은 채팅 개수를 확인할 수 있다. 해당 채팅방을 터치하면 채팅 내역과 읽음 여부를 확인.        |
 |    결제하기     |                카카오 api를 통한 결제할 수 있다.                |                           채팅방에서 송금하기를 선택하여 거래 예약, 카카오페이 결제 프로세스 완료 후 결과 url을 인식하여 송금을 완료했다는 채팅을 자동으로 전송.                          |
 |   게시글 작성    |                 게시글을 작성할 수 있다.                  |                              게시글 이미지, 제목, 품목명, 카테고리, 가격, 내용, 장소, 트랙(학과)을 설정 할 수 있다. 이미지를 선택하면 yolov5와 roboflow로 학습시킨 데이터를 통해 카테고리가 자동으로 추천된다.                           |
@@ -162,169 +162,94 @@
 ### ✔ 게시글 필터링
 -  (시작 화면) (트랙,학부,단과대,전체)  조건에 맞는 게시글을 보여준다.
 
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/555dbd23-263d-4b8d-9008-c20e860864d7">
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/69eaec64-cb3c-482c-999e-c77f6c5953b3">
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/8fe71880-e16e-4cd0-a8be-ada8b8172260">
-<img width="228" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/f9ce2bff-8a9e-4473-a3dd-bfa1f566d0ef">
+<br>
+
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/2608cb05-b2c4-4dba-96e9-9bdf1bf52b6c)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/79c698a0-2a1c-4dbf-a7ee-7f5bb55f4260)
+
+
+
+
 
 <br>
 <br>
 
 -  (검색 화면) (키워드,거래장소,학부,카테고리,정렬(최신,좋아요,조회)) 조건에 맞는 게시글을 보여준다.
+-  키워드 검색 시 게시글 제목 or 내용에 키워드가 포함되면 조건에 포함된다.
 <br>
 
-<img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/9fa7dc09-a08d-42ed-aea7-7c615250e426">
-<img width="224" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/6c2767c9-3881-4057-98bd-c7153f2ab81f">
-<img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/3316dc0f-a6d1-49b8-97c1-a74d730e8c22">
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/e2a4c89a-9b7c-42ec-b0fd-77bf797fca4c)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/65fd7bd7-1d48-430b-9610-ded7500d20e0)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/9b651727-1d83-46d6-be68-d2312c052aaf)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/11f94078-1503-49ea-a089-eb8d39871d33)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/99008798-6131-4e4b-9ca7-4a66e32b1629)
+
+
+
 
 <br>
 <br>
 
 - 검색된 키워드의 횟수를 활용하여 인기검색어 기능 구현
 
-<img width="225" alt="image" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/6511e5c2-82ce-471c-950a-69c8a0322e86">
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/d0e548f0-f16c-47c1-b241-3b473841051a)
 
-
-
-
-
-
-
-- 일반 로그인
-
-![ezgif com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/1525c517-c83f-4d83-b035-f65e75c4a88a)
-  
-<br>
-
-- 소셜 회원가입 이메일과 프룹샷 회원가입 이메일 중복을 방지하기 위해 "로그인방법" 컬럼으로 구별하여 회원 저장.
-
-![user테이블.png](img/user테이블.png)
 
 <br>
 
-### ✔ 회원가입
+### ✔ 장바구니 
+-   해당 상품이 장바구니에 담김
+<br>
 
-![회원가입com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/6b4698fb-418d-4b45-87da-1913aba232cf)
-
-- 이메일, 닉네임, 비밀번호, 약관동의 정보 입력
-- 이메일주소와 닉네임은 중복 불가로, 중복 입력 값을 즉시 확인할 수 있도록 해당 필드 비동기로 처리.
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/3e63a963-d594-462a-9d5a-f07e2b9574cb)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/70a4b380-428f-481f-b7cc-f34e12bf8706)
 
 <br>
 
-### ✔ 메인화면
-- 과일 카테고리 별, 검색 조건 별 페이징
-
-![ezgif com-video-to-gif](https://github.com/Hyeon0208/fruit-mall/assets/99153215/7094a903-2664-437b-8fef-c914b99f3441)
+### ✔ 판매내역
+- 판매한 상품들의 내역을 보여준다.
 
 <br>
 
-### ✔ 장바구니
-- 비회원
-  - LocalStorage에 해당 상품을 저장
-  - 주문하기 클릭 시 login 페이지로 redirect
-  - 로그인 시 로그인 사용자의 장바구니에 LocalStorage에 담긴 상품 저장 및 LocalStorage clear.
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/fce771f4-1763-43c1-bc49-b8328e19af2b)
+
+
 
 <br>
 
-- 로그인 회원
-  - 장바구니 상품 테이블에 해당 상품 저장
-  - 주문하기 클릭 시 결제 페이지로 redirect
-
-![ezgif com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/df15c4e6-0184-4dcd-8edd-49d25ae381b5)
+### ✔ 구매내역
+- 구매한 상품들의 내역을 보여준다.
 
 <br>
 
-### ✔ 좋아요
-- 비회원
-  - 좋아요 기능 비활성화
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/063a4ba3-31ed-4641-8b76-bab38663bea9)
 
 <br>
 
-- 로그인 회원
-  - 좋아요 상품 likes 테이블에 저장하여 저장된 수 만큼 사이드 바에 표시.
 
-![ezgif com-video-to-gif](https://github.com/Hyeon0208/fruit-mall/assets/99153215/155b867b-eb46-417c-8f46-cdc85d3050ff)
+### ✔ 구매 리뷰
+-  구매한 상품에 대한 리뷰 작성 가능.
+<br>
+
+ ![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/269ebbe8-685e-41b8-b419-43c5441f0528)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/729e1ee7-345d-449e-b7a3-cb88cf06535b)
+
 
 <br>
 
-### ✔ 최근 본 상품
-- 상품 클릭 순서대로 3개까지 cookie에 상품이미지와 상품ID 저장하여 사이드바에 표시.
-- 쿠키 만료일 1일로 설정.
-- 최근 본 상품의 이미지 클릭 시 해당 상품의 상세페이지로 이동.
 
-![ezgif com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/547fa51d-74d0-4dd1-9c96-c984c39bdc9f)
+### ✔ 관리자 웹 페이지
+
+- 앱의 전반적인 정보를 보여준다.
 
 <br>
 
-### ✔ 상품 상세
-관리자가 등록한 해당 상품의 정보 표시 (상품명, 할인율, 가격, 재고, 상세정보)
+![image](https://github.com/dudtlr/TGIA-Back/assets/95243456/83d3b27d-9a00-46ac-9a75-e0a56fb8fd8a)
 
-- 비회원
-  - 장바구니 추가 클릭 시 선택한 수량만큼 LocalStorage에 해당 상품을 저장
-  - 구매하기 클릭 시 로그인 페이지로 redirect
-  - 리뷰 열람만 가능
 
-- 로그인 회원
-  - 장바구니 추가 클릭 시 선택한 수량만큼 장바구니 상품 테이블에 해당 상품 저장
-  - 구매하기 클릭 시 해당 상품 결제 페이지로 redirect
-  - 해당 상품의 구매 이력이 있을 경우 리뷰 작성 가능
 
-![ezgif com-video-to-gif (2)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/28403b6e-ec20-428d-8140-9fb2f260d39b)
 
-<br>
 
-### ✔ 상품 주문
-- 배송지 입력 및 결제 수단, 약관동의 선택 후 iamport API를 사용한 테스트 결제
-- 상품 구매 완료시 구매한 장바구니 상품 제거
-
-![ezgif com-video-to-gif (9)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/f8785ce8-329c-468e-9a03-b3990a5ed264)
-
-<br>
-
-### ✔ 마이페이지
-
-- 구매내역
-  - 기간별, 검색 조건 별 구매 상품 내역 확인
-  - 재구매 클릭 시 해당 상품 구매수량만큼 장바구니에 저장
-  - 리뷰보기 클릭 시 해당 상품의 리뷰 페이지로 이동
-
-![ezgif com-video-to-gif (6)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/0a3116db-61eb-4cc9-a00a-c227ffbb855d)
-
-<br>
-
-- 배송지 설정
-  - 배송지는 3개까지 저장
-  - 배송지 등록, 수정, 삭제 가능
-
-![ezgif com-video-to-gif (11)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/5cf0346b-e04d-4d10-81a4-b053e2f7b6f4)
-
-<br>
-
-- 회원정보 수정
-  - 비밀번호 입력으로 현재 계정 인증 
-  - 닉네임 및 비밀번호 변경 가능
-
-![ezgif com-video-to-gif (4)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/19f8c8d0-a493-4a59-893a-98e8be775049)
-
-<br>
-
-### ✔ 리뷰 작성
-
-- 상품 상세 페이지
-  - 구매 이력이 있을 경우 "리뷰 작성하기" 활성화
-  - 구매 이력 중 주문 일이 가장 최신인 주문으로 리뷰 저장
-  - 리뷰 수정 가능
-  - 해당 리뷰에 댓글이 달릴 시 답글 보기로 답글 표시
-
-<br>
-
-- 마이 페이지
-  - 리뷰 작성 시 리뷰보기 버튼 활성화.
-  - 리뷰 보기 클릭 시 해당 상품의 리뷰 페이지로 이동
-
-![ezgif com-video-to-gif (10)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/1257255d-74f4-4b95-9cdd-70988f9f9749)
-
-<br>
 
 
 
