@@ -29,26 +29,26 @@
       <td colspan="2" align="center"><strong>Back-End Developer</strong></td>
    </tr>
   <tr>
+     <td align="center">
+        <a href="https://github.com/LapinMin"><img src="https://avatars.githubusercontent.com/u/130971355?v=4" width="150px" alt="민건희"/><br/><sub><b>민건희(팀장)</b></sub></a>
+     </td>
     <td align="center">
-        <a href="https://github.com/LapinMin"><img src="https://avatars.githubusercontent.com/u/130971355?v=4" width="150px;" alt="민건희"/><br/><sub><b>민건희</b></sub></a>
+        <a href="https://github.com/BraveKey"><img src="https://avatars.githubusercontent.com/u/125978827?v=4" width="150px;" alt="조용기"/><br/><sub><b>조용기</b></sub></a>
     </td>
      <td align="center">
-        <a href="https://github.com/LapinMin"><img src="https://avatars.githubusercontent.com/u/15971355?v=4" width="150px" alt="조용기"/><br/><sub><b>조용기</b></sub></a>
+        <a href="https://github.com/MKSonny"><img src="https://avatars.githubusercontent.com/u/116620246?v=4" width="150px" alt="손민규"/><br/><sub><b>손민규</b></sub></a>
      </td>
      <td align="center">
         <a href="https://github.com/dudtlr"><img src="https://avatars.githubusercontent.com/u/95243456?v=4" width="150px" alt="전영식"/><br/><sub><b>전영식</b></sub></a>
-     </td>
-     <td align="center">
-        <a href="https://github.com/MKSonny"><img src="https://avatars.githubusercontent.com/u/116620246?v=4" width="150px" alt="손민규"/><br/><sub><b>손민규</b></sub></a>
      </td>
   <tr>
 </table>
 </div>
 
-> 민건희 : React Native 사용 모바일 애플리케이션 공동 개발 <br>
-> 조용기 : React Native 사용 모바일 애플리케이션 공동 개발 <br>
-> 전영식 : Spring Boot 사용 백엔드 애플리케이션 공동 개발 / Kakao Pay API 사용 결제 서비스 개발 <br>
-> 손민규 : Spring Boot 사용 백엔드 애플리케이션 공동 개발 / Deep Learning을 활용한 카테고리 자동 추천 기능 개발 <br>
+> 민건희 : React Native 사용 모바일 애플리케이션 공동 개발 / 모바일 애플리케이션 디자인 / 팀장 <br>
+> 손민규 : Spring Boot 사용 백엔드 애플리케이션 공동 개발 / Yolov5 사용 딥러닝 애플리케이션 개발 <br>
+> 전영식 : Spring Boot 사용 백엔드 애플리케이션 공동 개발 / 카카오페이 외부 API 연동을 통한 간편결제 기능 개발 <br>
+> 조용기 : React Native 사용 모바일 애플리케이션 공동 개발 / React 사용 관리자 통계 조회 웹사이트 개발 <br>
 
 <br>
 
