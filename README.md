@@ -301,9 +301,6 @@
 
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/2d0ab346-329d-4a28-8d10-18e0f9926e97)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/606f2947-5dcf-4d29-8f86-536304760b2a)
-![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/72bcbb39-05e5-46cd-8f61-2fcb098b02fc)
-![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/d0cd2e51-76e9-4eb1-9627-25d6a5730b1f)
-![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/15f849bd-678b-441c-88b2-86619f91e76b)
 
 
 
@@ -321,7 +318,6 @@
 
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/438e74f1-b8f4-420e-a525-3cf9db7dae55)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/fdc61e26-4ede-4287-9aa2-0fb73d1baaa3)
-![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a526bf70-d5f6-4ff4-9ce2-9cd34c817de7)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/4ba7b8c7-ee7a-4092-a4ce-29f4fbc3015c)
 
 
