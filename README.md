@@ -1,4 +1,4 @@
-# 📖 부기마켓 - 우리 학교 학생들을 위한 중고거래 앱
+# 📖 부기마켓 - 우리 학교 학생들을 위한 중고거래 앱 test
 
 
 <img width="1920" alt="bugi" src="https://github.com/dudtlr/TGIA-Back/assets/95243456/9cd0e417-f3bd-448a-9bf9-1d14782c329c">
