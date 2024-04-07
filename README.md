@@ -204,6 +204,10 @@
 <br>
 
 ### ✔ 게시글 상세 페이지 여기서부터
+- 게시물 선택하면 상세 페이지로 이동하고, 스와이프로 장소 확인 가능. 이미지는 슬라이드로 볼 수 있고, 카테고리 터치 시 해당 목록으로 이동. 스크롤로 거래 정보 및 판매자 상품 확인하며, 동일 카테고리의 다른 게시물 표시. 버튼으로 동일 카테고리 목록 확인 가능.
+  
+<br>
+
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/2caa76ae-5e9a-4ab6-9dc3-997cd200e1d8)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/7d62af57-7aef-446b-ad63-e40394cd0b5e)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a9b6ada1-e900-4d98-bf58-ba0951003ba4)
@@ -211,23 +215,24 @@
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/52eebfd8-667f-4738-b18f-c8427ce08e7f)
 
 
-- 이메일, 닉네임, 비밀번호, 약관동의 정보 입력
-- 이메일주소와 닉네임은 중복 불가로, 중복 입력 값을 즉시 확인할 수 있도록 해당 필드 비동기로 처리.
 
 <br>
 
 ### ✔ 게시글 채팅
-- 과일 카테고리 별, 검색 조건 별 페이징
+- 게시물에서 채팅 목록을 터치하면 해당 게시물의 채팅 확인. 채팅방 터치로 채팅 내용 확인 가능. 구매자로부터 채팅이 오면 대화 후 송금 요청 가능. 결제는 카카오페이 프로세스와 동일.
+
+<br>
+
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/1d4268da-824f-49d6-8738-424e92594c80)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/5bc7bc25-0586-4658-b9b2-3dbf3de8f7ca)
 
 <br>
 
 ### ✔ 결제하기
-- 비회원
-  - LocalStorage에 해당 상품을 저장
-  - 주문하기 클릭 시 login 페이지로 redirect
-  - 로그인 시 로그인 사용자의 장바구니에 LocalStorage에 담긴 상품 저장 및 LocalStorage clear.
+- 프론트에서 게시글 정보를 스프링 서버로 전달 후, 카카오페이 서버로 데이터 전송. 올바른 정보라면 결제 화면을 열 수 있는 URL을 받아 프론트로 전달. 결제 후 스프링 서버를 거쳐 최종 결제 승인까지 진행되며, 동시에 앱에서의 결제 과정도 처리하여 결제 완료창을 보여줌.
+
+<br>
+
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/4109282c-c4e3-426c-8a34-7986b0e08e56)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/3b2d7668-1bb1-4ee1-b8aa-2936e0af0959)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/f8fe8242-4f99-48b3-b783-861f469545dc)
@@ -238,17 +243,11 @@
 
 <br>
 
-- 로그인 회원
-  - 장바구니 상품 테이블에 해당 상품 저장
-  - 주문하기 클릭 시 결제 페이지로 redirect
-
-![ezgif com-video-to-gif (1)](https://github.com/Hyeon0208/fruit-mall/assets/99153215/df15c4e6-0184-4dcd-8edd-49d25ae381b5)
+### ✔ 게시글 작성
+- 게시물 목록에서 연필 아이콘을 터치하여 게시글 정보 및 이미지, 제목, 품목명, 카테고리, 가격, 내용, 장소, 트랙 설정 가능. 카메라 아이콘을 터치하여 사진 촬영 또는 앨범에서 선택 후 이미지 추가 가능. 제목, 가격, 내용 입력 후 거래 희망 장소 및 트랙 선택 가능.
 
 <br>
 
-### ✔ 게시글 작성
-- 비회원
-  - 좋아요 기능 비활성화
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/c6cb243b-0ed8-427c-ae77-99b31c2d4916)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/a07df0a1-0bb2-4e68-bb10-22fe055da184)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/3d3b4e84-6388-49c4-a543-dadb790f1a5b)
@@ -260,17 +259,10 @@
 
 <br>
 
-- 로그인 회원
-  - 좋아요 상품 likes 테이블에 저장하여 저장된 수 만큼 사이드 바에 표시.
-
-![ezgif com-video-to-gif](https://github.com/Hyeon0208/fruit-mall/assets/99153215/155b867b-eb46-417c-8f46-cdc85d3050ff)
+### ✔ 게시글 수정, 삭제
+- 게시글 수정, 삭제 가능
 
 <br>
-
-### ✔ 게시글 수정, 삭제
-- 상품 클릭 순서대로 3개까지 cookie에 상품이미지와 상품ID 저장하여 사이드바에 표시.
-- 쿠키 만료일 1일로 설정.
-- 최근 본 상품의 이미지 클릭 시 해당 상품의 상세페이지로 이동.
 
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/c5e23da8-a131-4b53-9e1f-2be95561362c)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/5416df41-140b-48e2-888e-c47ff0216a81)
@@ -279,18 +271,9 @@
 <br>
 
 ### ✔ 프로필 정보
-관리자가 등록한 해당 상품의 정보 표시 (상품명, 할인율, 가격, 재고, 상세정보)
+- 프로필 탭을 누르면 내 프로필 화면으로 이동하며, 전반적인 정보 확인 및 트랙 설정, 프로필 변경 기능 제공됩니다. 판매 목록, 구매 목록, 찜 목록 등으로 나의 게시글 현황 확인 가능합니다. 트랙 변경을 원할 시 해당 트랙을 선택하여 등록하고 변경 버튼을 누르면 완료됩니다. 이 정보는 게시글 필터링 및 상대방이 내 프로필을 볼 때 활용됩니다.
 
-- 비회원
-  - 장바구니 추가 클릭 시 선택한 수량만큼 LocalStorage에 해당 상품을 저장
-  - 구매하기 클릭 시 로그인 페이지로 redirect
-  - 리뷰 열람만 가능
-
-- 로그인 회원
-  - 장바구니 추가 클릭 시 선택한 수량만큼 장바구니 상품 테이블에 해당 상품 저장
-  - 구매하기 클릭 시 해당 상품 결제 페이지로 redirect
-  - 해당 상품의 구매 이력이 있을 경우 리뷰 작성 가능
-
+<br>
 
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/2d0ab346-329d-4a28-8d10-18e0f9926e97)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/606f2947-5dcf-4d29-8f86-536304760b2a)
@@ -303,8 +286,9 @@
 <br>
 
 ### ✔ 매너온도
-- 배송지 입력 및 결제 수단, 약관동의 선택 후 iamport API를 사용한 테스트 결제
-- 상품 구매 완료시 구매한 장바구니 상품 제거
+- 매너 학점을 터치하면 매너 프로필로 이동하고, 판매 상품 버튼으로 현재 유저의 상품 리스트를 확인할 수 있습니다. 판매자 정보를 누르면 매너 프로필을 확인할 수 있습니다.
+
+<br>
 
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/438e74f1-b8f4-420e-a525-3cf9db7dae55)
 ![image](https://github.com/dudtlr/TGIA-Back/assets/116620246/fdc61e26-4ede-4287-9aa2-0fb73d1baaa3)
